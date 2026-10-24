@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T18:00:00Z",
+  "generatedAt": "2026-10-24T19:00:00Z",
   "title": "Design System: Brokers Asociados",
   "extensions": {
     "colorMeta": {
@@ -413,6 +413,10 @@
       "label": {
         "displayName": "Número de campo",
         "purpose": "Chivo Mono con cifras tabulares: números de campo, artículos, rótulos de tabla, estado de atención de Contacto, rótulos y fecha de la carátula y notas de demo."
+      },
+      "display-cierre": {
+        "displayName": "Display de cierre",
+        "purpose": "H2 del Cierre: Archivo bold a ancho 84%, clamp(3.05rem, 1.6rem + 5.6vw, 6.75rem) (106px a 1440, 48.8px a 375), interlineado .95, text-balance, máx. 14ch; escala display apenas por encima del H1 de portada."
       }
     },
     "shadows": [],
@@ -562,8 +566,8 @@
       },
       {
         "name": "cierre-cta",
-        "value": "fondo 0.2s ease-out a ink-deep al hover; :active scale(.98) 0.35s ease-out-expo",
-        "purpose": "CTAs del Cierre sobre claro; sin transición ni escala con prefers-reduced-motion."
+        "value": "claro: fondo 0.2s ease-out a ink-deep al hover; oscuro: filter brightness(.94) 0.2s ease-out; :active scale(.98) 0.35s ease-out-expo",
+        "purpose": "CTAs del Cierre (tono oscuro en uso, claro disponible); sin transición ni escala con prefers-reduced-motion."
       }
     ],
     "breakpoints": [
@@ -610,6 +614,7 @@
         "aseguradoras: paper + grano",
         "siniestros: claim-field",
         "equipo: paper + grano",
+        "cierre: ink-deep + grano, solo tipografía, sin bordes (oscura)",
         "contacto: paper + grano",
         "footer: ink"
       ],
@@ -621,7 +626,8 @@
     "mobileBar": {
       "default": "Cotizá → /cotizar (ink, 1.35fr) + WhatsApp (seal, 1fr), 72px, oculta desde 768px",
       "soloWhatsapp": "Una sola acción WhatsApp a ancho completo en páginas que ya son un formulario",
-      "conPortada": "Escondida (translateY 100%) mientras [data-hero] está a la vista; la portada ya lleva las mismas acciones"
+      "conPortada": "Escondida (translateY 100%) mientras [data-hero] está a la vista; la portada ya lleva las mismas acciones",
+      "cierre": "El Cierre omite sus CTAs bajo md porque esta barra ya ofrece Cotizá y WhatsApp"
     }
   },
   "components": [
@@ -780,7 +786,7 @@
       "name": "CTAs sobre claro (Cierre)",
       "kind": "button",
       "refersTo": "button-on-light",
-      "description": "Cotizá tu seguro → de 56px en ink con texto paper y WhatsApp redondo de 56px; versión para fondos claros (el celeste queda para oscuros). Hover ink-deep, clic .98.",
+      "description": "Cotizá tu seguro → de 56px y WhatsApp redondo de 56px (CierreCtas.astro, prop tono). tono 'claro': ink con texto paper, hover ink-deep, sin uso hoy en la home. tono 'oscuro' (el que usa el Cierre): celeste #a8dadc con #0f3554, hover brightness .94, igual que la portada. Clic .98.",
       "html": "<div class=\"ds-cierre-ctas\"><a href=\"#\" class=\"ds-cc\">Cotizá tu seguro <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a><a href=\"#\" class=\"ds-cc ds-cc-wa\" aria-label=\"Escribinos por WhatsApp\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z\"/></svg></a></div>",
       "css": ".ds-cierre-ctas { display:flex; align-items:center; gap:12px; font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-cc { display:inline-flex; align-items:center; justify-content:space-between; gap:24px; height:56px; min-width:19rem; padding:0 24px; background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); font-size:1.25rem; font-weight:700; text-decoration:none; transition:background-color .2s ease-out, transform .35s cubic-bezier(0.16,1,0.3,1); } .ds-cc-wa { display:grid; place-items:center; width:56px; min-width:0; padding:0; border-radius:9999px; } .ds-cc:hover { background:var(--color-ink-deep,#0f3a5c); } .ds-cc:active { transform:scale(.98); } .ds-cc:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
     },
@@ -788,14 +794,14 @@
       "name": "Cierre (campo de cierre)",
       "kind": "custom",
       "refersTo": "section-cierre",
-      "description": "Sección wash con grano y reglas de 2px en tinta arriba y abajo entre Equipo y Contacto. Las tres variantes (A Carta firmada, B Pregunta directa, C Traé tu póliza) y el selector son TEMPORALES: borrar al elegir; no canonizadas.",
-      "html": "<section class=\"ds-cierre\"><h2 class=\"ds-cierre-h\">¿Ya tenés seguro?</h2><p class=\"ds-cierre-p\">Traé tu póliza y te decimos si estás pagando de más o te falta cobertura.</p></section>",
-      "css": ".ds-cierre { padding:64px 16px; background:var(--color-wash,#eef3f6); border-block:2px solid var(--color-ink,#184e77); color:var(--color-ink,#184e77); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-cierre-h { margin:0; max-width:16ch; font-size:clamp(3rem,1.6rem + 5.6vw,6.25rem); font-weight:700; font-stretch:84%; line-height:1.04; letter-spacing:-0.02em; } .ds-cierre-p { margin:24px 0 0; max-width:40ch; font-size:1.375rem; color:var(--color-ink-2,#3f5870); }"
+      "description": "Sección de cierre solo tipográfica entre Equipo y Contacto: ink-deep con grano, sin bordes, texto paper. H2 display de cierre (clamp 3.05rem → 6.75rem, .95, ancho 84, máx. 14ch), filete de 1px paper/40, bajada on-dark (1.375–1.5rem, 34ch) a la izquierda y, desde lg, CTAs tono oscuro a la derecha alineados abajo (apilados bajo la bajada en md; omitidos bajo md porque la barra móvil ya los ofrece). Texto elegido por el cliente: 'Contanos qué querés cuidar.' / 'Del resto nos ocupamos nosotros.'. Padding vertical 80 / 112 / 128px.",
+      "html": "<section class=\"ds-cierre\"><h2 class=\"ds-cierre-h\">Contanos qué querés cuidar.</h2><div class=\"ds-cierre-row\"><p class=\"ds-cierre-p\">Del resto nos ocupamos nosotros.</p></div></section>",
+      "css": ".ds-cierre { padding:80px 16px; background:var(--color-ink-deep,#0f3a5c); color:var(--color-paper,#f6f4ef); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-cierre-h { margin:0; max-width:14ch; text-wrap:balance; font-size:clamp(3.05rem,1.6rem + 5.6vw,6.75rem); font-weight:700; font-stretch:84%; line-height:.95; } .ds-cierre-row { margin-top:40px; padding-top:32px; border-top:1px solid rgb(246 244 239 / .4); } .ds-cierre-p { margin:0; max-width:34ch; font-size:1.375rem; line-height:1.45; color:var(--color-on-dark,#e6f2f7); }"
     }
   ],
   "narrative": {
     "northStar": "La póliza bien hecha",
-    "overview": "El sistema trata cada superficie como un documento de seguros redactado con cuidado: papel cálido con grano alternado con hojas blancas, tinta azul marino, campos con reglas finas y números de campo en monoespaciada, cláusulas numeradas (\"Art. 1\") y, en el pedido de cotización, un sello de goma verde que certifica el estado del trámite. La confianza no se declara con adornos: se construye con orden, jerarquía legible y datos verificables puestos en su campo.\n\nLa densidad es de formulario bien diagramado, no de folleto. Los bloques se separan con reglas (filetes de 1px y líneas de 2px en tinta) en vez de tarjetas flotantes; la profundidad es plana y tipográfica. La tipografía es grande y generosa para un público mayor de 45 que lee desde el celular: el cuerpo arranca en 18px. El color tiene funciones fijas: el azul es la tinta, el verde es el sello (solo en cotizar) y WhatsApp, el bordó existe solo para siniestros y el azul teal solo para el foco y el acento.\n\nLa portada abre con una fotografía real de Mar del Plata (la rambla y el skyline de la costa) a sangre completa, con un velo marino que asienta el texto y un zoom lento que la mantiene viva; el crédito de la foto queda visible en mono. Es el único momento fotográfico grande: el resto de la página vuelve al papel. El guilloché sobrevive en una sola forma, la tira: una banda horizontal de onda fina en teal, de 24px de alto, que marca la cabecera de una carátula como papel de seguridad. El logo del cliente es una insignia circular y se respeta como tal; su línea (azul → teal → verde) es el campo de color que el sistema toma del logo: un degradé seguro para texto (ink a teal) como fondo de sección, rematado por una tira de 8px con el degradé completo. El otro campo de color es el de siniestros: un bordó frío pleno, para que quien tuvo un problema encuentre la sección sin buscarla.",
+    "overview": "El sistema trata cada superficie como un documento de seguros redactado con cuidado: papel cálido con grano alternado con hojas blancas, tinta azul marino, campos con reglas finas y números de campo en monoespaciada, cláusulas numeradas (\"Art. 1\") y, en el pedido de cotización, un sello de goma verde que certifica el estado del trámite. La confianza no se declara con adornos: se construye con orden, jerarquía legible y datos verificables puestos en su campo.\n\nLa densidad es de formulario bien diagramado, no de folleto. Los bloques se separan con reglas (filetes de 1px y líneas de 2px en tinta) en vez de tarjetas flotantes; la profundidad es plana y tipográfica. La tipografía es grande y generosa para un público mayor de 45 que lee desde el celular: el cuerpo arranca en 18px. El color tiene funciones fijas: el azul es la tinta, el verde es el sello (solo en cotizar) y WhatsApp, el bordó existe solo para siniestros y el azul teal solo para el foco y el acento.\n\nLa portada abre con una fotografía real de Mar del Plata (la rambla y el skyline de la costa) a sangre completa, con un velo marino que asienta el texto y un zoom lento que la mantiene viva; el crédito de la foto queda visible en mono. Es el único momento fotográfico grande: el resto de la página vuelve al papel. El guilloché sobrevive en una sola forma, la tira: una banda horizontal de onda fina en teal, de 24px de alto, que marca la cabecera de una carátula como papel de seguridad. El logo del cliente es una insignia circular y se respeta como tal; su línea (azul → teal → verde) es el campo de color que el sistema toma del logo: un degradé seguro para texto (ink a teal) como fondo de sección, rematado por una tira de 8px con el degradé completo. El otro campo de color es el de siniestros: un bordó frío pleno, para que quien tuvo un problema encuentre la sección sin buscarla. El cierre de la página es un tercer campo oscuro, de tinta profunda con grano y solo tipografía: una frase enorme y dos botones, sin foto ni sello.",
     "keyCharacteristics": [
       "Un solo papel cálido (`paper`) con grano de página completa como fondo común; hojas blancas (`sheet`) para formularios, carátula, mosaicos; tinta marina en todo el texto.",
       "Esquinas rectas; reglas de 1px, 1.5px y 2px como única estructura.",
@@ -828,17 +834,17 @@
       },
       {
         "name": "The Hero Action Rule",
-        "body": "El celeste de acción y la tinta marina (`cta-fill-light`, `cta-ink-deep`) existen solo para los CTAs de la portada sobre fondo oscuro y para el botón de solo ícono de WhatsApp del panel de persona. No se promueven a botones con rótulo de otras secciones. Sobre fondos claros el mismo par de acciones va en `ink` con texto `paper`.",
+        "body": "El celeste de acción y la tinta marina (`cta-fill-light`, `cta-ink-deep`) existen solo para los CTAs de la portada y del campo oscuro de cierre (el mismo par Cotizá + WhatsApp redondo) y para el botón de solo ícono de WhatsApp del panel de persona. No se promueven a botones con rótulo de otras secciones. Sobre fondos claros el mismo par va en `ink` con texto `paper` (tono claro).",
         "section": "colors"
       },
       {
         "name": "The One Paper Rule",
-        "body": "El fondo común es un único papel (`paper` con grano); las secciones no lo tiñen, con una excepción: el Cierre (`wash` con grano entre dos reglas de 2px en tinta), que marca el corte entre Equipo y Contacto sin sumar un segundo campo del logo ni el bordó. El color de fondo llega solo como el degradé del logo, el campo bordó de siniestros o ese corte, siempre a sección completa. Nunca como tarjeta, franja suelta o bloque de color dentro de una sección.",
+        "body": "El fondo común es un único papel (`paper` con grano); las secciones no lo tiñen, con una excepción: el Cierre, un tercer campo oscuro (`ink-deep` con grano, sin bordes) que marca el corte entre Equipo y Contacto. Es solo para la sección de cierre: no suma un segundo degradé del logo ni el bordó. El color de fondo llega solo como el degradé del logo, el campo bordó de siniestros o ese cierre, siempre a sección completa. Nunca como tarjeta, franja suelta o bloque de color dentro de una sección.",
         "section": "colors"
       },
       {
         "name": "The One Grain Rule",
-        "body": "Hay un solo grano, el mismo tile parametrizado por --grano y --grano-tam, a una sola intensidad. Cubre el papel (fondo de página, barra del header, panel del menú), el campo bordó de siniestros, el campo del logo, el Cierre en `wash` y el footer, siempre por encima del color. Nunca cubre fotos, hojas o mosaicos blancos ni texto.",
+        "body": "Hay un solo grano, el mismo tile parametrizado por --grano y --grano-tam, a una sola intensidad. Cubre el papel (fondo de página, barra del header, panel del menú), el campo bordó de siniestros, el campo del logo, el Cierre en `ink-deep` y el footer, siempre por encima del color. Nunca cubre fotos, hojas o mosaicos blancos ni texto.",
         "section": "colors"
       },
       {
@@ -894,17 +900,17 @@
       "**Do** usar fotografía real de Mar del Plata con su procedencia registrada y el crédito visible cuando la licencia lo pide.",
       "**Do** mostrar personas como retratos 3:4 en escala de grises sobre el degradé gris `portrait-top` → `portrait-bottom`, en tiras de scroll horizontal enfocables por teclado, con el contacto en un panel de `ink` que sube al hover o foco con mouse y queda visible debajo de la foto en táctil.",
       "**Do** dibujar los datos pendientes de una carátula como renglón discontinuo de 1.5px `rule` y escribir los placeholders como \"Ej.: …\".",
-      "**Do** usar el par de CTAs en `ink` con texto `paper` (56px, WhatsApp redondo) sobre fondos claros, y el celeste solo sobre fondos oscuros."
+      "**Do** usar el par de CTAs en `ink` con texto `paper` (56px, WhatsApp redondo) sobre fondos claros, y el celeste solo sobre fondos oscuros (portada y Cierre)."
     ],
     "donts": [
       "**Don't** usar sombras ni tarjetas con esquinas redondeadas.",
       "**Don't** usar el bordó como acento decorativo ni en acciones de cotización.",
       "**Don't** redondear botones, campos u opciones; lo circular se limita al logo, el sello y los indicadores de estado. Única excepción: un botón de solo ícono puede ser circular (el WhatsApp de la portada y el del panel de persona); un botón con rótulo nunca.",
       "**Don't** usar el guilloché como marca de agua de fondo; su única forma es la tira, y va solo en la cabecera de una carátula.",
-      "**Don't** teñir las secciones (salvo el Cierre en `wash` con grano) ni usar el degradé del logo como tarjeta o bloque dentro de una sección, ni repetir el campo del logo, el campo de siniestros o la portada fotográfica más de una vez por página.",
+      "**Don't** teñir las secciones (salvo el Cierre en `ink-deep` con grano) ni usar el degradé del logo como tarjeta o bloque dentro de una sección, ni repetir el campo del logo, el campo de siniestros o la portada fotográfica más de una vez por página.",
       "**Don't** poner el grano sobre hojas blancas, mosaicos blancos, fotos ni texto: es una textura del papel, no un motivo.",
-      "**Don't** usar `cta-fill-light` ni `cta-ink-deep` fuera de los CTAs de la portada sobre fondo oscuro y del botón de solo ícono de WhatsApp de las personas.",
-      "**Don't** repetir el sello de goma más de una vez por página (la home no tiene otro, así que el del Cierre variante A cumple la regla mientras exista)."
+      "**Don't** usar `cta-fill-light` ni `cta-ink-deep` fuera de los CTAs de la portada y del Cierre sobre fondo oscuro y del botón de solo ícono de WhatsApp de las personas.",
+      "**Don't** repetir el sello de goma más de una vez por página (la home no tiene ninguno)."
     ]
   }
 }

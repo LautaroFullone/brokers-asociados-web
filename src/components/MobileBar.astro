@@ -12,12 +12,12 @@ const { cotizarHref = '/cotizar', cotizarLabel = 'Cotizá tu seguro', soloWhatsa
 
 <nav aria-label="Acciones rápidas" data-barra class:list={["fixed inset-x-0 bottom-0 z-40 grid superficie-papel border-t-2 border-ink transition-transform duration-300 ease-out-expo data-[oculta]:translate-y-full md:hidden", soloWhatsapp ? "grid-cols-1" : "grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]"]}>
 	{!soloWhatsapp && (
-		<a href={cotizarHref} class="flex min-h-[4.5rem] items-center justify-center gap-2 bg-ink text-[1.125rem] font-semibold text-paper no-underline">
+		<a href={cotizarHref} class="ix-accion ix-ink flex min-h-[4.5rem] items-center justify-center gap-2 text-[1.125rem] font-semibold no-underline">
 			{cotizarLabel}
 			<Icon name="arrowRight" class="size-5" strokeWidth={2} />
 		</a>
 	)}
-	<a href={whatsappLink('Hola, quiero cotizar un seguro.')} class="flex min-h-[4.5rem] items-center justify-center gap-2 bg-seal text-[1.125rem] font-semibold text-paper no-underline">
+	<a href={whatsappLink('Hola, quiero cotizar un seguro.')} class="ix-accion ix-seal flex min-h-[4.5rem] items-center justify-center gap-2 text-[1.125rem] font-semibold no-underline">
 		<Icon name="whatsapp" class="size-5" />
 		WhatsApp
 	</a>

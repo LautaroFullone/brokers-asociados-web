@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+
+interface Props {
+	nombre: string;
+	rol: string;
+	href: string;
+	foto?: ImageMetadata;
+	fotoColor?: ImageMetadata;
+	/** Copia del bucle: su enlace sale del orden de tabulación. */
+	sinFoco?: boolean;
+}
+const { nombre, rol, href, foto, fotoColor, sinFoco = false } = Astro.props;
+const sizes = '(min-width: 1024px) 290px, (min-width: 640px) 230px, 140px';
+const widths = [320, 640];
+---
+
+<li class="persona">
+	<div class="marco">
+		{foto ? (
+			<>
+				<Image src={foto} alt="" widths={widths} sizes={sizes} class="foto" loading="lazy" />
+				{fotoColor && (
+					<Image src={fotoColor} alt="" aria-hidden="true" widths={widths} sizes={sizes} class="foto-color" loading="lazy" decoding="async" />
+				)}
+			</>
+		) : (
+			<svg class="silueta" viewBox="0 0 120 160" fill="currentColor" aria-hidden="true" preserveAspectRatio="xMidYMax slice">
+				<circle cx="60" cy="62" r="23" />
+				<path d="M10 160c0-36 21-58 50-58s50 22 50 58z" />
+			</svg>
+		)}
+	</div>
+	<div class="datos">
+		<div class="datos-texto">
+			<p class="rol field-no">{rol}</p>
+			<p class="nombre">{nombre}</p>
+		</div>
+		<a {href} tabindex={sinFoco ? -1 : undefined} aria-label={`Escribirle a ${nombre} por WhatsApp`} class="boton-wa ix-accion ix-ink grid cursor-pointer size-11 shrink-0 place-items-center rounded-full no-underline">
+			<Icon name="whatsapp" class="size-5" />
+		</a>
+	</div>
+</li>

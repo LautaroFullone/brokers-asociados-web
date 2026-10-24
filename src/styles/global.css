@@ -36,6 +36,21 @@
 	--color-seal-on-dark: #e8f8ef;
 
 	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+	/* Relleno de los botones celestes sobre campos oscuros al hover (antes: brightness .94) */
+	--color-celeste: #a8dadc;
+	--color-celeste-hover: #9ecdcf;
+	--color-celeste-ink: #0f3554;
+}
+
+/* Tokens de interacción: tiempos y distancia compartidos por todos los estados hover, foco y active */
+:root {
+	--ix-rapido: 120ms;
+	--ix-color: 200ms;
+	--ix-mov: 300ms;
+	--ix-subrayado: 350ms;
+	--ix-barrido: 500ms;
+	--ix-dist: 4px;
 }
 
 @layer base {
@@ -133,5 +148,106 @@
 		font-weight: 500;
 		letter-spacing: 0.02em;
 		font-variant-numeric: tabular-nums;
+	}
+}
+
+/* ——— Sistema de interacción (ver DESIGN.md · Interacción) ———
+   Cuatro tipos: acción, tarjeta, enlace y control. Todo hover tiene su gemelo en :focus-visible; el hover solo corre con mouse. */
+@layer components {
+	/* 1 · Acción: botón lleno. Color a su tono -deep, flecha 4px, pulsación .98 */
+	.ix-accion {
+		transition:
+			background-color var(--ix-color) var(--ease-out-expo),
+			color var(--ix-color) var(--ease-out-expo),
+			border-color var(--ix-color) var(--ease-out-expo),
+			transform var(--ix-rapido) var(--ease-out-expo);
+	}
+	.ix-accion:active { transform: scale(0.98); }
+	.ix-accion:focus-visible { background-color: var(--ix-hover); }
+	@media (hover: hover) {
+		.ix-accion:hover { background-color: var(--ix-hover); }
+	}
+	.ix-ink { background-color: var(--color-ink); color: var(--color-paper); --ix-hover: var(--color-ink-deep); }
+	.ix-seal { background-color: var(--color-seal); color: var(--color-paper); --ix-hover: var(--color-seal-deep); }
+	.ix-celeste { background-color: var(--color-celeste); color: var(--color-celeste-ink); --ix-hover: var(--color-celeste-hover); }
+	.ix-paper { background-color: var(--color-paper); color: var(--color-claim-deep); --ix-hover: var(--color-claim-soft); }
+	.ix-wash { --ix-hover: var(--color-wash); }
+
+	/* Flecha: siempre 4px, siempre 300ms, hacia la derecha, con el hover o el foco de su enlace o botón */
+	.ix-flecha,
+	.ix-icono { transition: transform var(--ix-mov) var(--ease-out-expo); }
+	:is(a, button):focus-visible .ix-flecha { transform: translateX(var(--ix-dist)); }
+	:is(a, button):focus-visible .ix-icono { transform: translateY(calc(var(--ix-dist) * -1)); }
+	@media (hover: hover) {
+		:is(a, button):hover .ix-flecha { transform: translateX(var(--ix-dist)); }
+		:is(a, button):hover .ix-icono { transform: translateY(calc(var(--ix-dist) * -1)); }
+	}
+
+	/* 2 · Tarjeta navegable: un relleno (--barrido) sube desde abajo, el ícono sube 4px, la flecha avanza 4px */
+	.ix-tarjeta {
+		position: relative;
+		overflow: hidden;
+		transition:
+			border-color var(--ix-color) var(--ease-out-expo),
+			transform var(--ix-rapido) var(--ease-out-expo);
+	}
+	.ix-tarjeta > * { position: relative; }
+	.ix-tarjeta::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--barrido);
+		transform: translateY(101%);
+		transition: transform var(--ix-barrido) var(--ease-out-expo);
+	}
+	.ix-tarjeta:active { transform: scale(0.98); }
+	.ix-tarjeta:focus-visible::before { transform: translateY(0); }
+	@media (hover: hover) {
+		.ix-tarjeta:hover::before { transform: translateY(0); }
+	}
+
+	/* 3 · Enlace de texto: el subrayado se dibuja o se borra de izquierda a derecha, nunca engrosa.
+	   ix-link: sin subrayado en reposo, aparece. ix-sub: subrayado en reposo, desaparece. */
+	.ix-link,
+	.ix-sub {
+		text-decoration: none;
+		background-image: linear-gradient(currentColor, currentColor);
+		background-repeat: no-repeat;
+		-webkit-box-decoration-break: clone;
+		box-decoration-break: clone;
+		transition: background-size var(--ix-subrayado) var(--ease-out-expo), background-position 0s;
+	}
+	.ix-link { background-size: 0% var(--ix-grosor, 1px); background-position: 100% 100%; }
+	.ix-sub { background-size: 100% var(--ix-grosor, 1px); background-position: 0% 100%; }
+	.ix-link:focus-visible { background-size: 100% var(--ix-grosor, 1px); background-position: 0% 100%; }
+	.ix-sub:focus-visible { background-size: 0% var(--ix-grosor, 1px); background-position: 100% 100%; }
+	@media (hover: hover) {
+		.ix-link:hover { background-size: 100% var(--ix-grosor, 1px); background-position: 0% 100%; }
+		.ix-sub:hover { background-size: 0% var(--ix-grosor, 1px); background-position: 100% 100%; }
+	}
+
+	/* 4 · Control: pieza chica y repetida (pestaña, ícono redondo, pausa). Cambia de color, no se mueve; solo la pulsación */
+	.ix-control {
+		transition:
+			background-color var(--ix-color) var(--ease-out-expo),
+			color var(--ix-color) var(--ease-out-expo),
+			border-color var(--ix-color) var(--ease-out-expo),
+			transform var(--ix-rapido) var(--ease-out-expo);
+	}
+	.ix-control:active { transform: scale(0.98); }
+
+	/* Sin movimiento: el estado se comunica solo con color. El barrido pasa a un relleno instantáneo */
+	@media (prefers-reduced-motion: reduce) {
+		.ix-accion, .ix-tarjeta, .ix-tarjeta::before, .ix-flecha, .ix-icono, .ix-link, .ix-sub, .ix-control { transition: none; }
+		.ix-accion:active, .ix-tarjeta:active, .ix-control:active { transform: none; }
+		:is(a, button):focus-visible .ix-flecha,
+		:is(a, button):focus-visible .ix-icono { transform: none; }
+		.ix-tarjeta::before { transform: none; opacity: 0; }
+		.ix-tarjeta:focus-visible::before { opacity: 1; }
+	}
+	@media (prefers-reduced-motion: reduce) and (hover: hover) {
+		:is(a, button):hover .ix-flecha,
+		:is(a, button):hover .ix-icono { transform: none; }
+		.ix-tarjeta:hover::before { opacity: 1; }
 	}
 }

@@ -1,33 +1,28 @@
 ---
 import Icon from './Icon.astro';
 import { whatsappLink } from '../data/brokers';
+
+interface Props {
+	/** claro: tinta sobre papel. oscuro: celeste sobre campo oscuro (como en el hero). */
+	tono?: 'claro' | 'oscuro';
+}
+const { tono = 'claro' } = Astro.props;
 ---
 
 <div class="flex items-center gap-3">
 	<a
 		href="/cotizar"
-		class="cierre-cta group inline-flex h-14 flex-1 items-center justify-between gap-6 bg-ink px-6 text-[1.25rem] font-bold text-paper no-underline sm:min-w-[19rem] sm:flex-none"
+		class:list={['ix-accion', tono === 'claro' ? 'ix-ink' : 'ix-celeste', 'inline-flex h-14 flex-1 items-center justify-between gap-6 px-6 text-[1.25rem] font-bold no-underline sm:min-w-[19rem] sm:flex-none']}
 	>
 		Cotizá tu seguro
-		<Icon name="arrowRight" class="size-6 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
+		<Icon name="arrowRight" class="ix-flecha size-6" strokeWidth={2} />
 	</a>
 	<!-- Botón de solo ícono: puede ser circular (excepción de DESIGN.md) -->
 	<a
 		href={whatsappLink('Hola, quiero hacer una consulta.')}
 		aria-label="Escribinos por WhatsApp"
-		class="cierre-cta grid size-14 shrink-0 place-items-center rounded-full bg-ink text-paper no-underline"
+		class:list={['ix-accion', tono === 'claro' ? 'ix-ink' : 'ix-celeste', 'grid size-14 shrink-0 place-items-center rounded-full no-underline']}
 	>
 		<Icon name="whatsapp" class="size-6" />
 	</a>
 </div>
-
-<style>
-	.cierre-cta {
-		transition: background-color 0.2s ease-out, transform 0.35s var(--ease-out-expo);
-	}
-	.cierre-cta:hover { background-color: var(--color-ink-deep); }
-	.cierre-cta:active { transform: scale(0.98); }
-	@media (prefers-reduced-motion: reduce) {
-		.cierre-cta, .cierre-cta:active { transition: none; transform: none; }
-	}
-</style>

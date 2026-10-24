@@ -1,140 +1,214 @@
 ---
-import { Image } from 'astro:assets';
-import Icon from './Icon.astro';
+import PersonaCard from './PersonaCard.astro';
 import { equipo, productores, whatsappLink } from '../data/brokers';
 
 const slug = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-// Retratos 4:5 en blanco y negro: src/assets/equipo/<slug>.(jpg|png|webp); en color (hover): src/assets/equipo/color/<slug>.*
+// Retratos 4:5 en gris: src/assets/equipo/<slug>.(jpg|png|webp); en color (hover): src/assets/equipo/color/<slug>.*
 const fotos = import.meta.glob<ImageMetadata>('../assets/equipo/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
-const foto = (nombre: string) => Object.entries(fotos).find(([ruta]) => ruta.includes(`/${slug(nombre)}.`))?.[1];
 const fotosColor = import.meta.glob<ImageMetadata>('../assets/equipo/color/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
-const fotoColor = (nombre: string) => Object.entries(fotosColor).find(([ruta]) => ruta.includes(`/${slug(nombre)}.`))?.[1];
+const buscar = (mapa: Record<string, ImageMetadata>, nombre: string) => Object.entries(mapa).find(([ruta]) => ruta.includes(`/${slug(nombre)}.`))?.[1];
 
 // Pendiente de confirmar con el cliente: WhatsApp individual de cada persona. Mientras tanto, el general.
 const wa = (nombre: string) => whatsappLink(`Hola ${nombre.split(' ')[0]}, quiero hacer una consulta.`);
 
-const oficina = equipo.map((p) => ({ nombre: p.nombre, rol: p.area }));
-// Jorge Couto e Ignacio Victorel también figuran como productores: se muestran una sola vez, con la oficina
-const enOficina = new Set(oficina.map((p) => p.nombre));
-const productoresAsesores = productores.filter((n) => !enOficina.has(n)).map((nombre) => ({ nombre, rol: 'Productor asesor' }));
+const persona = (nombre: string, rol: string) => ({ nombre, rol, href: wa(nombre), foto: buscar(fotos, nombre), fotoColor: buscar(fotosColor, nombre) });
 
-const grupos = [
-	{ id: 'oficina', titulo: 'En la oficina', personas: oficina },
-	{ id: 'productores', titulo: 'Productores asesores', personas: productoresAsesores },
+// Jorge e Ignacio figuran en la oficina y como productores: se muestran una sola vez. Todos van en el mismo carrusel.
+const oficina = equipo.map((p) => persona(p.nombre, p.area));
+const enOficina = new Set(oficina.map((p) => p.nombre));
+const productoresAsesores = productores.filter((n) => !enOficina.has(n)).map((n) => persona(n, 'Productor asesor'));
+
+// Dos filas parejas con la oficina repartida entre ambas
+const corte = Math.floor(productoresAsesores.length / 2);
+const filaDe = (oficinaIdx: number[], resto: typeof productoresAsesores) => {
+	const fila = [...resto];
+	fila.splice(0, 0, oficina[oficinaIdx[0]]);
+	fila.splice(5, 0, oficina[oficinaIdx[1]]);
+	return fila;
+};
+const filas = [
+	{ id: 1, personas: filaDe([0, 2], productoresAsesores.slice(0, corte)) },
+	{ id: 2, personas: filaDe([1, 3], productoresAsesores.slice(corte)) },
 ];
+// La segunda vuelta alimenta el bucle: sin lectores de pantalla ni foco
+const vueltas = [false, true];
 ---
 
-<section id="personas" class="border-t-2 border-ink" aria-labelledby="personas-titulo">
-	<div class="mx-auto max-w-[84rem] px-4 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-		<h2 id="personas-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Te atiende una persona</h2>
+<section id="personas" class="border-t-2 border-ink" aria-labelledby="personas-titulo" data-equipo>
+	<div class="mx-auto max-w-[84rem] px-4 pt-16 sm:px-8 sm:pt-20 lg:px-12 lg:pt-24">
+		<h2 id="personas-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Nuestro equipo</h2>
+	</div>
 
-		{grupos.map((g) => (
-			<div class="mt-12 first-of-type:mt-10">
-				<h3 class="field-no border-t-2 border-ink pt-3 text-ink-2" id={`grupo-${g.id}`}>{g.titulo}</h3>
-				<ul class="tira mt-4 flex snap-x snap-proximity gap-1 overflow-x-auto pb-4" tabindex="0" role="list" aria-labelledby={`grupo-${g.id}`}>
-					{g.personas.map((p) => {
-						const img = foto(p.nombre);
-						const imgColor = fotoColor(p.nombre);
-						return (
-							<li class="persona group relative w-[14.5rem] shrink-0 snap-start sm:w-[16rem]">
-								<div class="marco relative aspect-[4/5] overflow-hidden">
-									{img ? (
-										<>
-											<Image src={img} alt="" widths={[320, 640]} sizes="256px" class="size-full object-cover" loading="lazy" />
-											{imgColor && (
-												<Image src={imgColor} alt="" aria-hidden="true" widths={[320, 640]} sizes="256px" class="color absolute inset-0 size-full object-cover" loading="lazy" decoding="async" />
-											)}
-										</>
-									) : (
-										<svg class="size-full text-rule" viewBox="0 0 120 160" fill="currentColor" aria-hidden="true" preserveAspectRatio="xMidYMax slice">
-											<circle cx="60" cy="62" r="23" />
-											<path d="M10 160c0-36 21-58 50-58s50 22 50 58z" />
-										</svg>
-									)}
-								</div>
-									<div class="info">
-										<p class="field-no text-on-dark">{p.rol}</p>
-										<p class="mt-1 text-[1.25rem] font-bold leading-tight">{p.nombre}</p>
-										<a href={wa(p.nombre)} aria-label={`Escribirle a ${p.nombre} por WhatsApp`} class="boton-wa mt-3 grid size-11 place-items-center rounded-full no-underline">
-											<Icon name="whatsapp" class="size-5" />
-										</a>
-									</div>
-							</li>
-						);
-					})}
-				</ul>
+	<div class="mx-auto mb-16 mt-10 max-w-[84rem] space-y-2 px-4 sm:mb-20 sm:mt-12 sm:px-8 lg:mb-24 lg:px-12">
+		{filas.map((f) => (
+			<div class:list={['fila', `fila-${f.id}`]} data-fila>
+				<div class="pista">
+					{vueltas.map((copia) => (
+						<ul
+							class:list={['vuelta', copia && 'vuelta-copia']}
+							role="list"
+							aria-label={copia ? undefined : `Equipo, fila ${f.id} de 2`}
+							aria-hidden={copia ? 'true' : undefined}
+						>
+							{f.personas.map((p) => <PersonaCard {...p} sinFoco={copia} />)}
+						</ul>
+					))}
+				</div>
 			</div>
 		))}
 	</div>
 </section>
 
-<style>
-	.tira {
-		scrollbar-width: thin;
-		scrollbar-color: var(--color-ink) transparent;
+<style is:global>
+	/* ——— Retrato ——— */
+	#personas .persona { position: relative; display: flex; flex-direction: column; }
+	#personas .marco {
+		position: relative;
+		aspect-ratio: 4 / 5;
+		overflow: hidden;
+		background: linear-gradient(#ececec, #dedede);
 	}
-	/* Gris neutro de los retratos (#ececec arriba, #dedede abajo): el azul pálido de rule-soft desentonaba al lado */
-	.marco { background: linear-gradient(#ececec, #dedede); }
-	.boton-wa {
-		background: #a8dadc;
-		color: #0f3554;
-	}
+	#personas .marco img { display: block; width: 100%; height: 100%; object-fit: cover; }
+	#personas .foto-color { position: absolute; inset: 0; display: none; }
+	#personas .silueta { display: block; width: 100%; height: 100%; color: var(--color-rule); }
 
-	/* Panel de datos: en pantallas con mouse sube sobre la foto; en el resto queda siempre visible debajo */
-	.info {
-		position: absolute;
-		inset: auto 0 0 0;
-		background: var(--color-ink);
-		color: var(--color-paper);
-		padding: 1rem;
-	}
-	/* La capa color solo existe donde hay hover: en táctil no se pinta y, al ser display:none, ni se descarga */
-	.marco :global(.color) { display: none; }
-	@media (hover: hover) and (min-width: 768px) {
-		.persona { overflow: hidden; }
-		.marco :global(.color) {
+	/* Con mouse la foto pasa a color y se acerca al hover y al foco; con táctil la capa color no existe (ni se descarga) hasta el primer toque */
+	@media (hover: hover) {
+		#personas .foto-color {
 			display: block;
 			opacity: 0;
-			transition: opacity 0.4s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+			transition: opacity 0.4s var(--ease-out-expo);
 		}
-		.persona:hover .marco :global(.color),
-		.persona:focus-within .marco :global(.color) {
-			opacity: 1;
-		}
-		.info {
-			transform: translateY(101%);
-			transition: transform 0.5s var(--ease-out-expo);
-		}
-		.persona:hover .info,
-		.persona:focus-within .info {
-			transform: translateY(0);
-		}
-		.marco :global(img:not(.color)),
-		.marco svg {
-			transition: transform 0.7s var(--ease-out-expo);
-		}
-		.persona:hover .marco :global(img),
-		.persona:focus-within .marco :global(img),
-		.persona:hover .marco svg,
-		.persona:focus-within .marco svg {
-			transform: scale(1.03);
-		}
+		#personas .marco img { transition: transform 0.7s var(--ease-out-expo); }
+		#personas .foto-color { transition: opacity 0.4s var(--ease-out-expo), transform 0.7s var(--ease-out-expo); }
+		#personas .persona:hover .foto-color,
+		#personas .persona:focus-within .foto-color { opacity: 1; }
+		#personas .persona:hover .marco img,
+		#personas .persona:focus-within .marco img { transform: scale(1.03); }
 	}
-	@media not ((hover: hover) and (min-width: 768px)) {
-		.info {
-			position: static;
-			background: transparent;
-			color: var(--color-ink);
-			padding: 0.75rem 0 0;
-		}
-		.info :global(.field-no) { color: var(--color-ink-2); }
-		/* Sobre el papel el celeste pierde borde: el botón pasa a tinta */
-		.boton-wa { background: var(--color-ink); color: var(--color-paper); }
+	#personas .persona.tocada .foto-color {
+		display: block;
+		animation: equipo-fundido 0.4s var(--ease-out-expo);
 	}
+	@keyframes equipo-fundido { from { opacity: 0; } }
+
+	/* ——— Datos ——— */
+	#personas .datos { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; padding: 0.75rem; }
+	#personas .nombre { margin-top: 0.125rem; font-size: 1.0625rem; font-weight: 700; line-height: 1.15; }
+	#personas .rol { font-size: 0.8125rem; }
+	/* Celular: las tarjetas miden ~126px y no queda lugar junto al nombre. El WhatsApp se apoya sobre la regla de la etiqueta,
+	   en la foto, para que ningún nombre largo pase por debajo del botón */
+	@media (max-width: 639px) {
+		#personas .fila .datos { padding: 0.625rem; }
+		#personas .fila .boton-wa {
+			position: absolute;
+			right: 0.5rem;
+			bottom: calc(100% + 0.5rem);
+		}
+		#personas .fila .nombre { font-size: 1rem; }
+		#personas .fila .rol { font-size: 0.75rem; }
+	}
+	@media (min-width: 640px) {
+		#personas .nombre { font-size: 1.25rem; }
+		#personas .rol { font-size: 0.875rem; }
+	}
+
+	/* ——— Filas en bucle ——— */
+	#personas .fila {
+		--n: 2.5;
+		--gap: 0.5rem;
+		container-type: inline-size;
+		overflow: clip;
+		-webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+		mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+	}
+	@media (min-width: 640px) { #personas .fila { --n: 3.5; } }
+	@media (min-width: 1024px) { #personas .fila { --n: 4.5; } }
+	#personas .pista {
+		position: relative;
+		display: flex;
+		width: max-content;
+		animation: equipo-corre 60s linear infinite;
+	}
+	#personas .fila-2 .pista { animation-direction: reverse; }
+	@keyframes equipo-corre { to { transform: translateX(-50%); } }
+	#personas .vuelta { display: flex; margin: 0; padding: 0; list-style: none; }
+	#personas .vuelta > .persona {
+		flex: none;
+		box-sizing: border-box;
+		/* La separación es relleno de la tarjeta: no hay zonas muertas entre retratos donde la fila se frena pero la foto no se colorea */
+		padding-right: var(--gap);
+		width: calc((100cqw + var(--gap)) / var(--n));
+	}
+	/* Se frena con el foco de teclado, con el mouse o mientras hay una foto tocada */
+	#personas .fila:focus-within .pista,
+	#personas .fila:has(.tocada) .pista { animation-play-state: paused; }
+	@media (hover: hover) {
+		#personas .fila:hover .pista { animation-play-state: paused; }
+	}
+
+	/* Sin movimiento: cada fila se recorre a mano, con snap */
 	@media (prefers-reduced-motion: reduce) {
-		.info, .marco :global(img), .marco :global(.color), .marco svg { transition: none; }
-		.persona:hover .marco :global(img), .persona:focus-within .marco :global(img),
-		.persona:hover .marco svg, .persona:focus-within .marco svg { transform: none; }
+		#personas .fila {
+			overflow-x: auto;
+			scroll-snap-type: x proximity;
+			-webkit-mask-image: none;
+			mask-image: none;
+			scrollbar-width: thin;
+			scrollbar-color: var(--color-ink) transparent;
+		}
+		#personas .pista { animation: none; transform: none; }
+		#personas .vuelta-copia { display: none; }
+		#personas .vuelta > .persona { scroll-snap-align: start; }
+		#personas .foto-color, #personas .marco img { transition: none; }
+		#personas .persona:hover .marco img, #personas .persona:focus-within .marco img { transform: none; }
+		#personas .persona.tocada .foto-color { animation: none; }
 	}
+
+	/* ——— Etiqueta sobre la foto: papel con regla de 2px en tinta, superpuesta al borde inferior del retrato ——— */
+	#personas .datos {
+		position: relative;
+		z-index: 1;
+		margin: -2.75rem 0.5rem 0;
+		border-top: 2px solid var(--color-ink);
+		background: var(--grano) 0 0 / var(--grano-tam) var(--grano-tam), var(--color-paper);
+		color: var(--color-ink);
+	}
+	#personas .rol { color: var(--color-ink-2); }
 </style>
+
+<script>
+	const raiz = document.querySelector<HTMLElement>('[data-equipo]')!;
+
+	// Táctil: la foto pasa a color al tocarla (una a la vez)
+	if (matchMedia('(hover: none)').matches) {
+		raiz.addEventListener('click', (e) => {
+			const card = (e.target as HTMLElement).closest<HTMLElement>('.persona');
+			if (!card || (e.target as HTMLElement).closest('a')) return;
+			const ya = card.classList.contains('tocada');
+			raiz.querySelectorAll('.tocada').forEach((c) => c.classList.remove('tocada'));
+			if (!ya) card.classList.add('tocada');
+		});
+	}
+
+	// Teclado: la fila se frena y, si la persona enfocada quedó fuera de vista, la trae a la ventana
+	if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		raiz.querySelectorAll<HTMLElement>('[data-fila]').forEach((fila) => {
+			const pista = fila.querySelector<HTMLElement>('.pista')!;
+			const inversa = fila.classList.contains('fila-2');
+			fila.addEventListener('focusin', (e) => {
+				const card = (e.target as HTMLElement).closest<HTMLElement>('.persona');
+				const anim = pista.getAnimations()[0];
+				if (!card || !anim) return;
+				const r = card.getBoundingClientRect();
+				const f = fila.getBoundingClientRect();
+				if (r.left >= f.left && r.right <= f.right) return;
+				const margen = f.width * 0.05;
+				const progreso = Math.min(Math.max((card.offsetLeft - margen) / (pista.scrollWidth / 2), 0), 0.999);
+				const duracion = Number(anim.effect!.getComputedTiming().duration);
+				anim.currentTime = (inversa ? 1 - progreso : progreso) * duracion;
+			});
+		});
+	}
+</script>

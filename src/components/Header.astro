@@ -40,9 +40,9 @@ const nav = [
 				</ul>
 			</nav>
 
-			<a href="/cotizar" class="header-cta group hidden items-center gap-2.5 px-5 py-3 text-[1.125rem] font-bold no-underline lg:inline-flex">
+			<a href="/cotizar" class="header-cta ix-accion ix-ink hidden items-center gap-2.5 px-5 py-3 text-[1.125rem] font-bold no-underline lg:inline-flex">
 				Cotizá
-				<Icon name="arrowRight" class="size-[1.125rem] transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5" strokeWidth={2.25} />
+				<Icon name="arrowRight" class="ix-flecha size-[1.125rem]" strokeWidth={2.25} />
 			</a>
 
 			<button
@@ -73,16 +73,16 @@ const nav = [
 									{item.siniestro && <span class="size-2.5 rounded-full bg-claim" aria-hidden="true"></span>}
 									{item.label}
 								</span>
-								<Icon name="arrowRight" class="size-5" strokeWidth={2} />
+								<Icon name="arrowRight" class="ix-flecha size-5" strokeWidth={2} />
 							</a>
 						</li>
 					))}
 				</ul>
 				<div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-					<a href="/cotizar" class="inline-flex items-center justify-between bg-ink px-5 py-4 text-[1.125rem] font-semibold text-paper no-underline" data-menu-link>
-						Cotizá tu seguro <Icon name="arrowRight" class="size-5" strokeWidth={2} />
+					<a href="/cotizar" class="ix-accion ix-ink inline-flex items-center justify-between px-5 py-4 text-[1.125rem] font-semibold no-underline" data-menu-link>
+						Cotizá tu seguro <Icon name="arrowRight" class="ix-flecha size-5" strokeWidth={2} />
 					</a>
-					<a href={whatsappLink('Hola, quiero hacer una consulta.')} class="inline-flex items-center justify-center gap-2.5 bg-seal px-5 py-4 text-[1.125rem] font-semibold text-paper no-underline">
+					<a href={whatsappLink('Hola, quiero hacer una consulta.')} class="ix-accion ix-seal inline-flex items-center justify-center gap-2.5 px-5 py-4 text-[1.125rem] font-semibold no-underline">
 						<Icon name="whatsapp" class="size-5" />WhatsApp
 					</a>
 				</div>
@@ -111,12 +111,14 @@ const nav = [
 		transition: background-color 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
 	}
 	.header-cta {
-		background-color: var(--color-ink);
-		color: var(--color-paper);
-		transition: background-color 0.3s ease-out, color 0.3s ease-out;
+		transition: background-color var(--ix-color) var(--ease-out-expo), color var(--ix-color) var(--ease-out-expo), opacity 0.4s var(--ease-out-expo), transform var(--ix-rapido) var(--ease-out-expo), visibility 0.4s;
 	}
-	.header-cta:hover {
-		background-color: var(--color-ink-deep);
+	/* Sobre el hero ya hay un "Cotizá" principal: el de la barra toma la posta cuando el hero sale de pantalla.
+	   visibility lo saca también del orden de tabulación y conserva su lugar para que el menú no se corra. */
+	.site-header[data-sobre-hero]:not([data-pasado-hero]) .header-cta {
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-0.375rem);
 	}
 
 	/* Sobre el hero: transparente hasta que se scrollea o se abre el menú */
@@ -128,6 +130,7 @@ const nav = [
 	.site-header[data-sobre-hero]:not([data-solido]):not([data-abierto]) .header-cta {
 		background-color: var(--color-paper);
 		color: var(--color-ink);
+		--ix-hover: var(--color-wash);
 	}
 
 	/* Subrayado que se dibuja de izquierda a derecha */
@@ -178,6 +181,7 @@ const nav = [
 		.site-header,
 		.menu-movil,
 		.menu-linea,
+		.header-cta,
 		.nav-link::after { animation: none; transition: none; }
 	}
 </style>
@@ -187,12 +191,14 @@ const nav = [
 	const toggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
 	const menu = header.querySelector<HTMLElement>('[data-menu]')!;
 	const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
+	const hero = document.querySelector<HTMLElement>('[data-hero]');
 	let ultimoY = window.scrollY;
 	let pendiente = false;
 
 	function alScrollear() {
 		const y = window.scrollY;
 		header.toggleAttribute('data-solido', !header.hasAttribute('data-sobre-hero') || y > 24);
+		if (hero) header.toggleAttribute('data-pasado-hero', hero.getBoundingClientRect().bottom <= header.offsetHeight);
 		const bajando = y > ultimoY + 2;
 		const subiendo = y < ultimoY - 2;
 		if (bajando && y > 160 && !header.hasAttribute('data-abierto') && !sinMovimiento.matches) header.setAttribute('data-oculto', '');

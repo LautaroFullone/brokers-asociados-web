@@ -18,11 +18,11 @@ import {
 } from '../data/brokers';
 
 const inputBase =
-	'block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-150 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
+	'block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
 const tile =
-	'group relative flex min-h-12 cursor-pointer items-center gap-3 border-[1.5px] border-rule-soft bg-sheet px-3 py-2 transition-colors duration-150 hover:border-ink has-checked:border-ink has-checked:bg-wash has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-teal';
+	'group relative flex min-h-12 cursor-pointer items-center gap-3 border-[1.5px] border-rule-soft bg-sheet px-3 py-2 transition-colors duration-200 hover:border-ink has-checked:border-ink has-checked:bg-wash has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-teal';
 const box =
-	'grid size-6 shrink-0 place-items-center border-2 border-ink bg-sheet text-paper transition-colors duration-150 peer-checked:bg-ink';
+	'grid size-6 shrink-0 place-items-center border-2 border-ink bg-sheet text-paper transition-colors duration-200 peer-checked:bg-ink';
 const check =
 	'size-4 scale-50 opacity-0 transition-[opacity,scale] duration-200 ease-out-expo group-has-checked:scale-100 group-has-checked:opacity-100';
 const row = 'grid grid-cols-[2.75rem_minmax(0,1fr)] border-b border-rule sm:grid-cols-[3.25rem_minmax(0,1fr)]';
@@ -52,7 +52,7 @@ const filasCaratula = [
 	<main id="contenido" class="relative overflow-hidden pt-[4.5rem]">
 		<div class="relative mx-auto grid max-w-[84rem] grid-cols-1 gap-x-14 gap-y-10 px-4 pt-8 pb-16 sm:px-8 lg:grid-cols-[minmax(0,1fr)_29.5rem] lg:px-12 lg:pt-10 lg:pb-24">
 			<section aria-labelledby="pedido-titulo">
-				<a href="/" class="inline-flex items-center gap-2 text-[1rem] font-medium">
+				<a href="/" class="ix-sub inline-flex items-center gap-2 text-[1rem] font-medium">
 					<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
 					Volver al inicio
 				</a>
@@ -173,7 +173,7 @@ const filasCaratula = [
 								<legend class={legend}>Tus datos</legend>
 								<div class="clear-both flex items-center justify-between gap-4 bg-wash px-3.5 py-3 text-[1.0625rem]" data-contacto-conocido hidden>
 									<span><strong class="font-semibold" data-conocido-nombre></strong> · <span data-conocido-tel></span></span>
-									<button type="button" class="font-medium underline decoration-1 underline-offset-[0.22em] hover:no-underline" data-contacto-editar>Cambiar</button>
+									<button type="button" class="ix-sub font-medium" data-contacto-editar>Cambiar</button>
 								</div>
 								<div class="clear-both grid grid-cols-1 gap-3 sm:grid-cols-2" data-contacto-campos>
 									<div>
@@ -207,9 +207,9 @@ const filasCaratula = [
 							</div>
 						</div>
 
-						<button type="submit" class="group flex w-full items-center justify-between gap-4 bg-ink px-5 py-4 max-lg:hidden text-left text-[1.25rem] font-semibold text-paper transition-colors duration-200 hover:bg-ink-deep sm:px-6 sm:text-[1.375rem]">
+						<button type="submit" class="ix-accion ix-ink flex w-full items-center justify-between gap-4 px-5 py-4 max-lg:hidden text-left text-[1.25rem] font-semibold sm:px-6 sm:text-[1.375rem]">
 							<span data-enviar-label>Pedir cotización</span>
-							<Icon name="arrowRight" class="size-6 shrink-0 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
+							<Icon name="arrowRight" class="ix-flecha size-6 shrink-0" strokeWidth={2} />
 						</button>
 					</form>
 
@@ -218,10 +218,10 @@ const filasCaratula = [
 						<h2 class="text-[1.875rem] font-bold" data-enviado-titulo>Listo, recibimos tu pedido.</h2>
 						<p class="mt-3 max-w-[48ch] text-[1.125rem] text-ink-2" data-enviado-texto>Un asesor te llama en el horario de atención.</p>
 						<div class="mt-6 flex flex-col gap-3 sm:flex-row">
-							<a data-enviado-wa href={whatsappLink()} class="inline-flex items-center justify-center gap-2.5 bg-seal px-5 py-3.5 font-semibold text-paper no-underline hover:bg-seal-deep">
+							<a data-enviado-wa href={whatsappLink()} class="ix-accion ix-seal inline-flex items-center justify-center gap-2.5 px-5 py-3.5 font-semibold no-underline">
 								<Icon name="whatsapp" class="size-5" />Seguir por WhatsApp
 							</a>
-							<a href="/" class="inline-flex items-center justify-center border-2 border-ink px-5 py-3 font-semibold no-underline hover:bg-wash">Volver al inicio</a>
+							<a href="/" class="ix-accion ix-wash inline-flex items-center justify-center border-2 border-ink px-5 py-3 font-semibold no-underline">Volver al inicio</a>
 						</div>
 						<p class="mt-6 border-t border-rule-soft pt-4 font-mono text-[0.875rem] text-ink-2">Versión demo: este formulario todavía no envía datos.</p>
 					</div>
@@ -249,13 +249,13 @@ const filasCaratula = [
 						<Stamp id="sello-pedido" lineas={['LISTO PARA', 'ENVIAR']} class="size-full" />
 					</div>
 				</div>
-				<button type="submit" form="pedido-form" data-enviar-movil class="group mt-20 flex w-full items-center justify-between gap-4 bg-ink px-5 py-4 text-left text-[1.25rem] font-semibold text-paper transition-colors duration-200 hover:bg-ink-deep lg:hidden">
+				<button type="submit" form="pedido-form" data-enviar-movil class="ix-accion ix-ink mt-20 flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[1.25rem] font-semibold lg:hidden">
 					<span data-enviar-label>Pedir cotización</span>
-					<Icon name="arrowRight" class="size-6 shrink-0" strokeWidth={2} />
+					<Icon name="arrowRight" class="ix-flecha size-6 shrink-0" strokeWidth={2} />
 				</button>
 				<p class="mt-6 text-[1rem] text-ink-2 lg:mt-12" data-nota>
 					El sello se completa cuando están los datos. ¿Preferís hablar?{' '}
-					<a href={whatsappLink('Hola, quiero cotizar un seguro.')} class="font-semibold text-seal">WhatsApp {contacto.whatsapp}</a>
+					<a href={whatsappLink('Hola, quiero cotizar un seguro.')} class="ix-sub font-semibold text-seal">WhatsApp {contacto.whatsapp}</a>
 				</p>
 			</aside>
 		</div>

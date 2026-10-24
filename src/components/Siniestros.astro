@@ -33,10 +33,10 @@ const disposicion: Record<string, { grupo: string; lista: string; ultimoAncho?: 
 
 			<a
 				href="/siniestros/denuncia"
-				class="group mt-10 inline-flex items-center justify-between gap-6 self-start bg-paper px-6 py-5 text-[1.375rem] font-bold text-claim-deep no-underline transition-colors duration-200 hover:bg-claim-soft lg:min-w-[22rem]"
+				class="ix-accion ix-paper mt-10 inline-flex items-center justify-between gap-6 self-start px-6 py-5 text-[1.375rem] font-bold no-underline lg:min-w-[22rem]"
 			>
 				Denunciar un siniestro
-				<Icon name="arrowRight" class="size-7 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2.25} />
+				<Icon name="arrowRight" class="ix-flecha size-7" strokeWidth={2.25} />
 			</a>
 		</div>
 
@@ -53,12 +53,12 @@ const disposicion: Record<string, { grupo: string; lista: string; ultimoAncho?: 
 									<li class:list={[d.ultimoAncho && i === g.tipos.length - 1 && 'col-span-2']}>
 										<a
 											href={`/siniestros/denuncia?tipo=${slug(`${g.grupo} ${tipo}`)}`}
-											class="tile-sin group relative flex h-full min-h-32 flex-col justify-between gap-4 overflow-hidden bg-sheet p-4 text-claim-deep no-underline lg:min-h-30"
+											class="ix-tarjeta [--barrido:var(--color-claim-soft)] flex h-full min-h-32 flex-col justify-between gap-4 bg-sheet p-4 text-claim-deep no-underline lg:min-h-30"
 										>
-											<Icon name={iconos[tipo]} class="icono-sin relative z-10 size-9 text-claim" strokeWidth={1.6} />
-											<span class="relative z-10 flex items-end justify-between gap-2">
+											<Icon name={iconos[tipo]} class="ix-icono size-9 text-claim" strokeWidth={1.6} />
+											<span class="flex items-end justify-between gap-2">
 												<span class="text-[1.125rem] font-semibold leading-tight text-ink sm:text-[1.1875rem]">{tipo}</span>
-												<Icon name="arrowRight" class="flecha-sin size-5 shrink-0 text-claim" strokeWidth={2} />
+												<Icon name="arrowRight" class="ix-flecha size-5 shrink-0 text-claim" strokeWidth={2} />
 											</span>
 										</a>
 									</li>
@@ -72,52 +72,3 @@ const disposicion: Record<string, { grupo: string; lista: string; ultimoAncho?: 
 	</div>
 
 </section>
-
-<style>
-	/* Mosaicos: el relleno suave barre desde abajo; ícono sube, flecha avanza, el click presiona */
-	.tile-sin {
-		transition: transform 0.35s var(--ease-out-expo);
-	}
-	.tile-sin::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background: var(--color-claim-soft);
-		transform: translateY(101%);
-		transition: transform 0.5s var(--ease-out-expo);
-	}
-	.icono-sin,
-	.flecha-sin {
-		transition: transform 0.45s var(--ease-out-expo);
-	}
-	.tile-sin:hover::before,
-	.tile-sin:focus-visible::before {
-		transform: translateY(0);
-	}
-	.tile-sin:hover .icono-sin,
-	.tile-sin:focus-visible .icono-sin {
-		transform: translateY(-4px);
-	}
-	.tile-sin:hover .flecha-sin,
-	.tile-sin:focus-visible .flecha-sin {
-		transform: translateX(5px);
-	}
-	.tile-sin:active {
-		transform: scale(0.98);
-		transition-duration: 0.12s;
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.tile-sin,
-		.tile-sin::before,
-		.icono-sin,
-		.flecha-sin { transition: none; }
-		.tile-sin:hover .icono-sin,
-		.tile-sin:focus-visible .icono-sin,
-		.tile-sin:hover .flecha-sin,
-		.tile-sin:focus-visible .flecha-sin,
-		.tile-sin:active { transform: none; }
-		.tile-sin::before { transform: none; opacity: 0; }
-		.tile-sin:hover::before,
-		.tile-sin:focus-visible::before { opacity: 1; }
-	}
-</style>

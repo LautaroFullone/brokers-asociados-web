@@ -7,36 +7,23 @@ import { whatsappLink } from '../data/brokers';
 	<div class="flex items-center gap-3">
 		<a
 			href="/cotizar"
-			class="cta group inline-flex h-14 flex-1 items-center justify-between gap-6 px-6 text-[1.25rem] font-bold no-underline sm:min-w-[19rem] sm:flex-none"
+			class="ix-accion ix-celeste inline-flex h-14 flex-1 items-center justify-between gap-6 px-6 text-[1.25rem] font-bold no-underline sm:min-w-[19rem] sm:flex-none"
 		>
 			Cotizá tu seguro
-			<Icon name="arrowRight" class="size-6 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
+			<Icon name="arrowRight" class="ix-flecha size-6" strokeWidth={2} />
 		</a>
 		<!-- Botón de solo ícono: puede ser circular (excepción de DESIGN.md) -->
 		<a
 			href={whatsappLink('Hola, quiero cotizar un seguro.')}
 			aria-label="Escribinos por WhatsApp"
-			class="cta grid size-14 shrink-0 place-items-center rounded-full no-underline"
+			class="ix-accion ix-celeste grid size-14 shrink-0 place-items-center rounded-full no-underline"
 		>
 			<Icon name="whatsapp" class="size-6" />
 		</a>
 	</div>
 
-	<a href="#siniestros" class="group mt-7 inline-flex items-center gap-2.5 text-[1.0625rem] font-medium text-paper">
+	<a href="#siniestros" class="mt-7 inline-flex items-center gap-2.5 text-[1.0625rem] font-medium text-paper no-underline">
 		<span class="size-2.5 rounded-full bg-claim ring-2 ring-paper/80" aria-hidden="true"></span>
-		<span class="underline decoration-paper/60 underline-offset-[0.25em] group-hover:decoration-paper">¿Tuviste un siniestro? Te ayudamos</span>
+		<span class="ix-sub pb-0.5">¿Tuviste un siniestro? Te ayudamos</span>
 	</a>
 </div>
-
-<style>
-	.cta {
-		background: #a8dadc;
-		color: #0f3554;
-		transition: filter 0.2s ease-out, transform 0.35s var(--ease-out-expo);
-	}
-	.cta:hover { filter: brightness(0.94); }
-	.cta:active { transform: scale(0.98); }
-	@media (prefers-reduced-motion: reduce) {
-		.cta, .cta:active { transition: none; transform: none; }
-	}
-</style>
