@@ -24,11 +24,11 @@ const nav = [
 		<div class="mx-auto flex h-20 max-w-[84rem] items-center gap-8 px-4 sm:px-8 lg:px-12">
 			<a href="/" class="flex shrink-0 items-center gap-2.5 no-underline sm:gap-3" aria-label="Brokers Asociados, inicio">
 				<Image src={logo} alt="" width={56} height={56} densities={[1, 2]} class="size-11 rounded-full sm:size-14" loading="eager" />
-				<span class="text-[1.1875rem] font-bold tracking-[-0.01em] sm:text-[1.5rem] [font-stretch:90%]">Brokers Asociados</span>
+				<span class="text-[1.25rem] font-bold tracking-[-0.01em] sm:text-[1.5rem] [font-stretch:90%]">Brokers Asociados</span>
 			</a>
 
 			<nav aria-label="Principal" class="ml-auto hidden lg:block">
-				<ul class="flex items-center gap-7 text-[1.0625rem] font-medium">
+				<ul class="flex items-center gap-7 text-[1.125rem] font-medium">
 					{nav.map((item) => (
 						<li>
 							<a href={item.href} data-seccion={item.href.slice(2)} class="nav-link inline-flex items-center gap-2 py-1 no-underline">
@@ -47,7 +47,7 @@ const nav = [
 
 			<button
 				type="button"
-				class="menu-toggle ml-auto inline-flex min-h-11 items-center gap-3 pl-2 text-[1.0625rem] font-semibold lg:hidden"
+				class="menu-toggle ml-auto inline-flex min-h-11 items-center gap-3 pl-2 text-[1.125rem] font-semibold lg:hidden"
 				aria-expanded="false"
 				aria-controls="menu-movil"
 				data-menu-toggle

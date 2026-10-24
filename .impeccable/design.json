@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T19:00:00Z",
+  "generatedAt": "2026-10-24T20:00:00Z",
   "title": "Design System: Brokers Asociados",
   "extensions": {
     "colorMeta": {
@@ -501,8 +501,8 @@
       },
       {
         "name": "tab-select",
-        "value": "fondo 200ms",
-        "purpose": "Pestaña elegida de Coberturas: se rellena de ink con texto paper."
+        "value": "color y borde 250ms ease-out-expo",
+        "purpose": "Pestaña elegida de Coberturas: cambia de color y borde, sin relleno de ink."
       },
       {
         "name": "stamp-ink",
@@ -747,9 +747,9 @@
       "name": "Selector de coberturas",
       "kind": "nav",
       "refersTo": "tab",
-      "description": "Dos pestañas rectas en barra de 2px en tinta; la elegida se rellena de ink. Flechas, Home y End cambian de pestaña.",
-      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Para vos</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Para tu empresa</button></div>",
-      "css": ".ds-tabs { display:inline-flex; border:2px solid var(--color-ink,#184e77); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-tab { min-height:56px; min-width:13rem; padding:0 20px; border:0; background:transparent; color:var(--color-ink,#184e77); font-size:1.1875rem; font-weight:600; cursor:pointer; white-space:nowrap; transition:background-color .2s, color .2s; } .ds-tab:hover { background:var(--color-wash,#eef3f6); } .ds-tab[aria-selected='true'] { background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); } .ds-tab:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+      "description": "Dos pestañas de texto planas sobre la grilla de Coberturas, alineadas a la derecha en escritorio y a ancho completo en celulares, sin cantidades. Activa en ink con subrayado de 4px ink sobre una regla de 1px rule; inactiva ink-2. Nunca relleno ink. Aviso: hasta el primer cambio (data-cambiado) la inactiva lleva un subrayado fijo de 2px rule y una flecha que avanza 3px al hover; cada vez que la sección entra en pantalla (IntersectionObserver 35%, data-visto) dibuja un subrayado de 4px tres veces (1.6s ease-out-expo, ~4.8s, bajo el límite de 5s de WCAG 2.2.2, sin control de pausa) con la flecha acompañando, y queda en la línea fija. Tras el cambio, hover dibuja el subrayado completo. Reduced motion: sin animación, solo la línea fija y la flecha.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Para vos<span class=\"ds-tab-f\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Para tu empresa<span class=\"ds-tab-f\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></button></div>",
+      "css": ".ds-tabs { display:flex; justify-content:flex-end; gap:32px; border-bottom:1px solid var(--color-rule,#7f95a6); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-tab { display:inline-flex; align-items:center; min-height:52px; padding:0; margin-bottom:-1px; background:none; border:0; border-bottom:4px solid transparent; color:var(--color-ink-2,#3f5870); font-size:1.1875rem; font-weight:600; cursor:pointer; white-space:nowrap; transition:color .25s cubic-bezier(0.16,1,0.3,1), border-color .25s cubic-bezier(0.16,1,0.3,1); } .ds-tab:hover { color:var(--color-ink,#184e77); } .ds-tab[aria-selected='true'] { color:var(--color-ink,#184e77); border-bottom-color:var(--color-ink,#184e77); } .ds-tab:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; } @media (prefers-reduced-motion: reduce) { .ds-tab { transition:none; } } .ds-tab { position:relative; gap:8px; } .ds-tab::after { content:''; position:absolute; left:0; right:0; bottom:-3px; height:2px; background:var(--color-rule,#7f95a6); transform:scaleX(0); transform-origin:left; } .ds-tab-f { display:none; transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-tab[aria-selected='false']::after { transform:scaleX(1); animation:ds-aviso 1.6s cubic-bezier(0.16,1,0.3,1) .3s 3 both; } .ds-tab[aria-selected='false'] .ds-tab-f { display:block; animation:ds-aviso-f 1.6s cubic-bezier(0.16,1,0.3,1) .3s 3 both; } .ds-tab:hover .ds-tab-f { transform:translateX(3px); } @keyframes ds-aviso { 0% { transform:scaleX(0); height:4px; bottom:-4px; } 45%,75% { transform:scaleX(1); height:4px; bottom:-4px; } 100% { transform:scaleX(1); height:2px; bottom:-3px; } } @keyframes ds-aviso-f { 0%,100% { transform:translateX(0); } 45% { transform:translateX(4px); } } @media (prefers-reduced-motion: reduce) { .ds-tab::after, .ds-tab-f { animation:none !important; transition:none; } }"
     },
     {
       "name": "Mosaico de cobertura",

@@ -12,7 +12,7 @@ const clausulas = [
 	<div class="mx-auto grid max-w-[84rem] gap-12 px-4 py-16 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20 lg:px-12 lg:py-24">
 		<div>
 			<h2 id="como-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Qué hacemos por vos</h2>
-			<p class="mt-6 max-w-[30ch] text-[1.1875rem] text-on-dark">
+			<p class="mt-6 max-w-[30ch] text-[1.25rem] text-on-dark">
 				Más de 35 años asesorando a personas y empresas de Mar del Plata.
 			</p>
 		</div>
@@ -20,10 +20,10 @@ const clausulas = [
 		<ol class="border-t-2 border-paper">
 			{clausulas.map((c, i) => (
 				<li class="grid grid-cols-[3.25rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-paper/30 py-5 sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:py-6">
-					<span class="font-mono text-[1rem] font-medium text-seal-on-dark sm:text-[1.0625rem]">Art. {i + 1}</span>
+					<span class="font-mono text-[1rem] font-medium text-seal-on-dark">Art. {i + 1}</span>
 					<div>
 						<h3 class="text-[1.5rem] font-bold sm:text-[1.75rem]">{c.titulo}</h3>
-						<p class="mt-1 text-[1.0625rem] text-on-dark sm:text-[1.125rem]">{c.texto}</p>
+						<p class="mt-1 text-[1.125rem] text-on-dark sm:text-[1.125rem]">{c.texto}</p>
 					</div>
 				</li>
 			))}

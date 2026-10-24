@@ -268,15 +268,12 @@ components:
     backgroundColor: "{colors.claim-soft}"
   tab:
     backgroundColor: "transparent"
-    textColor: "{colors.ink}"
+    textColor: "{colors.ink-2}"
     typography: "{typography.item}"
     rounded: "{rounded.none}"
-    height: "56px"
-  tab-hover:
-    backgroundColor: "{colors.wash}"
+    height: "52px"
   tab-selected:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
+    textColor: "{colors.ink}"
   cobertura-tile:
     backgroundColor: "{colors.sheet}"
     textColor: "{colors.ink}"
@@ -399,7 +396,7 @@ Estos dos colores se usan solo en los CTAs de la portada y del Cierre sobre fond
 - **Title** (700, 1.5–2rem, 1.04): encabezados de columna, cláusulas, título del formulario (1.625–1.875rem), título de la carátula (1.5rem, ancho 88%) y bloques laterales (1.375rem).
 - **Lead** (400, 1.1875rem, 1.55, `ink-2`): bajada de sección, 42–46ch. La bajada de portada sube a 1.25–1.375rem con interlineado 1.5, 46ch, en `on-dark`.
 - **Body** (400, 1.125rem, 1.55): texto corriente y valores de campo; nombres de ítems en 1.25–1.375rem semibold.
-- **Label** (Chivo Mono 500, 0.875rem, +0.02em, cifras tabulares): números de campo (01, 02, 03), encabezados de tabla, contadores ("6 coberturas"), los rótulos y la fecha de la carátula, el estado de atención de Contacto, los números de paso de siniestros, el crédito de la foto de portada y la nota de versión demo del footer.
+- **Label** (Chivo Mono 500, 0.875rem, +0.02em, cifras tabulares): números de campo (01, 02, 03), encabezados de tabla, los rótulos y la fecha de la carátula, el estado de atención de Contacto, los números de paso de siniestros, el crédito de la foto de portada y la nota de versión demo del footer.
 
 ### Named Rules
 **The Typed Field Rule.** Todo lo que en un documento real estaría tipeado a máquina (número de campo, artículo, notas de pie, rótulos de tabla) va en Chivo Mono con cifras tabulares. La prosa y los valores que el usuario lee van en Archivo.
@@ -427,7 +424,7 @@ El sistema es plano. No hay sombras en ninguna superficie: la jerarquía y la pr
 
 ## Shapes
 
-Esquinas rectas (0px) en todo lo construido: formularios, campos, opciones, botones, bloques, el carril de aseguradoras, el mapa y la hoja de Contacto. Las casillas de elección son cuadrados de 24px con borde de 2px que se rellenan de tinta al elegir; los mosaicos de cobertura son rectángulos rectos de borde de 1.5px (`rule-soft`, o `ink` en los grandes rellenos) y el selector de coberturas es una barra de borde de 2px en tinta con dos pestañas rectas. Los únicos círculos son nativos del mundo, más una excepción de botón: la insignia circular del logo del cliente, los botones de solo ícono de WhatsApp (56px en la portada y en el Cierre, 44px en el panel de cada persona), los puntos indicadores de 10px (8px en el menú; estado de atención; aviso bordó del acceso a siniestros, con anillo `paper`) y el sello de goma. Un dato que todavía falta se dibuja como una línea discontinua de 1.5px en `rule`, el renglón vacío de un formulario impreso. La foto de portada va a sangre, sin marco; el mapa de Contacto va a sangre, con la hoja de datos de borde recto de 2px en tinta encima (ver Mapa de Contacto). El marcador del mapa es la única forma de gota del sistema, dibujada a medida.
+Esquinas rectas (0px) en todo lo construido: formularios, campos, opciones, botones, bloques, el carril de aseguradoras, el mapa y la hoja de Contacto. Las casillas de elección son cuadrados de 24px con borde de 2px que se rellenan de tinta al elegir; los mosaicos de cobertura son rectángulos rectos de borde de 1.5px (`rule-soft`, o `ink` en los grandes rellenos) y el selector de coberturas son dos pestañas de texto planas con subrayado recto sobre la grilla (ver Selector de coberturas). Los únicos círculos son nativos del mundo, más una excepción de botón: la insignia circular del logo del cliente, los botones de solo ícono de WhatsApp (56px en la portada y en el Cierre, 44px en el panel de cada persona), los puntos indicadores de 10px (8px en el menú; estado de atención; aviso bordó del acceso a siniestros, con anillo `paper`) y el sello de goma. Un dato que todavía falta se dibuja como una línea discontinua de 1.5px en `rule`, el renglón vacío de un formulario impreso. La foto de portada va a sangre, sin marco; el mapa de Contacto va a sangre, con la hoja de datos de borde recto de 2px en tinta encima (ver Mapa de Contacto). El marcador del mapa es la única forma de gota del sistema, dibujada a medida.
 
 ### Named Rules
 **The Square Corner Rule.** Lo que el sistema dibuja tiene esquinas rectas. Lo circular se limita a lo que es circular por naturaleza: el logo, el sello y los indicadores de estado. Excepción (decisión del cliente): un botón de solo ícono puede ser circular; los ejemplos son el botón redondo de 56px de WhatsApp de la portada (`aria-label` "Escribinos por WhatsApp") y el de 44px del panel de cada persona (`aria-label` "Escribirle a <nombre> por WhatsApp"). Toda otra esquina, incluidos los botones con rótulo, sigue recta.
@@ -499,7 +496,9 @@ Titular «Nuestro equipo». Todas las personas, sin distinguir a nadie, en dos f
 **The Allowed Motion Rule.** El movimiento continuo solo existe en el carril de Aseguradoras y en las filas de Equipo. Ambos se frenan al hover y al foco, ocultan la copia a lectores de pantalla y quedan estáticos con `prefers-reduced-motion`. Pendiente: las filas de Equipo no tienen aún el botón de pausa discreto del carril de Aseguradoras.
 
 ### Selector de coberturas (pestañas)
-Dos pestañas, "Para vos" y "Para tu empresa", en una barra con borde de 2px en tinta a la derecha del titular (debajo en celulares). Cada pestaña mide al menos 56px de alto, texto 1.1875rem semibold, sin fondo; hover `wash`; la elegida se rellena de `ink` con texto `paper` (200ms). Semántica de pestañas: `role=tablist`, `aria-selected`, flechas izquierda/derecha con vuelta, Home y End, y solo la pestaña activa en el orden de tabulación. Lo muestra el script: sin JS no hay selector y los dos grupos se ven apilados, cada uno bajo su subtítulo de 1.75rem con regla de 2px en tinta.
+Dos pestañas de texto planas, "Para vos" y "Para tu empresa", en una fila (`tabs-fila`) pegada encima de la grilla de mosaicos, con `mt-6` (`lg:mt-8`) bajo la bajada de la cabecera y 1.25rem de aire hasta la grilla. La fila lleva una regla inferior de 1px en `rule` y se alinea a la derecha en escritorio (`justify-content: flex-end`); en celulares las pestañas ocupan el ancho completo, repartidas en partes iguales. Cada pestaña mide al menos 52px de alto, texto 1.125rem semibold (1.1875rem desde 640px), 2rem entre pestañas. Inactiva en `ink-2` (hover `ink`); la activa pasa a `ink` con un subrayado de 4px en `ink` que se apoya sobre la regla de 1px (color y borde en 250ms `ease-out-expo`). El estado activo nunca usa el relleno de `ink` de los mosaicos grandes. Las pestañas no llevan cantidad: no hay números en el selector ni en las notas que señalan a la otra pestaña. Semántica de pestañas: `role=tablist`/`tab`/`tabpanel`, `aria-selected`, flechas izquierda/derecha con vuelta, Home y End, y solo la pestaña activa en el orden de tabulación; los paneles llevan `tabindex="-1"` para poder recibir el foco por script. Lo muestra el script: sin JS no hay selector y los dos grupos se ven apilados, cada uno bajo su subtítulo de 1.75rem con regla de 2px en tinta. Con `prefers-reduced-motion` las pestañas no animan color.
+
+**Aviso hacia la otra pestaña** (la guía elegida por el cliente). Hasta el primer cambio de pestaña (`data-cambiado`, por clic o teclado), la pestaña inactiva lleva un subrayado fijo de 2px en `rule` y una flecha de 16px (`arrowRight`, trazo 2.25) después del rótulo, a 0.5rem; al hover el subrayado se engrosa a 4px y la flecha avanza 3px. Cada vez que la sección entra en pantalla (IntersectionObserver al 35% sobre la fila de pestañas, que alterna `data-visto`), el subrayado de la inactiva se dibuja de izquierda a derecha en 4px tres veces (1.6s `ease-out-expo` cada una, tras 0.3s; unos 4.8s de movimiento, bajo el límite de 5 segundos de WCAG 2.2.2, por eso no lleva control de pausa) y la flecha avanza 4px con cada pasada; después queda en la línea fija de 2px. Es un movimiento finito, no continuo. Tras el primer cambio desaparecen la línea y la flecha, y al hover la pestaña inactiva dibuja el subrayado completo de 4px en `rule`. No suma colores ni texto: no hay notas, barras ni enlaces que señalen a la otra pestaña. Con `prefers-reduced-motion` no hay animación ni transición: solo la línea fija y la flecha.
 
 ### Mosaico de cobertura
 Cada producto es un vínculo entero a `/cotizar?rama=…&producto=…`: ícono lucide, nombre, resumen de una línea y "Cotizar →" abajo; esquinas rectas, borde de 1.5px.
@@ -562,7 +561,7 @@ Un solo sistema para toda la web, implementado en `global.css` (`.ix-*` y los to
 
 **3 · Enlace de texto** (`ix-link` / `ix-sub`): el subrayado se dibuja o se borra de izquierda a derecha en 350ms; nunca engrosa. `ix-link`: sin subrayado en reposo, aparece (teléfono 0800, teléfono de Contacto, enlaces del header con `nav-link`). `ix-sub`: subrayado en reposo, desaparece (email e Instagram de Contacto, «Cómo llegar» a 2px, SSN del footer, «¿Tuviste un siniestro?» del hero, enlaces de cotizar). El grosor sale de `--ix-grosor` (1px; 2px en «Cómo llegar»).
 
-**4 · Control** (`ix-control`): pestañas de Coberturas, botón de pausa del carril. Piezas chicas y repetidas: cambian de color en 200ms y se presionan; no se mueven.
+**4 · Control** (`ix-control`): pestañas de Coberturas (sin cambio de relleno a `ink`), botón de pausa del carril. Piezas chicas y repetidas: cambian de color en 200ms y se presionan; no se mueven.
 
 **Fuera del sistema (a propósito):** el color y el zoom de las fotos del equipo, el color de los logos de Aseguradoras, y los campos de formulario (borde en hover y foco, 200ms).
 

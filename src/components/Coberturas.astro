@@ -3,8 +3,8 @@ import Icon from './Icon.astro';
 import { productosPersonas, productosEmpresas } from '../data/brokers';
 
 const paneles = [
-	{ id: 'personas', titulo: 'Para vos', productos: productosPersonas, filas: 'lg:grid-rows-[auto_auto_auto]' },
-	{ id: 'empresas', titulo: 'Para tu empresa', productos: productosEmpresas, filas: '' },
+	{ id: 'personas', titulo: 'Para vos', productos: productosPersonas },
+	{ id: 'empresas', titulo: 'Para tu empresa', productos: productosEmpresas },
 ];
 
 const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}&producto=${encodeURIComponent(p.nombre)}`;
@@ -12,33 +12,37 @@ const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}
 
 <section id="coberturas" class="border-t-2 border-ink" aria-labelledby="coberturas-titulo" data-coberturas>
 	<div class="mx-auto max-w-[84rem] px-4 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-		<div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+		<div>
 			<div>
 				<h2 id="coberturas-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Qué podemos asegurarte</h2>
 				<p class="mt-5 max-w-[40ch] text-[1.25rem] text-ink-2">Para vos, tu familia y tu empresa. Elegí qué querés asegurar y te cotizamos.</p>
 			</div>
 
-			<!-- Selector: lo muestra el script; sin JS se ven los dos grupos uno debajo del otro -->
-			<div role="tablist" aria-label="Tipo de seguro" class="selector hidden shrink-0 border-2 border-ink" data-tablist>
-				{paneles.map((pn, i) => (
-					<button
-						type="button"
-						role="tab"
-						id={`tab-${pn.id}`}
-						aria-controls={`panel-${pn.id}`}
-						aria-selected={i === 0 ? 'true' : 'false'}
-						tabindex={i === 0 ? 0 : -1}
-						class="tab ix-control min-h-14 flex-1 whitespace-nowrap px-5 text-[1.1875rem] font-semibold sm:min-w-[13rem]"
-					>
-						{pn.titulo}
-					</button>
-				))}
-			</div>
 		</div>
 
-		<div class="mt-10 lg:mt-14">
+		<div class="mt-6 lg:mt-8">
+			<!-- Selector pegado a la grilla: lo muestra el script; sin JS se ven los dos grupos uno debajo del otro -->
+			<div class="tabs-fila" data-tabs-fila>
+				<div role="tablist" aria-label="Tipo de seguro" class="selector" data-tablist>
+										{paneles.map((pn, i) => (
+						<button
+							type="button"
+							role="tab"
+							id={`tab-${pn.id}`}
+							aria-controls={`panel-${pn.id}`}
+							aria-selected={i === 0 ? 'true' : 'false'}
+							tabindex={i === 0 ? 0 : -1}
+							class="tab ix-control cursor-pointer"
+						>
+							{pn.titulo}
+							<span class="tab-flecha" aria-hidden="true"><Icon name="arrowRight" class="size-4" strokeWidth={2.25} /></span>
+						</button>
+					))}
+				</div>
+			</div>
+
 			{paneles.map((pn) => (
-				<div id={`panel-${pn.id}`} role="tabpanel" aria-labelledby={`tab-${pn.id}`} class="panel mb-14 last:mb-0" data-panel>
+				<div id={`panel-${pn.id}`} role="tabpanel" aria-labelledby={`tab-${pn.id}`} class="panel mt-0 mb-14 last:mb-0 focus:outline-none" tabindex="-1" data-panel>
 					<h3 class="panel-titulo mb-5 border-b-2 border-ink pb-3 text-[1.75rem] font-bold">{pn.titulo}</h3>
 					<ul class="mosaicos grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
 						{pn.productos.map((p, i) => {
@@ -67,7 +71,7 @@ const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}
 											<span class:list={['mt-2 leading-[1.4]', p.grande ? 'max-w-[34ch] text-[1.125rem] text-on-dark' : 'text-[1rem] text-ink-2']}>{p.resumen}</span>
 											{p.nota && <span class="mt-2 font-mono text-[0.875rem] text-seal-on-dark">{p.nota}</span>}
 										</span>
-										<span class:list={['inline-flex items-center gap-2 font-semibold', p.grande ? 'text-[1.1875rem]' : 'text-[1.0625rem] text-ink']}>
+										<span class:list={['inline-flex items-center gap-2 font-semibold', p.grande ? 'text-[1.25rem]' : 'text-[1.125rem] text-ink']}>
 											Cotizar
 											<Icon name="arrowRight" class="ix-flecha size-5" strokeWidth={2} />
 										</span>
@@ -83,32 +87,82 @@ const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}
 </section>
 
 <style>
-	.tab {
-		background: transparent;
-		color: var(--color-ink);
-	}
-	.tab:hover {
-		background: var(--color-wash);
-	}
-	.tab[aria-selected='true'] {
-		background: var(--color-ink);
-		color: var(--color-paper);
-	}
-	.selector {
-		display: none;
-	}
-	:global([data-js]) .selector {
+	.selector { display: none; }
+	:global([data-js]) .selector { display: flex; }
+
+	/* Pestañas con subrayado, a la derecha y pegadas a la grilla */
+	.tabs-fila {
 		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.5rem 2rem;
+		margin-bottom: 1.25rem;
+		border-bottom: 1px solid var(--color-rule);
 	}
-	:global([data-js]) .panel-titulo {
-		display: none;
+	.selector { order: 2; gap: 2rem; margin-bottom: -1px; width: 100%; }
+	.tab {
+		position: relative;
+		z-index: 1;
+		display: inline-flex;
+		flex: 1;
+		align-items: center;
+		justify-content: center;
+		min-height: 3.25rem;
+		font-size: 1.125rem;
+		font-weight: 600;
+		white-space: nowrap;
+		color: var(--color-ink-2);
+		border-bottom: 4px solid transparent;
+		transition: color 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo);
 	}
-	:global([data-js]) .panel {
-		margin-bottom: 0;
+	.tab:hover { color: var(--color-ink); }
+	.tab[aria-selected='true'] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
+	@media (min-width: 640px) {
+		.selector { width: auto; }
+		.tab { flex: none; font-size: 1.125rem; }
 	}
-	:global([data-js]) .panel[hidden] {
-		display: none;
+
+	/* Aviso: la pestaña no elegida invita a tocarla.
+	   Al entrar la sección en pantalla dibuja su subrayado tres veces (< 5 s, sin control de pausa necesario)
+	   y después queda con una línea fija y una flecha, hasta el primer cambio. */
+	.tab { gap: 0.5rem; }
+	.tab::after {
+		content: '';
+		position: absolute;
+		inset: auto 0 -4px 0;
+		height: 4px;
+		background: var(--color-rule);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.35s var(--ease-out-expo);
 	}
+	.tab-flecha { display: none; transition: transform 0.3s var(--ease-out-expo); }
+	.tab[aria-selected='false']:hover::after { transform: scaleX(1); }
+	:global([data-js]) [data-coberturas]:not([data-cambiado]) .tab[aria-selected='false']::after { transform: scaleX(1); height: 2px; bottom: -3px; }
+	:global([data-js]) [data-coberturas]:not([data-cambiado]) .tab[aria-selected='false'] .tab-flecha { display: block; }
+	.tab:hover .tab-flecha { transform: translateX(3px); }
+	:global([data-js]) [data-coberturas]:not([data-cambiado]) .tab[aria-selected='false']:hover::after { height: 4px; bottom: -4px; }
+	[data-coberturas][data-visto]:not([data-cambiado]) .tab[aria-selected='false']::after {
+		animation: aviso 1.6s var(--ease-out-expo) 0.3s 3 backwards;
+	}
+	[data-coberturas][data-visto]:not([data-cambiado]) .tab[aria-selected='false'] .tab-flecha {
+		animation: aviso-flecha 1.6s var(--ease-out-expo) 0.3s 3 backwards;
+	}
+	@keyframes aviso {
+		0% { transform: scaleX(0); height: 4px; }
+		45% { transform: scaleX(1); height: 4px; }
+		75% { transform: scaleX(1); height: 4px; }
+		100% { transform: scaleX(1); height: 2px; }
+	}
+	@keyframes aviso-flecha {
+		0%, 100% { transform: translateX(0); }
+		45% { transform: translateX(4px); }
+	}
+
+	:global([data-js]) .panel-titulo { display: none; }
+	:global([data-js]) .panel { margin-bottom: 0; }
+	:global([data-js]) .panel[hidden] { display: none; }
 	:global([data-js]) .panel:not([hidden]) .mosaico {
 		animation: mosaico-entra 0.55s var(--ease-out-expo) both;
 		animation-delay: calc(var(--i) * 55ms);
@@ -119,11 +173,14 @@ const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.mosaico { animation: none !important; }
+		.tab, .tab::after, .tab-flecha { transition: none; animation: none !important; }
 	}
+
 </style>
 
 <script>
 	const raiz = document.querySelector<HTMLElement>('[data-coberturas]')!;
+	const lista = raiz.querySelector<HTMLElement>('[data-tablist]')!;
 	const tabs = [...raiz.querySelectorAll<HTMLButtonElement>('[role=tab]')];
 	const paneles = [...raiz.querySelectorAll<HTMLElement>('[data-panel]')];
 
@@ -137,17 +194,28 @@ const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}
 	}
 
 	document.documentElement.setAttribute('data-js', '');
-	raiz.querySelector('[data-tablist]')!.classList.remove('hidden');
 	elegir(0);
 
 	tabs.forEach((t, i) => {
-		t.addEventListener('click', () => elegir(i));
+		t.addEventListener('click', () => {
+			raiz.setAttribute('data-cambiado', '');
+			elegir(i);
+		});
 		t.addEventListener('keydown', (e) => {
 			const n = tabs.length;
 			const destino = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key as string];
 			if (destino === undefined) return;
 			e.preventDefault();
+			raiz.setAttribute('data-cambiado', '');
 			elegir(destino, true);
 		});
 	});
+
+	// Aviso: cada vez que la sección entra en pantalla (hasta el primer cambio) la otra pestaña se anima de nuevo
+	new IntersectionObserver(
+		(entradas) => {
+			for (const e of entradas) raiz.toggleAttribute('data-visto', e.isIntersecting);
+		},
+		{ threshold: 0.35 },
+	).observe(lista);
 </script>
