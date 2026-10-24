@@ -1,0 +1,66 @@
+---
+interface Props {
+	class?: string;
+}
+const { class: className = '' } = Astro.props;
+// Embed oficial de Google Maps ("Incorporar un mapa"), sin clave de API.
+// Va centrado por coordenadas (las de la dirección) y sin marcador de Google: el único pin es el propio.
+const src = 'https://maps.google.com/maps?ll=-37.9948,-57.5446&z=16&hl=es&output=embed';
+---
+
+<div class:list={['mapa relative isolate overflow-hidden bg-rule-soft', className]} data-mapa>
+	<iframe
+		title="Mapa con la ubicación de Brokers Asociados, 11 de Septiembre 2702, Mar del Plata"
+		src={src}
+		loading="lazy"
+		referrerpolicy="no-referrer-when-downgrade"
+		class="mapa-marco absolute top-0 left-0 h-full w-full border-0 lg:-left-[36%] lg:w-[136%]"
+		allowfullscreen
+	></iframe>
+	<!-- Integra el mapa a la paleta: velo de tinta que se multiplica sobre el gris -->
+	<div class="pointer-events-none absolute inset-0 bg-ink/10 mix-blend-multiply" aria-hidden="true"></div>
+	<!-- Marcador propio. En escritorio el mapa se corre a la derecha para que el punto quede a la izquierda (32 %), libre de la hoja -->
+	<svg class="mapa-marcador pointer-events-none absolute top-1/2 left-1/2 z-10 h-14 w-11 -translate-x-1/2 -translate-y-full lg:left-[32%]" viewBox="0 0 44 56" aria-hidden="true">
+		<path d="M22 54C22 54 3 33.5 3 21a19 19 0 0 1 38 0c0 12.500-19 33-19 33z" fill="#184e77" stroke="#f6f4ef" stroke-width="3" />
+		<circle cx="22" cy="21" r="7" fill="#f6f4ef" />
+	</svg>
+	<!-- Hasta tocarlo, el mapa no atrapa el scroll -->
+	<button type="button" class="mapa-tapa absolute inset-0 z-20 flex items-end justify-start p-3 text-left" data-mapa-activar>
+		<span class="field-no bg-paper px-3 py-2 text-ink">Tocá el mapa para moverlo</span>
+	</button>
+</div>
+
+<style>
+	.mapa-marco {
+		filter: grayscale(1) contrast(0.95) brightness(1.04);
+	}
+	.mapa-tapa { cursor: pointer; }
+	.mapa[data-activo] .mapa-tapa { display: none; }
+	/* Al salir del mapa después de usarlo, el puntero se levanta, espera 1 s y vuelve a su lugar */
+	.mapa-marcador {
+		transition: transform 0.45s var(--ease-out-expo);
+	}
+	.mapa[data-desplazado] .mapa-marcador {
+		transform: translateY(-14px);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.mapa-marcador { transition: none; }
+	}
+</style>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-mapa]').forEach((mapa) => {
+		mapa.querySelector('[data-mapa-activar]')!.addEventListener('click', () => mapa.setAttribute('data-activo', ''));
+		// Al sacar el mouse vuelve a bloquearse, para no trabar el scroll de la página.
+		// Si se estaba usando el mapa, el puntero se levanta, espera 1 s y vuelve a su lugar.
+		let espera = 0;
+		mapa.addEventListener('mouseleave', () => {
+			const usado = mapa.hasAttribute('data-activo');
+			mapa.removeAttribute('data-activo');
+			if (!usado || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+			clearTimeout(espera);
+			mapa.setAttribute('data-desplazado', '');
+			espera = window.setTimeout(() => mapa.removeAttribute('data-desplazado'), 1000);
+		});
+	});
+</script>

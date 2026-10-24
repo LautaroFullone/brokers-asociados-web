@@ -108,20 +108,16 @@
 		background-size: var(--grano-tam) var(--grano-tam), auto;
 	}
 
-	/* El degradé del logo (azul → teal → verde). El campo es seguro para texto (azul a azul medio);
-	   los tonos claros #34a0a4 y #52b69a solo viven en la tira del borde inferior, nunca bajo texto. */
+	/* El degradé del logo (azul → teal → verde). El campo base es seguro para texto (azul a azul medio);
+	   los tonos claros #34a0a4 y #52b69a solo viven en un brillo radial de la esquina inferior derecha,
+	   que se apaga antes de llegar a la fila de texto inferior (el padding de la sección deja ≥4rem de aire bajo el texto). */
 	.bg-logo {
-		position: relative;
 		background-color: var(--color-ink);
-		background-image: var(--grano), linear-gradient(118deg, #184e77 0%, #1a759f 100%);
-		background-size: var(--grano-tam) var(--grano-tam), auto;
-	}
-	.bg-logo::after {
-		content: '';
-		position: absolute;
-		inset: auto 0 0 0;
-		height: 0.5rem;
-		background: linear-gradient(90deg, #184e77 0%, #1a759f 38%, #34a0a4 72%, #52b69a 100%);
+		background-image:
+			var(--grano),
+			radial-gradient(22rem 3.75rem at 100% 100%, rgb(82 182 154 / 0.5) 0%, rgb(52 160 164 / 0.28) 40%, rgb(26 117 159 / 0) 100%),
+			linear-gradient(118deg, #184e77 0%, #1a759f 100%);
+		background-size: var(--grano-tam) var(--grano-tam), auto, auto;
 	}
 
 	/* Grano sobre un campo de color liso */
