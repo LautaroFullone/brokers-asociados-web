@@ -1,0 +1,64 @@
+---
+// Sello de goma verde: "35 años" con texto circular.
+interface Props {
+	class?: string;
+	/** Tinta clara para usar sobre foto o campos oscuros. */
+	claro?: boolean;
+}
+const { class: className = '', claro = false } = Astro.props;
+---
+
+<svg
+	class:list={['seal', className]}
+	data-claro={claro || undefined}
+	viewBox="0 0 200 200"
+	role="img"
+	aria-label="Más de 35 años asesorando en Mar del Plata"
+>
+	<defs>
+		<path id="seal-arc" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" />
+		<filter id="seal-ink" x="-5%" y="-5%" width="110%" height="110%">
+			<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n" />
+			<feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.35" result="m" />
+			<feComposite in="SourceGraphic" in2="m" operator="in" />
+		</filter>
+	</defs>
+	<g fill="none" stroke="currentColor" filter="url(#seal-ink)">
+		<circle cx="100" cy="100" r="94" stroke-width="4" />
+		<circle cx="100" cy="100" r="87" stroke-width="1.5" />
+		<circle cx="100" cy="100" r="56" stroke-width="1.5" />
+		<g fill="currentColor" stroke="none">
+			<text font-family="Chivo Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="2.2">
+				<textPath href="#seal-arc" startOffset="0">MAR DEL PLATA · PRODUCTORES ASESORES ·</textPath>
+			</text>
+			<text x="100" y="104" text-anchor="middle" font-family="Archivo Variable, sans-serif" font-size="58" font-weight="800" letter-spacing="-2" style="font-stretch:80%">+35</text>
+			<text x="100" y="128" text-anchor="middle" font-family="Chivo Mono, monospace" font-size="15" font-weight="500" letter-spacing="4">AÑOS</text>
+		</g>
+	</g>
+</svg>
+
+<style>
+	.seal {
+		color: var(--color-seal);
+		mix-blend-mode: multiply;
+		transform: rotate(-11deg);
+		animation: stamp 0.9s var(--ease-out-expo) 0.35s both;
+	}
+	.seal[data-claro] {
+		color: var(--color-seal-glow);
+		mix-blend-mode: normal;
+	}
+	@keyframes stamp {
+		from {
+			opacity: 0.25;
+			transform: rotate(-4deg) scale(1.35);
+		}
+		to {
+			opacity: 1;
+			transform: rotate(-11deg) scale(1);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.seal { animation: none; }
+	}
+</style>

@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+import { equipo } from '../data/brokers';
+
+const iniciales = (n: string) => n.split(' ').map((p) => p[0]).join('');
+const telHref = (t: string) => `tel:+54${t.replace(/\D/g, '')}`;
+const cols = 'md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.7fr)_minmax(0,0.8fr)_minmax(0,1.35fr)]';
+---
+
+<section id="personas" class="border-t-2 border-ink" aria-labelledby="personas-titulo">
+	<div class="mx-auto max-w-[84rem] px-4 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
+		<h2 id="personas-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Te atiende una persona</h2>
+
+		<div class={`field-no mt-10 hidden gap-x-6 border-t-2 border-ink py-3 text-ink-2 md:grid ${cols}`} aria-hidden="true">
+			<span>Nombre</span><span>Área</span><span>Teléfono</span><span>Email</span>
+		</div>
+		<ul class="mt-10 border-t-2 border-ink md:mt-0 md:border-t-0">
+			{equipo.map((p) => (
+				<li class={`grid grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-x-4 gap-y-1 border-b border-rule py-5 md:gap-x-6 md:border-t md:border-b-0 md:last:border-b ${cols}`}>
+					<div class="row-span-4 flex items-center gap-4 self-start md:row-span-1 md:self-center">
+						<span class="grid size-14 shrink-0 place-items-center border-[1.5px] border-dashed border-rule bg-wash font-mono text-[1rem] text-ink-2" title="Foto pendiente" aria-hidden="true">
+							{iniciales(p.nombre)}
+						</span>
+						<span class="hidden text-[1.25rem] font-semibold md:inline">{p.nombre}</span>
+					</div>
+					<span class="text-[1.25rem] font-semibold md:hidden">{p.nombre}</span>
+					<span class="text-[1.0625rem] text-ink-2 md:text-[1.125rem] md:text-ink">{p.area}</span>
+					{p.telefono ? (
+						<a href={telHref(p.telefono)} class="inline-flex items-center gap-2 justify-self-start text-[1.125rem] font-medium no-underline hover:underline">
+							<Icon name="phone" class="size-[1.125rem] md:hidden" />{p.telefono}
+						</a>
+					) : (
+						<span class="text-[1rem] text-ink-2 italic">Teléfono a confirmar</span>
+					)}
+					<a href={`mailto:${p.email}`} class="justify-self-start text-[1rem] [overflow-wrap:anywhere] hover:no-underline md:text-[1.0625rem]">{p.email}</a>
+				</li>
+			))}
+		</ul>
+
+		<a href="/productores" class="group mt-10 inline-flex items-center gap-3 border-2 border-ink px-6 py-4 text-[1.1875rem] font-semibold no-underline transition-colors duration-200 hover:bg-ink hover:text-paper">
+			Conocé a los productores asesores
+			<Icon name="arrowRight" class="size-5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
+		</a>
+	</div>
+</section>

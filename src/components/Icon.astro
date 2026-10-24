@@ -1,0 +1,39 @@
+---
+import phone from 'lucide-static/icons/phone.svg?raw';
+import mail from 'lucide-static/icons/mail.svg?raw';
+import mapPin from 'lucide-static/icons/map-pin.svg?raw';
+import clock from 'lucide-static/icons/clock.svg?raw';
+import arrowRight from 'lucide-static/icons/arrow-right.svg?raw';
+import check from 'lucide-static/icons/check.svg?raw';
+import user from 'lucide-static/icons/user-round.svg?raw';
+import carFront from 'lucide-static/icons/car-front.svg?raw';
+import frame from 'lucide-static/icons/frame.svg?raw';
+import lockKeyhole from 'lucide-static/icons/lock-keyhole.svg?raw';
+import disc from 'lucide-static/icons/disc-3.svg?raw';
+import siren from 'lucide-static/icons/siren.svg?raw';
+import smartphone from 'lucide-static/icons/smartphone.svg?raw';
+import house from 'lucide-static/icons/house.svg?raw';
+import store from 'lucide-static/icons/store.svg?raw';
+import whatsapp from 'simple-icons/icons/whatsapp.svg?raw';
+import instagram from 'simple-icons/icons/instagram.svg?raw';
+
+const icons = { phone, mail, mapPin, clock, arrowRight, check, user, whatsapp, instagram, carFront, frame, lockKeyhole, disc, siren, smartphone, house, store };
+const brands = new Set(['whatsapp', 'instagram']);
+
+interface Props {
+	name: keyof typeof icons;
+	class?: string;
+	strokeWidth?: number;
+}
+
+const { name, class: className = 'size-5', strokeWidth = 1.75 } = Astro.props;
+let svg = icons[name]
+	.replace(/<!--[\s\S]*?-->/g, '')
+	.replace(/<svg[^>]*>/, (tag) => tag.replace(/\s(width|height|class)="[^"]*"/g, ''))
+	.replace('<svg', `<svg class="${className}" aria-hidden="true" focusable="false"`);
+svg = brands.has(name)
+	? svg.replace('<svg', '<svg fill="currentColor"').replace(/<title>.*?<\/title>/, '')
+	: svg.replace(/stroke-width="[^"]*"/, `stroke-width="${strokeWidth}"`);
+---
+
+<Fragment set:html={svg} />

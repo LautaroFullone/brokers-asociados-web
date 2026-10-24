@@ -1,0 +1,133 @@
+@import "tailwindcss";
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource/chivo-mono/400.css";
+@import "@fontsource/chivo-mono/500.css";
+
+@theme {
+	--font-sans: "Archivo Variable", "Archivo", system-ui, sans-serif;
+	--font-mono: "Chivo Mono", ui-monospace, monospace;
+
+	/* Papel y tinta de la póliza */
+	--color-paper: #f6f4ef;
+	--color-sheet: #ffffff;
+	--color-ink: #184e77;
+	--color-ink-2: #3f5870;
+	--color-rule: #7f95a6;
+	--color-rule-soft: #d3dee5;
+	--color-wash: #eef3f6;
+	--color-ink-deep: #0f3a5c;
+	--color-link: #1e6091;
+
+	/* Sello verde del logo */
+	--color-seal: #1f6e55;
+	--color-seal-deep: #175843;
+	--color-seal-soft: #e3f0ec;
+
+	/* Rojo reservado para siniestros */
+	--color-claim: #b4232a;
+	--color-claim-deep: #8f1a20;
+	--color-claim-soft: #fbeeee;
+
+	/* Acento azul del logo: foco y vínculos de acción */
+	--color-teal: #1a759f;
+
+	/* Sobre campos oscuros: texto en on-dark o seal-on-dark; seal-glow solo para gráficos (sello) */
+	--color-on-dark: #e6f2f7;
+	--color-seal-on-dark: #e8f8ef;
+	--color-seal-glow: #76c893;
+
+	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+	html {
+		background: var(--color-paper);
+		color-scheme: light;
+		scroll-behavior: smooth;
+		scrollbar-color: var(--color-rule) var(--color-paper);
+		-webkit-text-size-adjust: 100%;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		html { scroll-behavior: auto; }
+	}
+	body {
+		color: var(--color-ink);
+		font-family: var(--font-sans);
+		font-size: 1.125rem;
+		line-height: 1.55;
+		caret-color: var(--color-ink);
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+	/* Grano del papel: un tile PNG liviano (alfa ya incluida) que comparten el fondo y las barras */
+	:root {
+		--grano: url('/grano.png');
+	}
+	/* Capa fija propia, detrás de todo el contenido */
+	body::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background: var(--grano) 0 0 / 200px 200px;
+	}
+	::selection {
+		background: var(--color-ink);
+		color: var(--color-paper);
+	}
+	h1, h2, h3 {
+		text-wrap: balance;
+		font-stretch: 88%;
+		letter-spacing: -0.02em;
+		line-height: 1.04;
+	}
+	p { text-wrap: pretty; }
+	a {
+		text-underline-offset: 0.22em;
+		text-decoration-thickness: 1px;
+	}
+	:focus-visible {
+		outline: 3px solid var(--color-teal);
+		outline-offset: 3px;
+	}
+	.font-mono { font-variant-numeric: tabular-nums; }
+	[id] { scroll-margin-top: 5.5rem; }
+}
+
+@layer components {
+	/* Superficie con el mismo grano que el fondo */
+	.superficie-papel {
+		background: var(--grano) 0 0 / 200px 200px, var(--color-paper);
+	}
+
+	/* Campo de siniestros: el rojo es solo para esto */
+	.bg-claim-field {
+		background-color: var(--color-claim-deep);
+		background-image: linear-gradient(125deg, var(--color-claim-deep) 0%, var(--color-claim) 100%);
+	}
+
+	/* El degradé del logo (azul → teal → verde). El campo es seguro para texto (azul a azul medio);
+	   los tonos claros #34a0a4 y #52b69a solo viven en la tira del borde inferior, nunca bajo texto. */
+	.bg-logo {
+		position: relative;
+		background-color: var(--color-ink);
+		background-image: linear-gradient(118deg, #184e77 0%, #1a759f 100%);
+	}
+	.bg-logo::after {
+		content: '';
+		position: absolute;
+		inset: auto 0 0 0;
+		height: 0.5rem;
+		background: linear-gradient(90deg, #184e77 0%, #1a759f 38%, #34a0a4 72%, #52b69a 100%);
+	}
+
+	/* Etiqueta de campo de documento: número + texto */
+	.field-no {
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		font-weight: 500;
+		letter-spacing: 0.02em;
+		font-variant-numeric: tabular-nums;
+	}
+}

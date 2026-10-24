@@ -1,0 +1,42 @@
+---
+// Sello de goma verde reutilizable: texto circular fijo y leyenda central variable.
+interface Props {
+	id: string;
+	lineas: string[];
+	class?: string;
+}
+const { id, lineas, class: className = '' } = Astro.props;
+const y0 = 100 - (lineas.length - 1) * 11;
+---
+
+<svg class:list={['stamp', className]} viewBox="0 0 200 200" aria-hidden="true">
+	<defs>
+		<path id={`${id}-arc`} d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" />
+		<filter id={`${id}-ink`} x="-5%" y="-5%" width="110%" height="110%">
+			<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="11" result="n" />
+			<feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.35" result="m" />
+			<feComposite in="SourceGraphic" in2="m" operator="in" />
+		</filter>
+	</defs>
+	<g fill="none" stroke="currentColor" filter={`url(#${id}-ink)`}>
+		<circle cx="100" cy="100" r="94" stroke-width="4" />
+		<circle cx="100" cy="100" r="87" stroke-width="1.5" />
+		<circle cx="100" cy="100" r="56" stroke-width="1.5" />
+		<g fill="currentColor" stroke="none">
+			<text font-family="Chivo Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="2.2">
+				<textPath href={`#${id}-arc`}>BROKERS ASOCIADOS · MAR DEL PLATA ·</textPath>
+			</text>
+			<text text-anchor="middle" font-family="Archivo Variable, sans-serif" font-weight="800" font-size="21" style="font-stretch:80%" data-stamp-text>
+				{lineas.map((l, i) => <tspan x="100" y={y0 + i * 22 + 7}>{l}</tspan>)}
+			</text>
+		</g>
+	</g>
+</svg>
+
+<style>
+	.stamp {
+		color: var(--color-seal);
+		mix-blend-mode: multiply;
+		transform: rotate(-11deg);
+	}
+</style>

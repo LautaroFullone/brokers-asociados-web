@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T23:00:00Z",
+  "title": "Design System: Brokers Asociados",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Tinta de póliza",
+        "canonical": "#184e77",
+        "oklch": "oklch(41.0% 0.088 245.6)",
+        "tonalRamp": [
+          "#000c20",
+          "#002744",
+          "#0d456e",
+          "#316690",
+          "#5388b4",
+          "#75abd9",
+          "#9ccffd",
+          "#e2f1fe"
+        ]
+      },
+      "ink-2": {
+        "role": "primary",
+        "displayName": "Tinta secundaria",
+        "canonical": "#3f5870",
+        "oklch": "oklch(45.0% 0.050 248.0)",
+        "tonalRamp": [
+          "#000c1f",
+          "#0f273c",
+          "#2c445b",
+          "#4b647d",
+          "#6b859f",
+          "#8da8c3",
+          "#b0cde9",
+          "#e2f0ff"
+        ]
+      },
+      "ink-deep": {
+        "role": "primary",
+        "displayName": "Tinta profunda",
+        "canonical": "#0f3a5c",
+        "oklch": "oklch(33.8% 0.076 246.8)",
+        "tonalRamp": [
+          "#000c20",
+          "#002745",
+          "#1b4568",
+          "#3b658a",
+          "#5c87ad",
+          "#7eaad2",
+          "#a1cff8",
+          "#e2f1fe"
+        ]
+      },
+      "link": {
+        "role": "primary",
+        "displayName": "Azul de vínculo",
+        "canonical": "#1e6091",
+        "oklch": "oklch(47.3% 0.102 245.3)",
+        "tonalRamp": [
+          "#000c1f",
+          "#002744",
+          "#004572",
+          "#256697",
+          "#4988bc",
+          "#6cace1",
+          "#9ccffd",
+          "#e1f1ff"
+        ]
+      },
+      "on-dark": {
+        "role": "neutral",
+        "displayName": "Texto sobre oscuro",
+        "canonical": "#e6f2f7",
+        "oklch": "oklch(95.4% 0.014 224.5)",
+        "tonalRamp": [
+          "#050c10",
+          "#1e272a",
+          "#3a4448",
+          "#596367",
+          "#7a8489",
+          "#9ca7ac",
+          "#c0cbd0",
+          "#e5f1f6"
+        ]
+      },
+      "seal-on-dark": {
+        "role": "secondary",
+        "displayName": "Sello sobre oscuro",
+        "canonical": "#e8f8ef",
+        "oklch": "oklch(96.5% 0.021 161.5)",
+        "tonalRamp": [
+          "#040e08",
+          "#1c2822",
+          "#39463e",
+          "#57655d",
+          "#78867e",
+          "#9aa9a1",
+          "#becec5",
+          "#e3f3ea"
+        ]
+      },
+      "seal-glow": {
+        "role": "secondary",
+        "displayName": "Verde brillo del sello",
+        "canonical": "#76c893",
+        "oklch": "oklch(76.6% 0.111 154.5)",
+        "tonalRamp": [
+          "#001103",
+          "#002e15",
+          "#00502a",
+          "#1b7343",
+          "#439664",
+          "#68ba85",
+          "#8cdfa9",
+          "#c6ffd7"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Regla",
+        "canonical": "#7f95a6",
+        "oklch": "oklch(65.8% 0.036 241.4)",
+        "tonalRamp": [
+          "#000d19",
+          "#142735",
+          "#314553",
+          "#4f6474",
+          "#708596",
+          "#92a8ba",
+          "#b5cddf",
+          "#e0f1ff"
+        ]
+      },
+      "rule-soft": {
+        "role": "neutral",
+        "displayName": "Regla suave",
+        "canonical": "#d3dee5",
+        "oklch": "oklch(89.4% 0.015 235.4)",
+        "tonalRamp": [
+          "#050c11",
+          "#1e262c",
+          "#3a4349",
+          "#596369",
+          "#7a848a",
+          "#9ca7ad",
+          "#c0cbd2",
+          "#e5f0f7"
+        ]
+      },
+      "wash": {
+        "role": "neutral",
+        "displayName": "Lavado",
+        "canonical": "#eef3f6",
+        "oklch": "oklch(96.1% 0.007 233.6)",
+        "tonalRamp": [
+          "#090c0e",
+          "#222628",
+          "#3f4345",
+          "#5e6264",
+          "#7f8386",
+          "#a1a6a9",
+          "#c5cacd",
+          "#eaeff2"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papel",
+        "canonical": "#f6f4ef",
+        "oklch": "oklch(96.5% 0.007 90)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#252320",
+          "#42403b",
+          "#5f5d58",
+          "#827f79",
+          "#a7a49e",
+          "#cdcac4",
+          "#efece6"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Hoja",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "seal": {
+        "role": "secondary",
+        "displayName": "Verde sello",
+        "canonical": "#1f6e55",
+        "oklch": "oklch(48.4% 0.086 167.7)",
+        "tonalRamp": [
+          "#001008",
+          "#002d20",
+          "#004f3a",
+          "#227157",
+          "#489378",
+          "#6cb79a",
+          "#90dcbe",
+          "#bfffe5"
+        ]
+      },
+      "seal-deep": {
+        "role": "secondary",
+        "displayName": "Verde sello profundo",
+        "canonical": "#175843",
+        "oklch": "oklch(41.4% 0.074 167.2)",
+        "tonalRamp": [
+          "#001008",
+          "#002d1f",
+          "#084e3a",
+          "#316f59",
+          "#549179",
+          "#76b49c",
+          "#9ad9bf",
+          "#c2fee5"
+        ]
+      },
+      "seal-soft": {
+        "role": "secondary",
+        "displayName": "Verde sello suave",
+        "canonical": "#e3f0ec",
+        "oklch": "oklch(94.4% 0.015 175.7)",
+        "tonalRamp": [
+          "#050d0b",
+          "#1e2725",
+          "#3a4542",
+          "#596461",
+          "#7a8582",
+          "#9ca8a4",
+          "#c0ccc9",
+          "#e5f2ee"
+        ]
+      },
+      "claim": {
+        "role": "tertiary",
+        "displayName": "Rojo siniestro",
+        "canonical": "#b4232a",
+        "oklch": "oklch(50.2% 0.180 24.6)",
+        "tonalRamp": [
+          "#3b0000",
+          "#600000",
+          "#860000",
+          "#ac1923",
+          "#d74746",
+          "#ff6f6a",
+          "#ff968e",
+          "#ffcfc6"
+        ]
+      },
+      "claim-deep": {
+        "role": "tertiary",
+        "displayName": "Rojo siniestro profundo",
+        "canonical": "#8f1a20",
+        "oklch": "oklch(42.4% 0.152 24.4)",
+        "tonalRamp": [
+          "#340000",
+          "#580000",
+          "#7d0010",
+          "#a22e2f",
+          "#cb5551",
+          "#f57a74",
+          "#ffa099",
+          "#ffcfc7"
+        ]
+      },
+      "claim-soft": {
+        "role": "tertiary",
+        "displayName": "Rojo siniestro suave",
+        "canonical": "#fbeeee",
+        "oklch": "oklch(95.9% 0.014 17.4)",
+        "tonalRamp": [
+          "#110909",
+          "#2b2121",
+          "#473d3d",
+          "#655b5b",
+          "#887d7d",
+          "#ada1a1",
+          "#d4c7c7",
+          "#f8ebeb"
+        ]
+      },
+      "teal": {
+        "role": "tertiary",
+        "displayName": "Azul de foco y acento",
+        "canonical": "#1a759f",
+        "oklch": "oklch(53.2% 0.103 234.5)",
+        "tonalRamp": [
+          "#000d1a",
+          "#00293d",
+          "#004866",
+          "#026993",
+          "#378cb7",
+          "#5dafdc",
+          "#8bd4fd",
+          "#def2fe"
+        ]
+      },
+      "logo-aqua": {
+        "role": "tertiary",
+        "displayName": "Degradé del logo · agua (solo tira)",
+        "canonical": "#34a0a4",
+        "oklch": "oklch(64.8% 0.095 198.6)",
+        "tonalRamp": [
+          "#000f10",
+          "#002c2d",
+          "#034c4e",
+          "#096f72",
+          "#229397",
+          "#50b7bb",
+          "#77dce0",
+          "#bafdff"
+        ]
+      },
+      "logo-mint": {
+        "role": "secondary",
+        "displayName": "Degradé del logo · menta (solo tira)",
+        "canonical": "#52b69a",
+        "oklch": "oklch(70.9% 0.103 172.3)",
+        "tonalRamp": [
+          "#001009",
+          "#002d22",
+          "#034e3e",
+          "#09725b",
+          "#2d967b",
+          "#56ba9e",
+          "#7ddfc2",
+          "#bdffe9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Solo el H1 de portada, en paper sobre la foto; Archivo bold a ancho 84%, clamp(3.25rem → 6rem). Las páginas interiores usan clamp(2.5rem → 4rem) para su H1."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "H2 de cada sección; ancho 88%."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Encabezados de columna, cláusulas, título del formulario y bloques laterales (1.375–2rem)."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Bajadas de sección en ink-2, 42–46ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corriente y valores de campo; piso de 18px."
+      },
+      "label": {
+        "displayName": "Número de campo",
+        "purpose": "Chivo Mono con cifras tabulares: números de campo, artículos, rótulos de tabla, estado de atención de Contacto, rótulos y fecha de la carátula y notas de demo."
+      }
+    },
+    "shadows": [],
+    "rules": [
+      {
+        "name": "hairline",
+        "value": "1px solid var(--color-rule)",
+        "purpose": "Filete entre filas y campos."
+      },
+      {
+        "name": "field-border",
+        "value": "1.5px solid var(--color-rule)",
+        "purpose": "Borde de inputs y opciones (rule-soft en opciones sin elegir)."
+      },
+      {
+        "name": "ink-rule",
+        "value": "2px solid var(--color-ink)",
+        "purpose": "Encabezados de bloque, borde superior de secciones (salvo portada, campo del logo y campo de siniestros), marco del formulario y de la foto de contenido."
+      },
+      {
+        "name": "pending-rule",
+        "value": "1.5px dashed var(--color-rule)",
+        "purpose": "Renglón vacío: dato todavía no completado en una carátula."
+      },
+      {
+        "name": "paper-rule",
+        "value": "2px solid var(--color-paper); filetes 1px paper al 30%",
+        "purpose": "Reglas sobre el campo de siniestros: lista de pasos y subtítulos Auto / Hogar / Comercio."
+      }
+    ],
+    "focus": {
+      "value": "outline: 3px solid var(--color-teal); outline-offset: 3px",
+      "purpose": "Foco visible global; en campos y opciones el offset es 2px."
+    },
+    "texture": [
+      {
+        "name": "guilloche-tira",
+        "value": "src/assets/img/guilloche-tira.svg (trazo teal, 0.6), banda de 24px repetida en horizontal, opacity 0.7, filete 1px rule abajo",
+        "purpose": "Banda de papel de seguridad bajo la cabecera de una carátula."
+      },
+      {
+        "name": "foto-portada",
+        "value": "src/assets/img/torreon-mar-del-plata.jpg (Torreón del Monje, Rocío Libro, CC BY-SA 4.0, Wikimedia Commons); object-cover, object-position 72% 58% (84% 78% bajo 1024px); crédito mono 0.875rem paper/85 abajo a la derecha",
+        "purpose": "Fotografía real a sangre de la portada; única por página."
+      },
+      {
+        "name": "grano",
+        "value": "--grano: url(/grano.png); tile PNG 200x200, ruido de tinta cálida rgb(61 51 41), alfa por píxel 0–20; background 0 0 / 200px 200px",
+        "purpose": "Textura única del papel: capa fija body::before (z -1) detrás de todo el contenido, y la misma en la barra sólida del header y el panel del menú móvil (.superficie-papel). Nunca sobre hojas blancas, campos de color ni foto."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Curva para flechas, checks y el estampado del sello."
+      },
+      {
+        "name": "color-fast",
+        "value": "150ms",
+        "purpose": "Bordes y fondos de campos y opciones."
+      },
+      {
+        "name": "color-standard",
+        "value": "200ms",
+        "purpose": "Fondos de botones al hover."
+      },
+      {
+        "name": "arrow-nudge",
+        "value": "translateX(4px) 300ms ease-out-expo",
+        "purpose": "Flecha de CTAs y enlaces al hover."
+      },
+      {
+        "name": "check-in",
+        "value": "scale(.5→1) + opacity 200ms ease-out-expo",
+        "purpose": "Check de opción elegida."
+      },
+      {
+        "name": "seal-stamp",
+        "value": "0.9s ease-out-expo 0.35s; rotate(-4deg) scale(1.35) → rotate(-11deg) scale(1)",
+        "purpose": "Entrada del sello; desactivada con prefers-reduced-motion."
+      },
+      {
+        "name": "disclosure-toggle",
+        "value": "fondo 200ms; rotate(45deg) 300ms ease-out-expo",
+        "purpose": "Conmutador de fila desplegable: el cuadrado se rellena de tinta y el más gira a ×."
+      },
+      {
+        "name": "stamp-ink",
+        "value": "opacity 0.22 (fantasma, transición 0.3s ease-out) → 1 con 0.8s ease-out-expo; scale(1.4) rotate(6deg) → scale(1) rotate(0)",
+        "purpose": "Sello con leyenda: se entinta cuando están los datos y se re-sella al enviar; sin animación con prefers-reduced-motion."
+      },
+      {
+        "name": "ken-burns",
+        "value": "32s ease-in-out infinite alternate; scale(1.14) translate3d(1.5%,0.5%,0) → scale(1); transform-origin 70% 60%",
+        "purpose": "Zoom lento de la foto de portada; estático con prefers-reduced-motion."
+      },
+      {
+        "name": "tile-hover",
+        "value": "translateY(-2px) + fondo claim-soft 200ms ease-out-expo",
+        "purpose": "Hover de los mosaicos de siniestro."
+      },
+      {
+        "name": "bar-hide",
+        "value": "translateY(100%) 300ms ease-out-expo",
+        "purpose": "La barra móvil se esconde mientras la portada fotográfica está a la vista (IntersectionObserver, umbral 0.15)."
+      },
+      {
+        "name": "header-entra",
+        "value": "translateY(-100%) → 0, 0.7s ease-out-expo al cargar",
+        "purpose": "Entrada del header fijo."
+      },
+      {
+        "name": "header-oculta",
+        "value": "translateY(-100%) 0.45s ease-out-expo al bajar pasados 160px; vuelve al subir o con focus-within",
+        "purpose": "Esconde el header al leer; desactivado con prefers-reduced-motion."
+      },
+      {
+        "name": "nav-subrayado",
+        "value": "scaleX(0→1) 0.35s ease-out-expo, origen derecha→izquierda, línea de 2px",
+        "purpose": "Subrayado de enlaces del header al hover y al foco."
+      },
+      {
+        "name": "menu-despliegue",
+        "value": "grid-template-rows 0fr→1fr 0.45s ease-out-expo; líneas del ícono giran ±45° 0.35s",
+        "purpose": "Panel del menú móvil (inerte cerrado, Escape cierra); ícono de dos líneas que se cruza en X."
+      },
+      {
+        "name": "header-solido",
+        "value": "fondo/color/borde 0.3s ease-out al pasar 24px",
+        "purpose": "La barra sobre la portada pasa de transparente (tinta paper) a papel con grano y filete rule-soft."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ],
+    "gradients": [
+      {
+        "name": "logo-field",
+        "value": "background-color: var(--color-ink); background-image: linear-gradient(118deg, #184e77 0%, #1a759f 100%)",
+        "purpose": "Campo seguro para texto (ink a teal) de sección completa; una vez por página (Qué hacemos por vos)."
+      },
+      {
+        "name": "logo-strip",
+        "value": "linear-gradient(90deg, #184e77 0%, #1a759f 38%, #34a0a4 72%, #52b69a 100%); tira de 8px (0.5rem) en el borde inferior del campo del logo (.bg-logo::after)",
+        "purpose": "Degradé completo del logo; los tonos claros (#34a0a4, #52b69a) viven solo aquí, nunca en texto ni bajo texto (blanco sobre #52b69a: 2.47:1)."
+      },
+      {
+        "name": "claim-field",
+        "value": "background-color: var(--color-claim-deep); background-image: linear-gradient(125deg, var(--color-claim-deep) 0%, var(--color-claim) 100%)",
+        "purpose": "Campo rojo de sección completa para siniestros; una vez por página."
+      },
+      {
+        "name": "hero-veil",
+        "value": "≥1024px: linear-gradient(90deg, rgb(12 28 70/.9) 0%, rgb(19 40 94/.78) 34%, rgb(19 40 94/.25) 64%, transparent 82%) + linear-gradient(0deg, rgb(12 28 70/.55) 0%, transparent 22%); <1024px: linear-gradient(180deg, rgb(12 28 70/.86) 0%, rgb(12 28 70/.8) 52%, rgb(12 28 70/.28) 76%, rgb(12 28 70/.12) 100%) ; ≥1024px suma linear-gradient(180deg, rgb(12 28 70/.78) 0%, rgb(12 28 70/.4) 4.5rem, transparent 8rem) como velo superior bajo el header",
+        "purpose": "Velo marino sobre la foto de portada: denso detrás del texto, liviano sobre la torre."
+      }
+    ],
+    "sectionRhythm": {
+      "home": [
+        "hero: foto a sangre + velo marino (oscura)",
+        "coberturas: paper + grano",
+        "qué hacemos por vos: logo-field",
+        "aseguradoras: paper + grano",
+        "siniestros: claim-field",
+        "equipo: paper + grano",
+        "contacto: paper + grano",
+        "footer: ink"
+      ],
+      "cotizar": [
+        "página: paper + grano (formulario sheet + carátula sheet)",
+        "footer: ink"
+      ]
+    },
+    "mobileBar": {
+      "default": "Cotizá → /cotizar (ink, 1.35fr) + WhatsApp (seal, 1fr), 72px, oculta desde 768px",
+      "soloWhatsapp": "Una sola acción WhatsApp a ancho completo en páginas que ya son un formulario",
+      "conPortada": "Escondida (translateY 100%) mientras [data-hero] está a la vista; la portada ya lleva las mismas acciones"
+    }
+  },
+  "components": [
+    {
+      "name": "Barra Cotizá (primaria)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA principal de cotización: barra sólida en tinta, rótulo a la izquierda y flecha que avanza al hover.",
+      "html": "<button class=\"ds-btn-primary\"><span>Cotizá tu seguro de Auto</span><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary { display:flex; width:100%; max-width:30rem; align-items:center; justify-content:space-between; gap:16px; background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); font-size:1.375rem; font-weight:600; padding:14px 24px; border:0; border-radius:0; cursor:pointer; text-align:left; transition:background-color .2s; } .ds-btn-primary svg { transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-btn-primary:hover { background:#0f3a5c; } .ds-btn-primary:hover svg { transform:translateX(4px); } .ds-btn-primary:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+    },
+    {
+      "name": "Botón primario sobre oscuro",
+      "kind": "button",
+      "refersTo": "button-on-dark",
+      "description": "CTA de cotizar sobre la foto de portada: bloque paper con texto ink y flecha; hover sheet.",
+      "html": "<div class=\"ds-dark-wrap\"><a href=\"#\" class=\"ds-btn-on-dark\"><span>Cotizá tu seguro</span><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a></div>",
+      "css": ".ds-dark-wrap { padding:24px; background:var(--color-ink-deep,#0f3a5c); } .ds-btn-on-dark { display:inline-flex; min-width:17rem; align-items:center; justify-content:space-between; gap:24px; background:var(--color-paper,#f6f4ef); color:var(--color-ink,#184e77); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); font-size:1.25rem; font-weight:600; padding:18px 24px; text-decoration:none; transition:background-color .2s; } .ds-btn-on-dark svg { width:24px; height:24px; transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-btn-on-dark:hover { background:var(--color-sheet,#fff); } .ds-btn-on-dark:hover svg { transform:translateX(4px); } .ds-btn-on-dark:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+    },
+    {
+      "name": "Barra de denuncia (campo de siniestros)",
+      "kind": "button",
+      "refersTo": "button-claim",
+      "description": "Acción de denuncia sobre el campo rojo: barra paper con texto claim-deep; hover claim-soft. Solo en contexto de siniestros.",
+      "html": "<div class=\"ds-claim-wrap\"><a href=\"#\" class=\"ds-btn-claim\"><span>Denunciar un siniestro</span><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a><a href=\"#\" class=\"ds-btn-claim-out\">223 624-7475</a></div>",
+      "css": ".ds-claim-wrap { display:grid; gap:12px; max-width:28rem; padding:24px; background-color:var(--color-claim-deep,#8f1a20); background-image:linear-gradient(125deg, var(--color-claim-deep,#8f1a20) 0%, var(--color-claim,#b4232a) 100%); } .ds-btn-claim { display:flex; align-items:center; justify-content:space-between; gap:24px; background:var(--color-paper,#f6f4ef); color:var(--color-claim-deep,#8f1a20); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); font-size:1.375rem; font-weight:700; padding:20px 24px; text-decoration:none; transition:background-color .2s; } .ds-btn-claim svg { width:28px; height:28px; transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-btn-claim:hover { background:var(--color-claim-soft,#fbeeee); } .ds-btn-claim:hover svg { transform:translateX(4px); } .ds-btn-claim-out { display:flex; justify-content:center; border:2px solid var(--color-paper,#f6f4ef); color:var(--color-paper,#f6f4ef); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); font-size:1.125rem; font-weight:600; padding:14px 16px; text-decoration:none; transition:background-color .2s, color .2s; } .ds-btn-claim-out:hover { background:var(--color-paper,#f6f4ef); color:var(--color-claim-deep,#8f1a20); } .ds-btn-claim:focus-visible, .ds-btn-claim-out:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+    },
+    {
+      "name": "Mosaico de siniestro",
+      "kind": "card",
+      "refersTo": "claim-tile",
+      "description": "Tipo de siniestro sobre el campo rojo: bloque paper recto, ícono lucide en claim arriba, rótulo y flecha abajo; hover claim-soft y sube 2px.",
+      "html": "<div class=\"ds-tiles\"><h4>Auto</h4><div class=\"ds-tiles-grid\"><a href=\"#\" class=\"ds-tile\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 8 17.65 2.65A2 2 0 0 0 15.94 2H8.06a2 2 0 0 0-1.71.65L3 8\"/><path d=\"M7 14h.01\"/><path d=\"M17 14h.01\"/><rect width=\"18\" height=\"8\" x=\"3\" y=\"8\" rx=\"2\"/><path d=\"M5 18v2\"/><path d=\"M19 18v2\"/></svg><span class=\"ds-tile-foot\"><span>Choque</span><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a><a href=\"#\" class=\"ds-tile\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/></svg><span class=\"ds-tile-foot\"><span>Cerraduras</span><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a></div></div>",
+      "css": ".ds-tiles { max-width:28rem; padding:24px; background-color:var(--color-claim-deep,#8f1a20); background-image:linear-gradient(125deg, var(--color-claim-deep,#8f1a20) 0%, var(--color-claim,#b4232a) 100%); color:var(--color-paper,#f6f4ef); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-tiles h4 { margin:0; border-top:2px solid var(--color-paper,#f6f4ef); padding-top:10px; font-size:1.125rem; font-weight:600; } .ds-tiles-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; } .ds-tile { display:flex; min-height:8rem; flex-direction:column; justify-content:space-between; gap:16px; padding:16px; background:var(--color-paper,#f6f4ef); color:var(--color-ink,#184e77); text-decoration:none; transition:transform .2s cubic-bezier(0.16,1,0.3,1), background-color .2s; } .ds-tile > svg { width:36px; height:36px; color:var(--color-claim,#b4232a); } .ds-tile-foot { display:flex; align-items:flex-end; justify-content:space-between; gap:8px; font-size:1.125rem; font-weight:600; line-height:1.2; } .ds-tile-foot svg { width:20px; height:20px; flex-shrink:0; color:var(--color-claim,#b4232a); transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-tile:hover { transform:translateY(-2px); background:var(--color-claim-soft,#fbeeee); } .ds-tile:hover .ds-tile-foot svg { transform:translateX(4px); } .ds-tile:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+    },
+    {
+      "name": "Botón WhatsApp",
+      "kind": "button",
+      "refersTo": "button-whatsapp",
+      "description": "Canal secundario destacado, en verde sello.",
+      "html": "<a href=\"#\" class=\"ds-btn-wa\"><span class=\"ds-btn-wa-in\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.11-1.48-1.11-2.83 0-1.34.7-2 .96-2.28.24-.27.53-.33.71-.33l.51.01c.17 0 .38-.06.6.46.23.54.77 1.87.84 2.01.07.13.11.29.02.47-.09.18-.13.29-.27.45l-.4.47c-.13.13-.27.28-.12.55.16.27.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.27.13.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.22.6-.13.25.09 1.57.74 1.84.88.27.13.45.2.51.31.07.11.07.63-.17 1.31Z\"/></svg>Escribinos por WhatsApp</span><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn-wa { display:inline-flex; min-width:24rem; align-items:center; justify-content:space-between; gap:16px; background:var(--color-seal,#1f6e55); color:var(--color-paper,#f6f4ef); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); font-size:1.25rem; font-weight:600; padding:18px 24px; text-decoration:none; border-radius:0; transition:background-color .2s; } .ds-btn-wa-in { display:inline-flex; align-items:center; gap:12px; } .ds-btn-wa > svg { transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-btn-wa:hover { background:var(--color-seal-deep,#175843); } .ds-btn-wa:hover > svg { transform:translateX(4px); } .ds-btn-wa:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+    },
+    {
+      "name": "Botón outline",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Acción secundaria: borde de 2px en tinta que se invierte al hover.",
+      "html": "<a href=\"#\" class=\"ds-btn-outline\">Conocé a los productores asesores<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn-outline { display:inline-flex; align-items:center; gap:12px; border:2px solid var(--color-ink,#184e77); color:var(--color-ink,#184e77); background:transparent; font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); font-size:1.1875rem; font-weight:600; padding:16px 24px; text-decoration:none; border-radius:0; transition:background-color .2s, color .2s; } .ds-btn-outline svg { transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-btn-outline:hover { background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); } .ds-btn-outline:hover svg { transform:translateX(4px); } .ds-btn-outline:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+    },
+    {
+      "name": "Campo de texto",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Input de documento: hoja blanca, borde de 1.5px, esquinas rectas, error en rojo.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field-label\" for=\"ds-tel\">Teléfono o celular</label><input id=\"ds-tel\" class=\"ds-input\" type=\"tel\" placeholder=\"Ej.: 223 555-1234\"><input class=\"ds-input ds-input-err\" aria-invalid=\"true\" value=\"223\"><p class=\"ds-field-err\">Revisá el número: con característica, por ejemplo 223 555-1234.</p></div>",
+      "css": ".ds-field { display:grid; gap:8px; max-width:22rem; font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-field-label { font-size:1rem; color:var(--color-ink-2,#3f5870); } .ds-input { display:block; width:100%; border:1.5px solid var(--color-rule,#7f95a6); background:var(--color-sheet,#fff); color:var(--color-ink,#184e77); padding:10px 14px; font:inherit; font-size:1.125rem; border-radius:0; transition:border-color .15s; } .ds-input::placeholder { color:#5f7385; } .ds-input:hover { border-color:var(--color-ink,#184e77); } .ds-input:focus { border-color:var(--color-ink,#184e77); outline:none; } .ds-input:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:2px; } .ds-input-err { border-color:var(--color-claim,#b4232a); } .ds-field-err { margin:0; font-size:1rem; font-weight:500; color:var(--color-claim,#b4232a); }"
+    },
+    {
+      "name": "Opción de campo",
+      "kind": "chip",
+      "refersTo": "choice-tile-checked",
+      "description": "Opción de radio con casilla cuadrada que se rellena de tinta al elegir. En error de grupo, todas las opciones pasan a borde claim y la enfocada lleva el anillo teal.",
+      "html": "<div class=\"ds-choices\"><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-r\" checked><span class=\"ds-box\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg></span><span>Auto o moto</span></label><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-r\"><span class=\"ds-box\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg></span><span>Hogar o comercio</span></label></div><div class=\"ds-choices ds-choices-err\" aria-invalid=\"true\"><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-e\"><span class=\"ds-box\"></span><span>Solo yo</span></label><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-e\"><span class=\"ds-box\"></span><span>Mi familia</span></label></div><p class=\"ds-choice-err\">Elegí para quién es.</p>",
+      "css": ".ds-choices { display:grid; grid-template-columns:1fr 1fr; gap:8px; max-width:28rem; font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-choice { position:relative; display:flex; min-height:48px; align-items:center; gap:12px; border:1.5px solid var(--color-rule-soft,#d3dee5); padding:8px 12px; cursor:pointer; font-size:1.0625rem; font-weight:500; color:var(--color-ink,#184e77); transition:border-color .15s, background-color .15s; } .ds-choice input { position:absolute; opacity:0; width:1px; height:1px; } .ds-choice:hover { border-color:var(--color-ink,#184e77); } .ds-choice:has(input:checked) { border-color:var(--color-ink,#184e77); background:var(--color-wash,#eef3f6); } .ds-choice:has(input:focus-visible) { outline:3px solid var(--color-teal,#1a759f); outline-offset:2px; } .ds-box { display:grid; place-items:center; width:24px; height:24px; flex-shrink:0; border:2px solid var(--color-ink,#184e77); background:var(--color-sheet,#fff); color:var(--color-paper,#f6f4ef); transition:background-color .15s; } .ds-box svg { opacity:0; transform:scale(.5); transition:opacity .2s cubic-bezier(0.16,1,0.3,1), transform .2s cubic-bezier(0.16,1,0.3,1); } .ds-choice:has(input:checked) .ds-box { background:var(--color-ink,#184e77); } .ds-choice:has(input:checked) .ds-box svg { opacity:1; transform:scale(1); } .ds-choices-err { margin-top:16px; } .ds-choices-err .ds-choice { border-color:var(--color-claim,#b4232a); } .ds-choices-err .ds-choice:has(input:focus) { outline:3px solid var(--color-teal,#1a759f); outline-offset:2px; } .ds-choice-err { margin:6px 0 0; font-size:1rem; font-weight:500; color:var(--color-claim,#b4232a); }"
+    },
+    {
+      "name": "Campo numerado",
+      "kind": "card",
+      "refersTo": "field-number",
+      "description": "Firma del sistema: bloque de formulario con número de campo en un margen rayado.",
+      "html": "<div class=\"ds-sheet\"><div class=\"ds-sheet-head\"><h3>Pedí tu cotización</h3><span class=\"ds-no\">Sin costo</span></div><div class=\"ds-row\"><span class=\"ds-no ds-margin\">02</span><div class=\"ds-cell\"><p class=\"ds-q\">¿Cómo te contactamos?</p><input class=\"ds-in\" placeholder=\"Nombre\"></div></div></div>",
+      "css": ".ds-sheet { max-width:30rem; border:2px solid var(--color-ink,#184e77); background:var(--color-sheet,#fff); color:var(--color-ink,#184e77); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-sheet-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; border-bottom:2px solid var(--color-ink,#184e77); padding:14px 24px; } .ds-sheet-head h3 { margin:0; font-size:1.875rem; font-weight:700; font-stretch:88%; letter-spacing:-0.02em; line-height:1.04; } .ds-no { font-family:var(--font-mono,'Chivo Mono',ui-monospace,monospace); font-size:.875rem; font-weight:500; letter-spacing:.02em; font-variant-numeric:tabular-nums; color:var(--color-ink-2,#3f5870); } .ds-row { display:grid; grid-template-columns:3.25rem minmax(0,1fr); border-bottom:1px solid var(--color-rule,#7f95a6); } .ds-margin { border-right:1px solid var(--color-rule,#7f95a6); padding-top:14px; text-align:center; } .ds-cell { padding:12px 20px 14px; } .ds-q { margin:0 0 8px; font-size:1.125rem; font-weight:600; } .ds-in { width:100%; border:1.5px solid var(--color-rule,#7f95a6); padding:10px 14px; font:inherit; font-size:1.125rem; border-radius:0; } .ds-in:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:2px; border-color:var(--color-ink,#184e77); }"
+    },
+    {
+      "name": "Navegación (header)",
+      "kind": "nav",
+      "description": "Header fijo de una fila: logo, tres enlaces con subrayado que se dibuja, punto rojo en Siniestros y botón Cotizá en tinta; papel con grano al scrollear.",
+      "html": "<header class=\"ds-nav\"><div class=\"ds-nav-in\"><span class=\"ds-brand\"><i class=\"ds-logo-dot\"></i>Brokers Asociados</span><nav class=\"ds-nav-links\"><a href=\"#\">Seguros</a><a href=\"#\"><i class=\"ds-dot\"></i>Siniestros</a><a href=\"#\">Contacto</a></nav><a href=\"#\" class=\"ds-cta\">Cotizá <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a></div></header>",
+      "css": ".ds-nav { background:var(--grano, none) 0 0 / 200px 200px, var(--color-paper,#f6f4ef); border-bottom:1px solid var(--color-rule-soft,#d3dee5); color:var(--color-ink,#184e77); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-nav-in { display:flex; align-items:center; gap:32px; height:72px; padding:0 24px; } .ds-brand { display:inline-flex; align-items:center; gap:12px; font-size:1.25rem; font-weight:700; font-stretch:90%; } .ds-logo-dot { width:44px; height:44px; border-radius:9999px; background:linear-gradient(118deg,#184e77,#1a759f); } .ds-nav-links { display:flex; gap:32px; margin-left:auto; font-size:1.0625rem; font-weight:500; } .ds-nav-links a { position:relative; display:inline-flex; align-items:center; gap:8px; padding:4px 0; color:inherit; text-decoration:none; } .ds-nav-links a::after { content:''; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .35s cubic-bezier(0.16,1,0.3,1); } .ds-nav-links a:hover::after, .ds-nav-links a:focus-visible::after { transform:scaleX(1); transform-origin:left; } .ds-nav-links a:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; } .ds-dot { width:8px; height:8px; border-radius:9999px; background:var(--color-claim,#b4232a); } .ds-cta { display:inline-flex; align-items:center; gap:8px; padding:10px 16px; background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); font-size:1.0625rem; font-weight:600; text-decoration:none; transition:background-color .3s ease-out; } .ds-cta:hover { background:var(--color-ink-deep,#0f3a5c); } .ds-cta:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }",
+      "refersTo": "nav-bar"
+    },
+    {
+      "name": "Fila desplegable de cobertura",
+      "kind": "list",
+      "refersTo": "disclosure-toggle",
+      "description": "Fila de lista con regla: desplegable nativo con nombre y cuadrado conmutador que se rellena de tinta y gira a × al abrir; descripción y Cotizar adentro.",
+      "html": "<ul class=\"ds-dl\"><li><details open><summary>Auto<span class=\"ds-tg\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\"><path d=\"M12 5v14M5 12h14\"/></svg></span></summary><div class=\"ds-dl-body\"><p>Responsabilidad civil, robo, incendio y daños totales o parciales.</p><a href=\"#\">Cotizar →</a></div></details></li><li><details><summary>Hogar<span class=\"ds-tg\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\"><path d=\"M12 5v14M5 12h14\"/></svg></span></summary><div class=\"ds-dl-body\"><p>Incendio, robo y responsabilidad civil.</p><a href=\"#\">Cotizar →</a></div></details></li></ul>",
+      "css": ".ds-dl { list-style:none; margin:0; padding:0; max-width:34rem; border-top:2px solid var(--color-ink,#184e77); color:var(--color-ink,#184e77); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-dl li { border-bottom:1px solid var(--color-rule,#7f95a6); } .ds-dl summary { display:flex; min-height:60px; align-items:center; justify-content:space-between; gap:24px; padding:14px 0; font-size:1.375rem; font-weight:600; cursor:pointer; list-style:none; } .ds-dl summary::-webkit-details-marker { display:none; } .ds-dl summary:hover { color:var(--color-ink-2,#3f5870); } .ds-dl summary:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; } .ds-tg { display:grid; place-items:center; width:32px; height:32px; flex-shrink:0; border:1.5px solid var(--color-ink,#184e77); transition:background-color .2s, color .2s; } .ds-tg svg { transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-dl details[open] .ds-tg { background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); } .ds-dl details[open] .ds-tg svg { transform:rotate(45deg); } .ds-dl-body { display:flex; align-items:flex-end; justify-content:space-between; gap:32px; padding-bottom:20px; } .ds-dl-body p { margin:0; max-width:52ch; font-size:1.0625rem; line-height:1.5; color:var(--color-ink-2,#3f5870); } .ds-dl-body a { flex-shrink:0; font-size:1.0625rem; font-weight:600; color:inherit; }"
+    },
+    {
+      "name": "Campo del logo",
+      "kind": "card",
+      "refersTo": "section-logo",
+      "description": "Sección completa en el degradé de la insignia: texto en paper, secundario en on-dark, artículos en seal-on-dark.",
+      "html": "<section class=\"ds-logo\"><h2>Qué hacemos por vos</h2><ol><li><span>Art. 1</span><div><h3>Te asesoramos antes de contratar</h3><p>Comparamos coberturas entre aseguradoras.</p></div></li><li><span>Art. 2</span><div><h3>Te acompañamos en el siniestro</h3><p>Hacemos el trámite con vos.</p></div></li></ol></section>",
+      "css": ".ds-logo { padding:48px 32px; background-color:var(--color-ink,#184e77); background-image:linear-gradient(118deg, #184e77 0%, #1a759f 100%); color:var(--color-paper,#f6f4ef); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-logo h2 { margin:0 0 24px; font-size:2.5rem; font-weight:700; font-stretch:88%; letter-spacing:-0.02em; line-height:1.04; } .ds-logo ol { list-style:none; margin:0; padding:0; border-top:2px solid var(--color-paper,#f6f4ef); } .ds-logo li { display:grid; grid-template-columns:5rem minmax(0,1fr); gap:16px; padding:18px 0; border-bottom:1px solid rgba(252,252,250,.3); } .ds-logo li > span { font-family:var(--font-mono,'Chivo Mono',ui-monospace,monospace); font-size:1rem; font-weight:500; font-variant-numeric:tabular-nums; color:var(--color-seal-on-dark,#e8f8ef); } .ds-logo h3 { margin:0; font-size:1.375rem; font-weight:700; line-height:1.15; } .ds-logo p { margin:4px 0 0; font-size:1.125rem; color:var(--color-on-dark,#e6f2f7); }"
+    },
+    {
+      "name": "Carátula",
+      "kind": "card",
+      "refersTo": "caratula",
+      "description": "Portada de póliza que resume en vivo el pedido: marco de 2px, cabecera con fecha mono, tira de guilloché, filas mono/valor, pendientes como renglón discontinuo y sello con leyenda.",
+      "html": "<div class=\"ds-car\"><div class=\"ds-car-head\"><h3>Carátula del pedido</h3><span class=\"ds-car-mono\">23 de octubre de 2026</span></div><div class=\"ds-car-tira\" aria-hidden=\"true\"></div><dl><div class=\"ds-car-row\"><dt class=\"ds-car-mono\">Rama</dt><dd>Auto o moto</dd></div><div class=\"ds-car-row\"><dt class=\"ds-car-mono\">Vehículo</dt><dd>Volkswagen Gol Trend 2016</dd></div><div class=\"ds-car-row\"><dt class=\"ds-car-mono\">Asegurado</dt><dd class=\"ds-car-empty\"></dd></div><div class=\"ds-car-row\"><dt class=\"ds-car-mono\">Teléfono</dt><dd class=\"ds-car-empty\"></dd></div></dl><div class=\"ds-car-stamp\"><svg class=\"ds-stamp-svg\" viewBox=\"0 0 200 200\" aria-hidden=\"true\"><defs><path id=\"ds-st-arc\" d=\"M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0\"/></defs><g fill=\"none\" stroke=\"currentColor\"><circle cx=\"100\" cy=\"100\" r=\"94\" stroke-width=\"4\"/><circle cx=\"100\" cy=\"100\" r=\"87\" stroke-width=\"1.5\"/><circle cx=\"100\" cy=\"100\" r=\"56\" stroke-width=\"1.5\"/><g fill=\"currentColor\" stroke=\"none\"><text font-family=\"Chivo Mono, monospace\" font-size=\"13.5\" font-weight=\"500\" letter-spacing=\"2.2\"><textPath href=\"#ds-st-arc\">BROKERS ASOCIADOS · MAR DEL PLATA ·</textPath></text><text text-anchor=\"middle\" font-family=\"Archivo Variable, sans-serif\" font-weight=\"800\" font-size=\"21\" style=\"font-stretch:80%\"><tspan x=\"100\" y=\"96\">LISTO PARA</tspan><tspan x=\"100\" y=\"118\">ENVIAR</tspan></text></g></g></svg></div></div>",
+      "css": ".ds-car { position:relative; max-width:29.5rem; margin-bottom:56px; border:2px solid var(--color-ink,#184e77); background:var(--color-sheet,#fff); color:var(--color-ink,#184e77); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-car-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; border-bottom:2px solid var(--color-ink,#184e77); padding:14px 20px; } .ds-car-head h3 { margin:0; font-size:1.5rem; font-weight:700; font-stretch:88%; letter-spacing:-0.02em; line-height:1.04; } .ds-car-mono { font-family:var(--font-mono,'Chivo Mono',ui-monospace,monospace); font-size:.875rem; font-weight:500; letter-spacing:.02em; font-variant-numeric:tabular-nums; color:var(--color-ink-2,#3f5870); } .ds-car-tira { height:24px; border-bottom:1px solid var(--color-rule,#7f95a6); opacity:.7; background:repeating-linear-gradient(90deg, transparent 0 6px, rgba(26,117,159,.35) 6px 6.6px); } .ds-car dl { margin:0; padding:4px 20px 24px; } .ds-car-row { display:grid; grid-template-columns:6.5rem minmax(0,1fr); align-items:baseline; gap:0 12px; border-bottom:1px solid var(--color-rule-soft,#d3dee5); padding:12px 0; } .ds-car-row dd { margin:0; min-height:1.6em; font-size:1.125rem; font-weight:600; } .ds-car-empty { border-bottom:1.5px dashed var(--color-rule,#7f95a6); } .ds-car-stamp { position:absolute; right:-28px; bottom:-40px; width:160px; height:160px; pointer-events:none; } .ds-stamp-svg { width:100%; height:100%; color:var(--color-seal,#1f6e55); mix-blend-mode:multiply; transform:rotate(-11deg); opacity:.22; transition:opacity .3s ease-out; } .ds-car:hover .ds-stamp-svg { opacity:1; }"
+    },
+    {
+      "name": "Sello con leyenda",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "El sello de goma con leyenda central variable: fantasma (22%) desde la carga, entintado con estampado al completar los datos, re-sellado (RECIBIDO) al enviar.",
+      "html": "<div class=\"ds-stamps\"><span class=\"ds-stamp ds-stamp-ghost\"><svg class=\"ds-stamp-svg\" viewBox=\"0 0 200 200\" aria-hidden=\"true\"><defs><path id=\"ds-st-arc1\" d=\"M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0\"/></defs><g fill=\"none\" stroke=\"currentColor\"><circle cx=\"100\" cy=\"100\" r=\"94\" stroke-width=\"4\"/><circle cx=\"100\" cy=\"100\" r=\"87\" stroke-width=\"1.5\"/><circle cx=\"100\" cy=\"100\" r=\"56\" stroke-width=\"1.5\"/><g fill=\"currentColor\" stroke=\"none\"><text font-family=\"Chivo Mono, monospace\" font-size=\"13.5\" font-weight=\"500\" letter-spacing=\"2.2\"><textPath href=\"#ds-st-arc1\">BROKERS ASOCIADOS · MAR DEL PLATA ·</textPath></text><text text-anchor=\"middle\" font-family=\"Archivo Variable, sans-serif\" font-weight=\"800\" font-size=\"21\" style=\"font-stretch:80%\"><tspan x=\"100\" y=\"96\">LISTO PARA</tspan><tspan x=\"100\" y=\"118\">ENVIAR</tspan></text></g></g></svg></span><span class=\"ds-stamp ds-stamp-inked\"><svg class=\"ds-stamp-svg\" viewBox=\"0 0 200 200\" aria-hidden=\"true\"><defs><path id=\"ds-st-arc2\" d=\"M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0\"/></defs><g fill=\"none\" stroke=\"currentColor\"><circle cx=\"100\" cy=\"100\" r=\"94\" stroke-width=\"4\"/><circle cx=\"100\" cy=\"100\" r=\"87\" stroke-width=\"1.5\"/><circle cx=\"100\" cy=\"100\" r=\"56\" stroke-width=\"1.5\"/><g fill=\"currentColor\" stroke=\"none\"><text font-family=\"Chivo Mono, monospace\" font-size=\"13.5\" font-weight=\"500\" letter-spacing=\"2.2\"><textPath href=\"#ds-st-arc2\">BROKERS ASOCIADOS · MAR DEL PLATA ·</textPath></text><text text-anchor=\"middle\" font-family=\"Archivo Variable, sans-serif\" font-weight=\"800\" font-size=\"21\" style=\"font-stretch:80%\"><tspan x=\"100\" y=\"107\">RECIBIDO</tspan></text></g></g></svg></span></div>",
+      "css": ".ds-stamps { display:flex; gap:32px; } .ds-stamp { display:block; width:160px; height:160px; } .ds-stamp .ds-stamp-svg { width:100%; height:100%; color:var(--color-seal,#1f6e55); mix-blend-mode:multiply; transform:rotate(-11deg); } .ds-stamp-ghost { opacity:.22; transition:opacity .3s ease-out; } .ds-stamp-ghost:hover { opacity:1; } .ds-stamp-inked { animation:ds-stamp .8s cubic-bezier(0.16,1,0.3,1) both; } @keyframes ds-stamp { from { opacity:.2; transform:scale(1.4) rotate(6deg); } to { opacity:1; transform:scale(1) rotate(0); } } @media (prefers-reduced-motion: reduce) { .ds-stamp-inked { animation:none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La póliza bien hecha",
+    "overview": "El sistema trata cada superficie como un documento de seguros redactado con cuidado: papel cálido con grano alternado con hojas blancas, tinta azul marino, campos con reglas finas y números de campo en monoespaciada, cláusulas numeradas (\"Art. 1\") y un sello de goma verde que certifica la trayectoria. La confianza no se declara con adornos: se construye con orden, jerarquía legible y datos verificables puestos en su campo.\n\nLa densidad es de formulario bien diagramado, no de folleto. Los bloques se separan con reglas (filetes de 1px y líneas de 2px en tinta) en vez de tarjetas flotantes; la profundidad es plana y tipográfica. La tipografía es grande y generosa para un público mayor de 45 que lee desde el celular: el cuerpo arranca en 18px. El color tiene funciones fijas: el azul es la tinta, el verde es el sello y WhatsApp, el rojo existe solo para siniestros y el azul teal solo para el foco y el acento.\n\nLa portada abre con una fotografía real de Mar del Plata (el Torreón del Monje) a sangre completa, con un velo marino que asienta el texto y un zoom lento que la mantiene viva; el crédito de la foto queda visible en mono. Es el único momento fotográfico grande: el resto de la página vuelve al papel. El guilloché sobrevive en una sola forma, la tira: una banda horizontal de onda fina en teal, de 24px de alto, que marca la cabecera de una carátula como papel de seguridad. El logo del cliente es una insignia circular y se respeta como tal; su línea (azul → teal → verde) es el campo de color que el sistema toma del logo: un degradé seguro para texto (ink a teal) como fondo de sección, rematado por una tira de 8px con el degradé completo. El otro campo de color es el de siniestros: rojo pleno, para que quien tuvo un problema encuentre la sección sin buscarla.",
+    "keyCharacteristics": [
+      "Un solo papel cálido (`paper`) con grano de página completa como fondo común; hojas blancas (`sheet`) para formularios, carátula, mosaicos y marco de foto; tinta marina en todo el texto.",
+      "Esquinas rectas; reglas de 1px, 1.5px y 2px como única estructura.",
+      "Números de campo y metadatos en Chivo Mono con cifras tabulares.",
+      "Archivo variable condensado (ancho 84–92%) para titulares compactos y firmes.",
+      "Rojo reservado para siniestros (incluido su campo de sección completa); verde para el sello y WhatsApp.",
+      "Portada fotográfica real con velo marino; una sola por página.",
+      "Sin sombras, sin tarjetas redondeadas."
+    ],
+    "rules": [
+      {
+        "name": "The Red Means Claim Rule",
+        "body": "El rojo (`claim` y sus variantes) aparece solo en lo relacionado con siniestros, errores de validación y el estado \"Cerrado\". Nunca como acento decorativo ni en un CTA de cotización.",
+        "section": "colors"
+      },
+      {
+        "name": "The Teal Is Focus Rule",
+        "body": "El token `teal` (#1a759f) marca el anillo de foco y la tira de guilloché, y es el extremo del campo del logo; no se usa en botones ni fondos planos. Los vínculos de texto que cambian al hover usan `link`.",
+        "section": "colors"
+      },
+      {
+        "name": "The Seal Is Green Rule",
+        "body": "El verde del logo (`seal`) se usa como tinta de sello y como color de WhatsApp; sobre oscuro, `seal-on-dark` marca los rótulos de texto y `seal-glow` es solo para gráficos (el sello sobre la foto con velo). No colorea titulares ni bloques de texto.",
+        "section": "colors"
+      },
+      {
+        "name": "The Light Greens Never Carry Text Rule",
+        "body": "Los verdes y azules claros del degradé (`logo-aqua` #34a0a4, `logo-mint` #52b69a) y `seal-glow` viven solo en la tira de 8px y en gráficos; nunca en texto ni debajo de texto. Todo texto sobre el campo del logo está sobre ink a teal (on-dark o seal-on-dark, 4.5:1 o más).",
+        "section": "colors"
+      },
+      {
+        "name": "The One Paper Rule",
+        "body": "El fondo común es un único papel (`paper` con grano); las secciones no lo tiñen. El color de fondo llega solo como el degradé del logo o el campo rojo de siniestros, siempre a sección completa. Nunca como tarjeta, franja suelta o bloque de color dentro de una sección.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Grain Rule",
+        "body": "Hay un solo grano, el mismo tile, y solo sobre superficies de papel (fondo de página, barra del header, panel del menú). No se pone sobre hojas blancas, campos de color, foto ni texto.",
+        "section": "colors"
+      },
+      {
+        "name": "The Typed Field Rule",
+        "body": "Todo lo que en un documento real estaría tipeado a máquina (número de campo, artículo, notas de pie, rótulos de tabla) va en Chivo Mono con cifras tabulares. La prosa y los valores que el usuario lee van en Archivo.",
+        "section": "typography"
+      },
+      {
+        "name": "The Eighteen Floor Rule",
+        "body": "El cuerpo no baja de 1.125rem y ningún texto legible baja de 0.875rem.",
+        "section": "typography"
+      },
+      {
+        "name": "The Ruled Not Raised Rule",
+        "body": "Un bloque se separa con una regla o un cambio de papel, nunca con una sombra. Si algo necesita destacarse, gana una regla de 2px o un campo oscuro.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Square Corner Rule",
+        "body": "Lo que el sistema dibuja tiene esquinas rectas. Lo circular se limita a lo que es circular por naturaleza: el logo, el sello y los indicadores de estado.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Disclose Not Delete Rule",
+        "body": "Lo secundario (descripciones de cobertura, mails por área) se pliega detrás de un desplegable nativo en vez de recortarse; el nombre o el dato principal siempre queda a la vista.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** separar bloques con reglas: 2px en tinta para encabezados y secciones, 1px `rule` entre filas, 1.5px en bordes de campos.",
+      "**Do** numerar los campos de un formulario (01, 02, 03) en un margen de 2.75–3.25rem con Chivo Mono `ink-2`.",
+      "**Do** mantener el cuerpo en 1.125rem o más y los objetivos táctiles en 48px o más.",
+      "**Do** reservar `claim` para siniestros, errores y \"Cerrado\", y `teal` para el foco.",
+      "**Do** marcar lo que falta confirmar con una única nota mono de versión demo en el footer y placeholders con borde punteado, en vez de inventar contenido o repetir avisos por sección.",
+      "**Do** respetar `prefers-reduced-motion` en el sello, el zoom de la foto de portada, el scroll suave y el movimiento del header.",
+      "**Do** dejar las secciones de papel sin fondo propio y poner el grano una sola vez en la página, más la barra y el panel del header.",
+      "**Do** usar fotografía real de Mar del Plata con su procedencia registrada y el crédito visible cuando la licencia lo pide.",
+      "**Do** dibujar los datos pendientes de una carátula como renglón discontinuo de 1.5px `rule` y escribir los placeholders como \"Ej.: …\"."
+    ],
+    "donts": [
+      "**Don't** usar sombras ni tarjetas con esquinas redondeadas.",
+      "**Don't** usar el rojo como acento decorativo ni en acciones de cotización.",
+      "**Don't** redondear botones, campos u opciones; lo circular se limita al logo, el sello y los indicadores de estado.",
+      "**Don't** usar el guilloché como marca de agua de fondo; su única forma es la tira, y va solo en la cabecera de una carátula.",
+      "**Don't** teñir las secciones ni usar el degradé del logo como tarjeta o bloque dentro de una sección, ni repetir el campo del logo, el campo de siniestros o la portada fotográfica más de una vez por página.",
+      "**Don't** poner el grano sobre hojas blancas, campos de color, foto o detrás de texto largo como patrón visible: es una textura del papel, no un motivo.",
+      "**Don't** repetir el sello de goma más de una vez por página (el de \"+35 años\" o el sello con leyenda, nunca ambos)."
+    ]
+  }
+}

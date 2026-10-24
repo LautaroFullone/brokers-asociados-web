@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Placa de bronce y portero</title>
+<style>
+:root{--granite:#2B2E33;--bronze:#B08A4A;--bronze-l:#D9C08A;--stone:#E6E2DA;--navy:#16306B}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--granite) radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/7px 7px;font-family:"Gill Sans","Gill Sans MT",Optima,sans-serif;color:var(--stone)}
+header{display:flex;justify-content:space-between;align-items:center;padding:30px 64px;border-bottom:1px solid rgba(217,192,138,.3)}
+header b{font:400 30px Georgia,serif;color:var(--bronze-l)}header b span{font:600 13px Arial;letter-spacing:.4em;margin-left:10px}
+nav{display:flex;gap:36px;font:600 15px Arial;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze-l)}
+main{display:grid;grid-template-columns:1fr 360px;gap:80px;padding:70px 64px}
+.plate{background:linear-gradient(135deg,#C9A35E,#B8934F 45%,#D8BC85 70%,#B89450);color:#2A1E0B;padding:56px 64px;position:relative;box-shadow:inset 0 0 0 3px rgba(255,255,255,.25),inset 0 0 0 10px rgba(0,0,0,.08)}
+.plate::before,.plate::after{content:"";position:absolute;top:20px;width:14px;height:14px;border-radius:50%;background:radial-gradient(#6b5226,#3d2e13)}
+.plate::before{left:20px}.plate::after{right:20px}
+.plate small{font:600 16px Arial;letter-spacing:.3em;text-transform:uppercase}
+h1{font:400 76px/1.02 Optima,"Gill Sans",serif;letter-spacing:.01em;margin:18px 0;text-transform:uppercase}
+.plate p{font:500 22px/1.4 Arial;max-width:42ch}
+.keys{display:flex;gap:18px;margin-top:34px}
+.key{padding:22px 30px;font:700 24px Optima,sans-serif;text-transform:uppercase;letter-spacing:.06em;border:2px solid var(--bronze-l);color:var(--bronze-l)}
+.key.main{background:var(--stone);color:var(--granite);border-color:var(--stone)}
+.intercom{background:linear-gradient(#3a3d43,#24262a);border:2px solid #555;padding:28px;display:flex;flex-direction:column;gap:12px}
+.intercom h2{font:700 24px Optima,sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--bronze-l);margin-bottom:8px}
+.bell{display:flex;justify-content:space-between;align-items:center;background:#1c1d20;padding:14px 16px;font:600 22px Arial}
+.bell i{width:26px;height:26px;border-radius:50%;background:radial-gradient(var(--bronze-l),var(--bronze))}
+.bell.red i{background:radial-gradient(#ff7a6e,#b31d14)}
+.grille{height:70px;background:repeating-linear-gradient(90deg,#111 0 4px,transparent 4px 9px);margin-top:10px}
+</style></head><body>
+<header><b>brokers<span>ASOCIADOS</span></b><nav><span>Cotizá</span><span>Seguros</span><span>Productores</span><span>Contacto</span></nav></header>
+<main>
+<div class="plate"><small>11 de Septiembre 2702 · Mar del Plata</small>
+<h1>Productores asesores de seguros desde hace 35 años</h1>
+<p>Elegimos por vos la aseguradora, la cobertura y el precio. Y cuando pasa algo, te atiende una persona.</p>
+<div class="keys"><span class="key main">Cotizá tu seguro</span><span class="key">WhatsApp</span></div></div>
+<div class="intercom"><h2>Portero</h2>
+<div class="bell">Producción<i></i></div><div class="bell red">Siniestros<i></i></div><div class="bell">Cobranzas<i></i></div><div class="bell">Productores<i></i></div>
+<div class="grille"></div></div>
+</main>
+</body></html>

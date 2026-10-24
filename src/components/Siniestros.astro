@@ -1,0 +1,95 @@
+---
+import Icon from './Icon.astro';
+import { siniestros, whatsappLink } from '../data/brokers';
+
+const slug = (s: string) =>
+	s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, '-');
+
+const iconos: Record<string, Parameters<typeof Icon>[0]['name']> = {
+	Choque: 'carFront',
+	Cristales: 'frame',
+	Cerraduras: 'lockKeyhole',
+	'Robo de ruedas': 'disc',
+	'Robo del vehículo': 'siren',
+	Celular: 'smartphone',
+	'Otros daños en el hogar': 'house',
+	'Daños en el comercio': 'store',
+};
+const grupos = siniestros;
+
+const pasos = [
+	{ titulo: 'Elegí qué te pasó', texto: 'Tocá el tipo de siniestro.' },
+	{ titulo: 'Contanos el hecho', texto: 'Fecha, lugar y lo que necesitamos para la denuncia.' },
+	{ titulo: 'Te llama Siniestros', texto: 'Una persona de la oficina sigue tu caso.' },
+];
+---
+
+<section id="siniestros" class="bg-claim-field text-paper" aria-labelledby="sin-titulo">
+	<div class="mx-auto grid max-w-[84rem] gap-12 px-4 py-16 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16 lg:px-12 lg:py-24">
+		<div class="flex flex-col">
+			<h2 id="sin-titulo" class="text-[clamp(2.5rem,1.7rem+3.2vw,4.5rem)] font-bold [font-stretch:84%]">¿Tuviste un siniestro?</h2>
+			<p class="mt-5 max-w-[32ch] text-[1.25rem] text-claim-soft">Respirá. Te guiamos paso a paso para hacer la denuncia.</p>
+
+			<ol class="mt-10 border-t-2 border-paper">
+				{pasos.map((p, i) => (
+					<li class="grid grid-cols-[2.75rem_minmax(0,1fr)] items-baseline border-b border-paper/30 py-4">
+						<span class="font-mono text-[1.0625rem] font-medium text-claim-soft" aria-hidden="true">{i + 1}</span>
+						<div>
+							<h3 class="text-[1.375rem] font-bold">{p.titulo}</h3>
+							<p class="mt-0.5 text-[1.0625rem] text-claim-soft">{p.texto}</p>
+						</div>
+					</li>
+				))}
+			</ol>
+
+			<div class="mt-10 flex flex-col gap-3">
+				<a
+					href="/siniestros/denuncia"
+					class="group inline-flex items-center justify-between gap-6 bg-paper px-6 py-5 text-[1.375rem] font-bold text-claim-deep no-underline transition-colors duration-200 hover:bg-claim-soft"
+				>
+					Denunciar un siniestro
+					<Icon name="arrowRight" class="size-7 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2.25} />
+				</a>
+				<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+					<a href="tel:+542236247475" class="inline-flex items-center justify-center gap-2.5 border-2 border-paper px-4 py-3.5 text-[1.125rem] font-semibold text-paper no-underline transition-colors duration-200 hover:bg-paper hover:text-claim-deep">
+						<Icon name="phone" class="size-5" />223 624-7475
+					</a>
+					<a href={whatsappLink('Hola, tuve un siniestro y necesito ayuda con la denuncia.')} class="inline-flex items-center justify-center gap-2.5 border-2 border-paper px-4 py-3.5 text-[1.125rem] font-semibold text-paper no-underline transition-colors duration-200 hover:bg-paper hover:text-claim-deep">
+						<Icon name="whatsapp" class="size-5" />WhatsApp
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex flex-col">
+			<h3 class="text-[1.5rem] font-bold sm:text-[1.75rem]">¿Qué te pasó?</h3>
+			<div class="mt-5 grid grid-cols-2 gap-x-3 gap-y-8 lg:grid-cols-3">
+				{grupos.map((g) => (
+					<div class:list={[g.grupo === 'Auto' ? 'col-span-2 lg:col-span-3' : g.grupo === 'Hogar' ? 'col-span-2' : 'col-span-2 lg:col-span-1']}>
+						<h4 class="border-t-2 border-paper pt-2.5 text-[1.125rem] font-semibold">{g.grupo}</h4>
+						<ul class:list={['mt-3 grid gap-2.5 lg:gap-3', g.grupo === 'Auto' ? 'grid-cols-2 lg:grid-cols-3' : g.grupo === 'Hogar' ? 'grid-cols-2' : 'grid-cols-1']}>
+							{g.tipos.map((tipo, i) => (
+								<li class:list={[g.grupo === 'Auto' && i === g.tipos.length - 1 && 'col-span-2']}>
+									<a
+										href={`/siniestros/denuncia?tipo=${slug(`${g.grupo} ${tipo}`)}`}
+										class="group flex h-full min-h-32 flex-col justify-between gap-4 bg-sheet p-4 text-ink no-underline transition-[transform,background-color] duration-200 ease-out-expo hover:-translate-y-0.5 hover:bg-claim-soft lg:min-h-30"
+									>
+										<Icon name={iconos[tipo]} class="size-9 text-claim" strokeWidth={1.6} />
+										<span class="flex items-end justify-between gap-2">
+											<span class="text-[1.125rem] font-semibold leading-tight sm:text-[1.1875rem]">{tipo}</span>
+											<Icon name="arrowRight" class="size-5 shrink-0 text-claim transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
+										</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				))}
+			</div>
+
+			<p class="mt-8 border-t border-paper/30 pt-5 text-[1.0625rem] text-claim-soft lg:mt-auto">
+				Te atiende <strong class="font-semibold text-paper">Leticia Lazzati</strong>, del área de Siniestros, de lunes a viernes de 9 a 15 hs. Fuera de horario, llamá a la asistencia de tu aseguradora.
+			</p>
+		</div>
+	</div>
+</section>

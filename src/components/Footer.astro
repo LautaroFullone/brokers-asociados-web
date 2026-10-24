@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/img/logo-brokers.jpg';
+import { contacto } from '../data/brokers';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink text-paper">
+	<div class="mx-auto grid max-w-[84rem] gap-12 px-4 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:px-12 lg:py-16">
+		<div class="flex items-start gap-5">
+			<Image src={logo} alt="" width={80} height={80} densities={[1, 2]} class="size-20 shrink-0 rounded-full ring-2 ring-paper/80" />
+			<div>
+				<p class="text-[1.5rem] font-bold [font-stretch:92%]">Brokers Asociados</p>
+				<p class="mt-1 text-[1.0625rem] text-on-dark">Productores asesores de seguros</p>
+				<p class="mt-4 text-[1.0625rem] text-on-dark">{contacto.direccion}, {contacto.ciudad}<br />{contacto.telefono} · {contacto.horario}</p>
+			</div>
+		</div>
+
+		<!-- Bloque obligatorio de la Superintendencia de Seguros de la Nación -->
+		<div class="border-2 border-paper/80 bg-paper text-ink">
+			<p class="border-b-2 border-ink px-5 py-3 font-mono text-[0.875rem] font-medium uppercase tracking-[0.04em]">Superintendencia de Seguros de la Nación</p>
+			<dl class="grid grid-cols-1 sm:grid-cols-2">
+				<div class="border-b border-rule px-5 py-4 sm:border-r sm:border-b-0">
+					<dt class="text-[1rem] text-ink-2">Atención al asegurado</dt>
+					<dd class="mt-1 text-[1.375rem] font-bold"><a href="tel:08006668400" class="no-underline hover:underline">0800-666-8400</a></dd>
+				</div>
+				<div class="px-5 py-4">
+					<dt class="text-[1rem] text-ink-2">Organismo de control</dt>
+					<dd class="mt-1 text-[1.125rem] font-semibold"><a href="https://www.argentina.gob.ar/ssn" target="_blank" rel="noopener" class="[overflow-wrap:anywhere]">www.argentina.gob.ar/SSN</a></dd>
+				</div>
+			</dl>
+		</div>
+	</div>
+	<div class="border-t border-paper/25">
+		<div class="mx-auto flex max-w-[84rem] flex-col gap-2 px-4 py-5 text-[0.9375rem] text-on-dark sm:flex-row sm:justify-between sm:gap-8 sm:px-8 lg:px-12">
+			<p>© {year} Brokers Asociados · Mar del Plata</p>
+			<p class="font-mono text-[0.875rem]">Versión demo · aseguradoras, productores y fotos del equipo a confirmar</p>
+		</div>
+	</div>
+</footer>

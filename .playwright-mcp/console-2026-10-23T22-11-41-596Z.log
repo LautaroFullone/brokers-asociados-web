@@ -1,0 +1,4 @@
+[    8812ms] [WARNING] A speculation rule set was inserted into the document but will be ignored. This might happen, for example, if it was previously inserted into another document, or if it was created using the innerHTML setter. @ https://www.google.com/search?q=campanies+section+website&oq=campanies+section+website&gs_lcrp=EgZjaHJvbWUyCwgAEEUYChg5GKABMgkIARAhGAoYoAEyCQgCECEYChigAdIBCDQ4NzVqMGo3qAIAsAIA&sourceid=chrome&source=chrome.ob&ie=UTF-8:41
+[   16439ms] [ERROR] Failed to load resource: the server responded with a status of 405 () @ https://dribbble.com/tags/website-section:0
+[   27208ms] [ERROR] Not signed in with the identity provider. @ https://dribbble.com/tags/website-section:0
+[   32058ms] [ERROR] [GSI_LOGGER]: FedCM get() rejects with NetworkError: Error retrieving a token. @ https://accounts.google.com/gsi/client:87

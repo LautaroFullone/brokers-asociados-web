@@ -1,0 +1,593 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.278Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.290Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.301Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.312Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.322Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.332Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.341Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.352Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-rietveld.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.362Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-rietveld.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.373Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-rietveld.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.384Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-rietveld.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.395Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.405Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.416Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.427Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.437Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-piedra.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.448Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-piedra.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.459Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-piedra.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.469Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-piedra.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.480Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-poliza.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.490Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-poliza.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.501Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-poliza.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.512Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-poliza.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.522Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-costa.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.533Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-costa.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.543Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-costa.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.553Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-costa.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.564Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-canon.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.574Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-canon.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.585Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-canon.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.595Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-canon.html"
+        ],
+        "createdAt": "2026-10-23T18:09:11.605Z",
+        "reason": "Claude: decision-round sketch, rendered only as a skeleton thumbnail on the decision page; never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.629Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.643Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.656Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-spacing",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.668Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.679Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.691Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.702Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-spacing",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.713Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-rietveld.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.726Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-rietveld.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.740Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-rietveld.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.753Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-spacing",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-rietveld.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.766Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.779Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.794Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.806Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-spacing",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.824Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-piedra.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.837Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-piedra.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.850Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-piedra.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.862Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-spacing",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-piedra.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.875Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-poliza.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.893Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-poliza.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.912Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-poliza.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.927Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-spacing",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-poliza.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.941Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-costa.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.954Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-costa.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.966Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-costa.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.979Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-spacing",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-costa.html"
+        ],
+        "createdAt": "2026-10-23T18:35:53.992Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-canon.html"
+        ],
+        "createdAt": "2026-10-23T18:35:54.005Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-canon.html"
+        ],
+        "createdAt": "2026-10-23T18:35:54.017Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-canon.html"
+        ],
+        "createdAt": "2026-10-23T18:35:54.035Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "design-system-spacing",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-canon.html"
+        ],
+        "createdAt": "2026-10-23T18:35:54.048Z",
+        "reason": "Claude: decision-round sketch (pre-DESIGN.md alternatives), rendered only as a skeleton thumbnail; never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/cotizar-c.html"
+        ],
+        "createdAt": "2026-10-23T18:55:51.787Z",
+        "reason": "Claude: decision sketch; faded seal intentionally shows the not-yet-ready state, never shipped"
+      }
+    ]
+  }
+}

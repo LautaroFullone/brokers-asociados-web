@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Balneario de temporada</title>
+<style>
+:root{--navy:#16306B;--canvas:#F7F7F2;--green:#1E7A4C;--red:#D7262B;--yellow:#F2C230;--sand:#E4D3AE;--ink:#0E1B3D}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--canvas);font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+.awning{height:132px;background:repeating-linear-gradient(90deg,var(--navy) 0 60px,var(--canvas) 60px 120px);position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:22px 48px}
+.awning::after{content:"";position:absolute;left:0;right:0;bottom:-30px;height:30px;background:radial-gradient(circle at 30px 0,var(--navy) 29px,transparent 30px) 0 0/120px 30px repeat-x,radial-gradient(circle at 30px 0,var(--canvas) 29px,transparent 30px) 60px 0/120px 30px repeat-x}
+.brand,.nav{background:var(--canvas);padding:12px 20px;border:3px solid var(--navy)}
+.brand b{font:700 30px/1 Georgia,serif;color:var(--navy)}.brand span{display:block;font:600 13px/1.4 Arial;letter-spacing:.42em;color:var(--green)}
+.nav{display:flex;gap:28px;font:700 15px/1 Arial;text-transform:uppercase;letter-spacing:.08em;align-items:center}
+.stage{display:grid;grid-template-columns:1fr 300px;gap:40px;padding:70px 48px 0}
+.board{background:var(--navy);color:var(--canvas);padding:48px 56px 44px;border:10px solid #0B1F4C;position:relative}
+.board .open{display:inline-flex;gap:10px;align-items:center;font:700 16px Arial;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow)}
+.board .open i{width:12px;height:12px;border-radius:50%;background:#46D27A}
+h1{font:800 86px/0.95 "Avenir Next Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;letter-spacing:-.01em;margin:22px 0 22px;max-width:15ch}
+h1 em{font-style:normal;color:var(--yellow)}
+.lead{font:500 22px/1.4 Arial;max-width:40ch;opacity:.9}
+.ctas{display:flex;gap:18px;margin-top:34px}
+.cta{font:800 26px/1 "Avenir Next Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.04em;padding:22px 34px;border:4px solid var(--canvas)}
+.cta.main{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.cta.wa{color:var(--canvas)}
+.mast{position:relative;height:520px}
+.pole{position:absolute;left:40px;top:0;bottom:0;width:10px;background:#8A8F99}
+.flag{position:absolute;left:50px;width:220px;padding:18px 20px;font:800 26px/1.05 "Avenir Next Condensed","Arial Narrow",sans-serif;text-transform:uppercase;color:#fff;clip-path:polygon(0 0,100% 0,88% 50%,100% 100%,0 100%)}
+.flag.r{top:20px;background:var(--red)}
+.flag.r small{display:block;font:600 15px/1.3 Arial;text-transform:none;margin-top:6px}
+.flag.y{top:170px;background:var(--yellow);color:var(--ink);background-image:repeating-linear-gradient(45deg,transparent 0 10px,rgba(0,0,0,.12) 10px 14px)}
+.row{position:absolute;left:0;right:0;bottom:0;height:150px;background:var(--sand);display:flex;align-items:flex-end;gap:14px;padding:0 48px 20px}
+.toggle{align-self:center;display:flex;flex-direction:column;gap:8px;margin-right:18px}
+.toggle b{font:800 22px "Arial Narrow",sans-serif;text-transform:uppercase;padding:10px 14px;background:var(--navy);color:var(--canvas)}
+.toggle b+b{background:transparent;color:var(--navy);border:3px solid var(--navy)}
+.carpa{flex:1;height:118px;display:flex;flex-direction:column}
+.carpa .top{height:56px;background:repeating-linear-gradient(90deg,var(--green) 0 16px,var(--canvas) 16px 32px);clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)}
+.carpa:nth-child(odd) .top{background:repeating-linear-gradient(90deg,var(--navy) 0 16px,var(--canvas) 16px 32px)}
+.carpa .lbl{flex:1;background:var(--canvas);border:3px solid var(--navy);border-top:0;display:flex;justify-content:space-between;align-items:center;padding:0 12px;font:800 22px "Arial Narrow",sans-serif;text-transform:uppercase}
+.carpa .lbl s{text-decoration:none;color:var(--green)}
+</style></head><body>
+<div class="awning"><div class="brand"><b>brokers</b><span>ASOCIADOS</span></div>
+<div class="nav"><span>Cotizá</span><span>Seguros</span><span>Productores</span><span>Nosotros</span><span>Contacto</span></div></div>
+<div class="stage">
+<div class="board"><span class="open"><i></i>Abierto ahora · hasta las 15 hs</span>
+<h1>Te cubrimos en Mar del Plata <em>hace 35 años</em></h1>
+<p class="lead">Elegimos por vos la aseguradora, la cobertura y el precio entre diez compañías. Y cuando pasa algo, te atiende una persona.</p>
+<div class="ctas"><span class="cta main">Cotizá tu seguro →</span><span class="cta wa">WhatsApp 223 596-3894</span></div></div>
+<div class="mast"><div class="pole"></div><div class="flag r">Siniestros<small>Denunciá acá, te guiamos</small></div><div class="flag y">0800 SSN</div></div>
+</div>
+<div class="row"><div class="toggle"><b>Para vos</b><b>Para tu empresa</b></div>
+<div class="carpa"><div class="top"></div><div class="lbl">Auto y moto<s>01</s></div></div>
+<div class="carpa"><div class="top"></div><div class="lbl">Hogar<s>02</s></div></div>
+<div class="carpa"><div class="top"></div><div class="lbl">Accidentes<s>03</s></div></div>
+<div class="carpa"><div class="top"></div><div class="lbl">Vida<s>04</s></div></div>
+<div class="carpa"><div class="top"></div><div class="lbl">Embarcación<s>05</s></div></div>
+</div>
+</body></html>

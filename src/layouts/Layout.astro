@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+import { contacto } from '../data/brokers';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'InsuranceAgency',
+	name: 'Brokers Asociados',
+	description,
+	url: Astro.site?.toString(),
+	telephone: '+54 223 495-5034',
+	email: 'info@brokersasociados.com.ar',
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: contacto.direccion,
+		addressLocality: 'Mar del Plata',
+		addressRegion: 'Buenos Aires',
+		postalCode: '7600',
+		addressCountry: 'AR',
+	},
+	geo: { '@type': 'GeoCoordinates', latitude: contacto.geo.lat, longitude: contacto.geo.lng },
+	openingHoursSpecification: [
+		{
+			'@type': 'OpeningHoursSpecification',
+			dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+			opens: '09:00',
+			closes: '15:00',
+		},
+	],
+	sameAs: [contacto.instagram],
+};
+---
+
+<!doctype html>
+<html lang="es-AR">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<meta name="theme-color" content="#f6f4ef" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="es_AR" />
+		<meta property="og:site_name" content="Brokers Asociados" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta name="generator" content={Astro.generator} />
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+	</head>
+	<body class="pb-[4.75rem] md:pb-0">
+		<a
+			href="#contenido"
+			class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-ink focus:px-4 focus:py-3 focus:text-paper"
+		>
+			Saltar al contenido
+		</a>
+		<slot />
+	</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "title": "Estructura de /cotizar",
+  "question": "Tres maneras de organizar la página de cotizar dentro del mundo de la póliza. Elegí una, guiala con una nota o pedí otra mano.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Formulario con «qué pasa después»",
+      "kicker": "THE ROLL",
+      "lineage": "Pantalla dividida: el contexto fijo a la izquierda y el formulario a la derecha",
+      "thesis": "A la izquierda queda fijo lo que tranquiliza (qué pasa después, horario y WhatsApp) y a la derecha va un único formulario corto.",
+      "palette": ["#e3f0ea", "#13285e", "#ffffff", "#17724a", "#b4232a"],
+      "materials": ["campos numerados con margen rayado", "cláusulas numeradas", "papel verde agua"],
+      "viewport": "Columna izquierda sobre verde agua: título, «Qué pasa después» en tres artículos y el horario en vivo. Columna derecha: la hoja blanca con rama, datos de la rama, contacto ya cargado y productor opcional.",
+      "risk": "En el celular la columna de contexto queda arriba y empuja el formulario hacia abajo; hay que resumirla.",
+      "html": ".impeccable/mocks/decision/cotizar-a.html"
+    },
+    {
+      "id": "dealt-tabs",
+      "kind": "dealt",
+      "label": "Anexos por rama",
+      "lineage": "Pestañas como anexos de una póliza: Auto, Hogar, Accidentes, Otro",
+      "thesis": "La rama se elige con pestañas tipo anexo arriba de la hoja; cambiar de pestaña cambia solo los campos de la rama, y el contacto ya cargado queda en un bloque resumido.",
+      "palette": ["#fcfcfa", "#13285e", "#e5eef6", "#17724a", "#b4232a"],
+      "materials": ["pestañas de anexo", "hoja centrada", "bloque de datos ya cargados"],
+      "viewport": "Hoja centrada de ancho medio con cuatro pestañas-anexo arriba (la elegida en tinta llena), los campos de la rama, el bloque «Tus datos: María · 223 555-1234 · Editar» y la barra Enviar.",
+      "risk": "Es la más previsible; las pestañas pueden pasar desapercibidas para quien llega con la rama ya elegida.",
+      "html": ".impeccable/mocks/decision/cotizar-b.html"
+    },
+    {
+      "id": "dealt-caratula",
+      "kind": "dealt",
+      "label": "Hoja con carátula en vivo",
+      "lineage": "La solicitud a la izquierda y su carátula de póliza que se completa sola a la derecha",
+      "thesis": "Mientras completás la solicitud, a la derecha se arma la carátula de tu pedido (rama, vehículo o vivienda, contacto), con el sello cuando está lista para enviar.",
+      "palette": ["#e3f0ea", "#13285e", "#ffffff", "#17724a", "#1f7e9c"],
+      "materials": ["carátula de póliza", "sello verde", "guilloché tenue"],
+      "viewport": "Formulario a la izquierda (60 %). A la derecha, una carátula fija con «Pedido de cotización · Auto», los campos ya escritos en tinta y los vacíos con línea punteada; el sello aparece al completar.",
+      "risk": "Duplica la información en pantalla; en el celular la carátula pasa a ser un resumen al pie.",
+      "html": ".impeccable/mocks/decision/cotizar-c.html"
+    }
+  ],
+  "reroll": true,
+  "buildPath": { "value": "code" },
+  "steer": true
+}

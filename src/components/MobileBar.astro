@@ -1,0 +1,34 @@
+---
+import Icon from './Icon.astro';
+import { whatsappLink } from '../data/brokers';
+
+interface Props {
+	cotizarHref?: string;
+	cotizarLabel?: string;
+	soloWhatsapp?: boolean;
+}
+const { cotizarHref = '/cotizar', cotizarLabel = 'Cotizá tu seguro', soloWhatsapp = false } = Astro.props;
+---
+
+<nav aria-label="Acciones rápidas" data-barra class:list={["fixed inset-x-0 bottom-0 z-40 grid superficie-papel border-t-2 border-ink transition-transform duration-300 ease-out-expo data-[oculta]:translate-y-full md:hidden", soloWhatsapp ? "grid-cols-1" : "grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]"]}>
+	{!soloWhatsapp && (
+		<a href={cotizarHref} class="flex min-h-[4.5rem] items-center justify-center gap-2 bg-ink text-[1.125rem] font-semibold text-paper no-underline">
+			{cotizarLabel}
+			<Icon name="arrowRight" class="size-5" strokeWidth={2} />
+		</a>
+	)}
+	<a href={whatsappLink('Hola, quiero cotizar un seguro.')} class="flex min-h-[4.5rem] items-center justify-center gap-2 bg-seal text-[1.125rem] font-semibold text-paper no-underline">
+		<Icon name="whatsapp" class="size-5" />
+		WhatsApp
+	</a>
+</nav>
+
+<script>
+	// Con hero en la página, la barra aparece recién al pasarlo: el hero ya tiene los mismos botones.
+	const hero = document.querySelector('[data-hero]');
+	const barra = document.querySelector<HTMLElement>('[data-barra]');
+	if (hero && barra) {
+		barra.dataset.oculta = '';
+		new IntersectionObserver(([e]) => barra.toggleAttribute('data-oculta', e.isIntersecting), { threshold: 0.15 }).observe(hero);
+	}
+</script>

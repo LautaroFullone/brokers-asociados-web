@@ -1,0 +1,56 @@
+{
+  "title": "Confianza y cercanía local: tres caminos seguros",
+  "question": "Tres direcciones familiares, serias y con un toque moderno, pensadas para un público de más de 45 años. Elegí una, tomá el estándar del rubro o pedí otra mano.",
+  "options": [
+    {
+      "id": "grounded-piedra",
+      "kind": "grounded",
+      "label": "Piedra Mar del Plata",
+      "lineage": "El chalet marplatense: piedra Mar del Plata, teja colonial y carpintería de madera",
+      "thesis": "La solidez que cualquier marplatense reconoce: la piedra de los chalets como base y la cercanía de una casa del barrio.",
+      "palette": ["#F2F1EC", "#8C8170", "#9E3B26", "#3B2A20", "#16306B"],
+      "materials": ["piedra Mar del Plata en franjas", "revoque blanco", "carpintería de madera oscura"],
+      "viewport": "Franja de piedra como zócalo de la primera pantalla; sobre revoque blanco, titular grande, Cotizá y WhatsApp; foto de un frente marplatense a la derecha y, abajo, el acceso a Siniestros en teja.",
+      "risk": "Si la piedra se usa de más puede volverse rústica o antigua; necesita tipografía moderna que la equilibre.",
+      "html": ".impeccable/mocks/decision/r1-piedra.html"
+    },
+    {
+      "id": "grounded-poliza",
+      "kind": "grounded",
+      "label": "La póliza bien hecha",
+      "lineage": "El documento de seguro argentino: campos numerados, guilloché de seguridad y sello",
+      "thesis": "La confianza como claridad: todo ordenado como una póliza bien redactada, con campos numerados, tinta azul y el sello verde del logo.",
+      "palette": ["#FBFBF8", "#13285E", "#1E7A4C", "#DCE6E0", "#C62F2F"],
+      "materials": ["papel de seguridad con guilloché", "campos numerados con filetes", "sello de goma"],
+      "viewport": "Una hoja blanca con encabezado de documento; el titular como objeto de la póliza; la cotización arranca ahí mismo con campos numerados y Cotizá; el sello «35 años» en verde y Siniestros como casilla roja.",
+      "risk": "Puede sentirse burocrática o fría si el guilloché y los filetes no se dosifican.",
+      "html": ".impeccable/mocks/decision/r1-poliza.html"
+    },
+    {
+      "id": "grounded-costa",
+      "kind": "grounded",
+      "label": "Frente costero",
+      "lineage": "La Rambla y el Atlántico marplatense: azul profundo, espuma y piedra de la costanera",
+      "thesis": "Un broker de acá: el azul del Atlántico (el mismo del logo), fotos reales de la costa y la oficina, y personas con nombre.",
+      "palette": ["#0F2F57", "#3F6F8F", "#EEF3F5", "#B9AE98", "#E8B04A"],
+      "materials": ["fotografía de la costa", "piedra de la Rambla", "azul atlántico pleno"],
+      "viewport": "Campo azul atlántico a todo el ancho con titular blanco, Cotizá en dorado y WhatsApp; a la derecha, una foto grande de la costa; abajo, franja de piedra con los datos de la oficina y el horario.",
+      "risk": "Es la más cercana al estándar del rubro y depende de tener buenas fotos.",
+      "html": ".impeccable/mocks/decision/r1-costa.html"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code" },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "El estándar del rubro",
+    "thesis": "Lo que hacen 123Seguro y Sancor Seguros, ejecutado con su nivel de terminación.",
+    "palette": ["#FFFFFF", "#0F2A5C", "#1A5FC4", "#F3F6FA"],
+    "materials": ["grilla limpia", "cotizador arriba", "íconos de ramas"],
+    "viewport": "Titular con selector de rama (auto, hogar, AP, otras) y Cotizá a la vista; debajo, beneficios con íconos y logos de aseguradoras.",
+    "risk": "Indistinguible de la competencia por diseño.",
+    "html": ".impeccable/mocks/decision/r1-canon.html"
+  },
+  "steer": true
+}

@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Coberturas from '../components/Coberturas.astro';
+import ComoTrabajamos from '../components/ComoTrabajamos.astro';
+import Aseguradoras from '../components/Aseguradoras.astro';
+import Siniestros from '../components/Siniestros.astro';
+import Personas from '../components/Personas.astro';
+import Contacto from '../components/Contacto.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+---
+
+<Layout
+	title="Brokers Asociados · Productores asesores de seguros en Mar del Plata"
+	description="Más de 35 años asesorando a personas y empresas de Mar del Plata. Cotizá tu seguro de auto, hogar, comercio, accidentes personales, ART y más."
+>
+	<Header sobreHero />
+	<main id="contenido">
+		<Hero />
+		<Coberturas />
+		<ComoTrabajamos />
+		<Aseguradoras />
+		<Siniestros />
+		<Personas />
+		<Contacto />
+	</main>
+	<Footer />
+	<MobileBar />
+</Layout>
