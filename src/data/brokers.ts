@@ -33,46 +33,54 @@ export const ramas = [
 	{ id: 'otro', label: 'Otro seguro', corto: 'otro seguro' },
 ] as const;
 
-// Las descripciones de Vida, Embarcaciones y las ramas de empresa son genéricas: confirmar alcance con el cliente.
-type Producto = { nombre: string; rama: string; coberturas?: string; nota?: string };
+// Las descripciones de Vida, Embarcaciones, Incendio hogar y las ramas de empresa son genéricas: confirmar alcance con el cliente.
+export type Producto = {
+	nombre: string;
+	rama: string;
+	/** Una línea para el mosaico. */
+	resumen: string;
+	/** Clave de ícono de Icon.astro. */
+	icono: string;
+	/** Mosaico grande (2×2 en pantallas anchas). */
+	grande?: boolean;
+	nota?: string;
+};
 
 export const productosPersonas: Producto[] = [
 	{
-		nombre: 'Auto y moto',
+		nombre: 'Automotores',
 		rama: 'auto',
-		coberturas:
-			'Responsabilidad civil, robo o hurto total y parcial, incendio total y parcial, destrucción por accidente, granizo, cristales y cerraduras, asistencia mecánica y grúa.',
+		icono: 'carFront',
+		grande: true,
+		resumen: 'Responsabilidad civil, robo o hurto, incendio, granizo, cristales y asistencia mecánica.',
 		nota: 'Planes A, B1, B, Terceros completo y Todo riesgo.',
 	},
 	{
 		nombre: 'Hogar',
 		rama: 'hogar',
-		coberturas:
-			'Incendio, rayo, vendaval e inundación, robo, responsabilidad civil, daños a electrodomésticos, electrónica e informática, cristales.',
+		icono: 'house',
+		grande: true,
+		resumen: 'Incendio, rayo, vendaval e inundación, robo, responsabilidad civil, electrodomésticos y cristales.',
 	},
-	{
-		nombre: 'Accidentes personales',
-		rama: 'accidentes',
-		coberturas:
-			'Fallecimiento, incapacidad total o parcial permanente, gastos médico-farmacéuticos y de sepelio.',
-	},
-	{ nombre: 'Vida', rama: 'otro', coberturas: 'Un capital para tu familia o tus beneficiarios en caso de fallecimiento.' },
-	{ nombre: 'Embarcaciones de placer', rama: 'otro', coberturas: 'Tu lancha o velero, con responsabilidad civil hacia terceros.' },
+	{ nombre: 'Incendio hogar', rama: 'hogar', icono: 'flame', resumen: 'Tu vivienda y su contenido ante un incendio.' },
+	{ nombre: 'Accidentes personales', rama: 'accidentes', icono: 'bandage', resumen: 'Fallecimiento, incapacidad y gastos médicos.' },
+	{ nombre: 'Vida', rama: 'otro', icono: 'heartPulse', resumen: 'Un capital para tu familia o tus beneficiarios.' },
+	{ nombre: 'Embarcaciones de placer', rama: 'otro', icono: 'sailboat', resumen: 'Tu lancha o velero, con responsabilidad civil.' },
 ];
 
 export const productosEmpresas: Producto[] = [
 	{
 		nombre: 'Integral de comercio',
 		rama: 'hogar',
-		coberturas:
-			'Incendio, rayo, vendaval e inundación, robo, responsabilidad civil, daños a equipos electrónicos e informáticos, cristales.',
+		icono: 'store',
+		grande: true,
+		resumen: 'Incendio, robo, responsabilidad civil, equipos electrónicos y cristales.',
 	},
-	{ nombre: 'ART · Riesgos del trabajo', rama: 'otro', coberturas: 'La cobertura obligatoria por accidentes y enfermedades laborales de tu personal.' },
-	{ nombre: 'Responsabilidad civil', rama: 'otro', coberturas: 'Los daños que tu actividad pueda causarle a terceros.' },
-	{ nombre: 'Incendio', rama: 'otro', coberturas: 'El edificio y el contenido de tu empresa ante un incendio.' },
-	{ nombre: 'Integral de consorcio', rama: 'otro', coberturas: 'El edificio, los espacios comunes y la responsabilidad civil del consorcio.' },
-	{ nombre: 'Integral hotelero', rama: 'otro', coberturas: 'El edificio, el contenido y la responsabilidad frente a los huéspedes de tu hotel.' },
-	{ nombre: 'Integral agropecuario', rama: 'otro', coberturas: 'Bienes, maquinaria y responsabilidad civil de la actividad rural.' },
+	{ nombre: 'Riesgos del trabajo (ART)', rama: 'otro', icono: 'hardHat', resumen: 'La cobertura obligatoria por accidentes laborales de tu personal.' },
+	{ nombre: 'Responsabilidad civil', rama: 'otro', icono: 'shield', resumen: 'Los daños que tu actividad pueda causarle a terceros.' },
+	{ nombre: 'Integral de consorcio', rama: 'otro', icono: 'building2', resumen: 'El edificio, los espacios comunes y la responsabilidad del consorcio.' },
+	{ nombre: 'Integral hotelero', rama: 'otro', icono: 'hotel', resumen: 'El edificio, el contenido y la responsabilidad frente a huéspedes.' },
+	{ nombre: 'Integral agropecuario', rama: 'otro', icono: 'tractor', resumen: 'Bienes, maquinaria y responsabilidad civil de la actividad rural.' },
 ];
 
 // Pendiente: lista vigente y logos oficiales.
@@ -91,8 +99,8 @@ export const aseguradoras = [
 
 export const siniestros = [
 	{ grupo: 'Auto', tipos: ['Choque', 'Cristales', 'Cerraduras', 'Robo de ruedas', 'Robo del vehículo'] },
-	{ grupo: 'Hogar', tipos: ['Celular', 'Otros daños en el hogar'] },
-	{ grupo: 'Comercio', tipos: ['Daños en el comercio'] },
+	{ grupo: 'Hogar', tipos: ['Robo o daño del celular', 'Otros daños en el hogar'] },
+	{ grupo: 'Comercio y consorcio', tipos: ['Daños en el comercio', 'Daños en el consorcio'] },
 ];
 
 export const equipo = [

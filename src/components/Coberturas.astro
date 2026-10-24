@@ -2,46 +2,154 @@
 import Icon from './Icon.astro';
 import { productosPersonas, productosEmpresas } from '../data/brokers';
 
-const columnas = [
-	{ id: 'personas', titulo: 'Para vos', productos: productosPersonas },
-	{ id: 'empresas', titulo: 'Para tu empresa', productos: productosEmpresas },
+const paneles = [
+	{ id: 'personas', titulo: 'Para vos', productos: productosPersonas, filas: 'lg:grid-rows-[auto_auto_auto]' },
+	{ id: 'empresas', titulo: 'Para tu empresa', productos: productosEmpresas, filas: '' },
 ];
+
+const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}&producto=${encodeURIComponent(p.nombre)}`;
 ---
 
-<section id="coberturas" class="border-t-2 border-ink" aria-labelledby="coberturas-titulo">
+<section id="coberturas" class="border-t-2 border-ink" aria-labelledby="coberturas-titulo" data-coberturas>
 	<div class="mx-auto max-w-[84rem] px-4 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-		<h2 id="coberturas-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Qué podemos asegurarte</h2>
+		<div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+			<div>
+				<h2 id="coberturas-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Qué podemos asegurarte</h2>
+				<p class="mt-5 max-w-[40ch] text-[1.25rem] text-ink-2">Para vos, tu familia y tu empresa. Elegí qué querés asegurar y te cotizamos.</p>
+			</div>
 
-		<div class="mt-10 grid gap-12 lg:mt-14 lg:grid-cols-2 lg:gap-16">
-			{columnas.map((col) => (
-				<div>
-					<h3 class="border-b-2 border-ink pb-3 text-[1.75rem] font-bold sm:text-[2rem]">{col.titulo}</h3>
-					<ul>
-						{col.productos.map((p) => (
-							<li class="border-b border-rule">
-								<details class="group/item">
-									<summary class="flex min-h-15 cursor-pointer list-none items-center justify-between gap-6 py-3.5 text-[1.25rem] font-semibold [&::-webkit-details-marker]:hidden hover:text-link sm:text-[1.375rem]">
-										{p.nombre}
-										<span class="grid size-8 shrink-0 place-items-center border-[1.5px] border-ink transition-colors duration-200 group-open/item:bg-ink group-open/item:text-paper" aria-hidden="true">
-											<svg class="size-4 transition-transform duration-300 ease-out-expo group-open/item:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25"><path d="M12 5v14M5 12h14" /></svg>
+			<!-- Selector: lo muestra el script; sin JS se ven los dos grupos uno debajo del otro -->
+			<div role="tablist" aria-label="Tipo de seguro" class="selector hidden shrink-0 border-2 border-ink" data-tablist>
+				{paneles.map((pn, i) => (
+					<button
+						type="button"
+						role="tab"
+						id={`tab-${pn.id}`}
+						aria-controls={`panel-${pn.id}`}
+						aria-selected={i === 0 ? 'true' : 'false'}
+						tabindex={i === 0 ? 0 : -1}
+						class="tab min-h-14 flex-1 whitespace-nowrap px-5 text-[1.1875rem] font-semibold transition-colors duration-200 sm:min-w-[13rem]"
+					>
+						{pn.titulo}
+					</button>
+				))}
+			</div>
+		</div>
+
+		<div class="mt-10 lg:mt-14">
+			{paneles.map((pn) => (
+				<div id={`panel-${pn.id}`} role="tabpanel" aria-labelledby={`tab-${pn.id}`} class="panel mb-14 last:mb-0" data-panel>
+					<h3 class="panel-titulo mb-5 border-b-2 border-ink pb-3 text-[1.75rem] font-bold">{pn.titulo}</h3>
+					<ul class="mosaicos grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+						{pn.productos.map((p, i) => {
+							const ultimoAncho = pn.id === 'empresas' && i === pn.productos.length - 1;
+							return (
+								<li
+									style={`--i:${i}`}
+									class:list={[
+										'mosaico',
+										p.grande && 'sm:col-span-2 lg:row-span-2',
+										ultimoAncho && 'sm:col-span-2 lg:col-span-4',
+									]}
+								>
+									<a
+										href={enlace(p)}
+										class:list={[
+											'tile group flex h-full flex-col justify-between gap-6 border-[1.5px] no-underline transition-[transform,background-color,color] duration-200 ease-out-expo hover:-translate-y-0.5',
+											p.grande ? 'tile-grande bg-ink p-6 text-paper hover:bg-ink-deep sm:p-8 border-ink' : 'bg-sheet p-5 text-ink border-rule-soft hover:border-ink',
+											!p.grande && !ultimoAncho && 'min-h-44 lg:min-h-48',
+											ultimoAncho && 'min-h-32 lg:flex-row lg:items-center lg:gap-8',
+										]}
+									>
+										<Icon name={p.icono as any} class={p.grande ? 'size-14 sm:size-16' : 'size-9'} strokeWidth={p.grande ? 1.4 : 1.6} />
+										<span class:list={['flex flex-col', ultimoAncho && 'lg:flex-1']}>
+											<span class:list={['font-bold leading-tight [font-stretch:90%]', p.grande ? 'text-[1.875rem] sm:text-[2.25rem]' : 'text-[1.25rem] sm:text-[1.375rem]']}>{p.nombre}</span>
+											<span class:list={['mt-2 leading-[1.4]', p.grande ? 'max-w-[34ch] text-[1.125rem] text-on-dark' : 'text-[1rem] text-ink-2']}>{p.resumen}</span>
+											{p.nota && <span class="mt-2 font-mono text-[0.875rem] text-seal-on-dark">{p.nota}</span>}
 										</span>
-									</summary>
-									<div class="flex flex-col gap-3 pb-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-										<p class="max-w-[52ch] text-[1rem] leading-[1.5] text-ink-2 sm:text-[1.0625rem]">
-											{p.coberturas}
-											{p.nota && <span class="mt-1.5 block font-medium text-ink">{p.nota}</span>}
-										</p>
-										<a href={`/cotizar?rama=${p.rama}&producto=${encodeURIComponent(p.nombre)}`} class="group inline-flex shrink-0 items-center gap-1.5 text-[1.0625rem] font-semibold">
+										<span class:list={['inline-flex items-center gap-2 font-semibold', p.grande ? 'text-[1.1875rem]' : 'text-[1.0625rem] text-ink']}>
 											Cotizar
-											<Icon name="arrowRight" class="size-[1.125rem] transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
-										</a>
-									</div>
-								</details>
-							</li>
-						))}
+											<Icon name="arrowRight" class="size-5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
+										</span>
+									</a>
+								</li>
+							);
+						})}
 					</ul>
 				</div>
 			))}
 		</div>
 	</div>
 </section>
+
+<style>
+	.tab {
+		background: transparent;
+		color: var(--color-ink);
+	}
+	.tab:hover {
+		background: var(--color-wash);
+	}
+	.tab[aria-selected='true'] {
+		background: var(--color-ink);
+		color: var(--color-paper);
+	}
+	.selector {
+		display: none;
+	}
+	:global([data-js]) .selector {
+		display: flex;
+	}
+	:global([data-js]) .panel-titulo {
+		display: none;
+	}
+	:global([data-js]) .panel {
+		margin-bottom: 0;
+	}
+	:global([data-js]) .panel[hidden] {
+		display: none;
+	}
+	:global([data-js]) .panel:not([hidden]) .mosaico {
+		animation: mosaico-entra 0.55s var(--ease-out-expo) both;
+		animation-delay: calc(var(--i) * 55ms);
+	}
+	@keyframes mosaico-entra {
+		from { opacity: 0; transform: translateY(0.75rem); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.mosaico { animation: none !important; }
+		.tile { transition: none; }
+		.tile:hover { transform: none; }
+	}
+</style>
+
+<script>
+	const raiz = document.querySelector<HTMLElement>('[data-coberturas]')!;
+	const tabs = [...raiz.querySelectorAll<HTMLButtonElement>('[role=tab]')];
+	const paneles = [...raiz.querySelectorAll<HTMLElement>('[data-panel]')];
+
+	function elegir(i: number, enfocar = false) {
+		tabs.forEach((t, j) => {
+			t.setAttribute('aria-selected', String(i === j));
+			t.tabIndex = i === j ? 0 : -1;
+		});
+		paneles.forEach((p, j) => (p.hidden = i !== j));
+		if (enfocar) tabs[i].focus();
+	}
+
+	document.documentElement.setAttribute('data-js', '');
+	raiz.querySelector('[data-tablist]')!.classList.remove('hidden');
+	elegir(0);
+
+	tabs.forEach((t, i) => {
+		t.addEventListener('click', () => elegir(i));
+		t.addEventListener('keydown', (e) => {
+			const n = tabs.length;
+			const destino = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key as string];
+			if (destino === undefined) return;
+			e.preventDefault();
+			elegir(destino, true);
+		});
+	});
+</script>

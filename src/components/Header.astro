@@ -12,24 +12,26 @@ const { sobreHero = false } = Astro.props;
 
 const nav = [
 	{ href: '/#coberturas', label: 'Seguros' },
+	{ href: '/#aseguradoras', label: 'Aseguradoras' },
 	{ href: '/#siniestros', label: 'Siniestros', siniestro: true },
+	{ href: '/#personas', label: 'Equipo' },
 	{ href: '/#contacto', label: 'Contacto' },
 ];
 ---
 
 <header data-header data-sobre-hero={sobreHero || undefined} class="site-header fixed inset-x-0 top-0 z-50">
 	<div class="header-bar">
-		<div class="mx-auto flex h-[4.5rem] max-w-[84rem] items-center gap-8 px-4 sm:px-8 lg:px-12">
-			<a href="/" class="flex shrink-0 items-center gap-3 no-underline" aria-label="Brokers Asociados, inicio">
-				<Image src={logo} alt="" width={44} height={44} densities={[1, 2]} class="size-11 rounded-full" loading="eager" />
-				<span class="text-[1.25rem] font-bold tracking-[-0.01em] [font-stretch:90%]">Brokers Asociados</span>
+		<div class="mx-auto flex h-20 max-w-[84rem] items-center gap-8 px-4 sm:px-8 lg:px-12">
+			<a href="/" class="flex shrink-0 items-center gap-2.5 no-underline sm:gap-3" aria-label="Brokers Asociados, inicio">
+				<Image src={logo} alt="" width={56} height={56} densities={[1, 2]} class="size-11 rounded-full sm:size-14" loading="eager" />
+				<span class="text-[1.1875rem] font-bold tracking-[-0.01em] sm:text-[1.5rem] [font-stretch:90%]">Brokers Asociados</span>
 			</a>
 
-			<nav aria-label="Principal" class="ml-auto hidden md:block">
-				<ul class="flex items-center gap-8 text-[1.0625rem] font-medium">
+			<nav aria-label="Principal" class="ml-auto hidden lg:block">
+				<ul class="flex items-center gap-7 text-[1.0625rem] font-medium">
 					{nav.map((item) => (
 						<li>
-							<a href={item.href} class="nav-link inline-flex items-center gap-2 py-1 no-underline">
+							<a href={item.href} data-seccion={item.href.slice(2)} class="nav-link inline-flex items-center gap-2 py-1 no-underline">
 								{item.siniestro && <span class="size-2 rounded-full bg-claim" aria-hidden="true"></span>}
 								{item.label}
 							</a>
@@ -38,14 +40,14 @@ const nav = [
 				</ul>
 			</nav>
 
-			<a href="/cotizar" class="header-cta group hidden items-center gap-2 px-4 py-2.5 text-[1.0625rem] font-semibold no-underline md:inline-flex">
+			<a href="/cotizar" class="header-cta group hidden items-center gap-2.5 px-5 py-3 text-[1.125rem] font-bold no-underline lg:inline-flex">
 				Cotizá
 				<Icon name="arrowRight" class="size-[1.125rem] transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5" strokeWidth={2.25} />
 			</a>
 
 			<button
 				type="button"
-				class="menu-toggle ml-auto inline-flex min-h-11 items-center gap-3 pl-2 text-[1.0625rem] font-semibold md:hidden"
+				class="menu-toggle ml-auto inline-flex min-h-11 items-center gap-3 pl-2 text-[1.0625rem] font-semibold lg:hidden"
 				aria-expanded="false"
 				aria-controls="menu-movil"
 				data-menu-toggle
@@ -60,13 +62,13 @@ const nav = [
 	</div>
 
 	<!-- Menú del celular -->
-	<div id="menu-movil" class="menu-movil grid md:hidden" data-menu inert>
+	<div id="menu-movil" class="menu-movil grid lg:hidden" data-menu inert>
 		<div class="overflow-hidden">
 			<nav aria-label="Menú" class="superficie-papel border-b border-rule-soft px-4 pt-2 pb-6 sm:px-8">
 				<ul class="flex flex-col">
 					{nav.map((item) => (
 						<li class="border-b border-rule-soft">
-							<a href={item.href} class="flex items-center justify-between py-4 text-[1.5rem] font-semibold no-underline" data-menu-link>
+							<a href={item.href} data-seccion={item.href.slice(2)} class="flex items-center justify-between py-4 text-[1.5rem] font-semibold no-underline" data-menu-link>
 								<span class="inline-flex items-center gap-3">
 									{item.siniestro && <span class="size-2.5 rounded-full bg-claim" aria-hidden="true"></span>}
 									{item.label}
@@ -103,7 +105,7 @@ const nav = [
 	}
 
 	.header-bar {
-		background: var(--grano) 0 0 / 200px 200px, var(--color-paper);
+		background: var(--grano) 0 0 / var(--grano-tam) var(--grano-tam), var(--color-paper);
 		border-bottom: 1px solid var(--color-rule-soft);
 		color: var(--color-ink);
 		transition: background-color 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
@@ -144,7 +146,8 @@ const nav = [
 		transition: transform 0.35s var(--ease-out-expo);
 	}
 	.nav-link:hover::after,
-	.nav-link:focus-visible::after {
+	.nav-link:focus-visible::after,
+	.nav-link[aria-current]::after {
 		transform: scaleX(1);
 		transform-origin: left;
 	}
@@ -209,6 +212,23 @@ const nav = [
 		},
 		{ passive: true },
 	);
+
+	// Sección activa: la última cuyo borde superior ya pasó la barra
+	const secciones = [...header.querySelectorAll<HTMLElement>('.nav-link[data-seccion]')]
+		.map((a) => ({ a, el: document.getElementById(a.dataset.seccion!) }))
+		.filter((s): s is { a: HTMLElement; el: HTMLElement } => !!s.el);
+	function marcarActiva() {
+		let activa: HTMLElement | null = null;
+		for (const s of secciones) if (s.el.getBoundingClientRect().top <= window.innerHeight * 0.35) activa = s.a;
+		for (const s of secciones) {
+			if (s.a === activa) s.a.setAttribute('aria-current', 'location');
+			else s.a.removeAttribute('aria-current');
+		}
+	}
+	if (secciones.length) {
+		marcarActiva();
+		window.addEventListener('scroll', marcarActiva, { passive: true });
+	}
 
 	header.addEventListener('focusin', () => header.removeAttribute('data-oculto'));
 

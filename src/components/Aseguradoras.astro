@@ -1,16 +1,122 @@
 ---
 import { aseguradoras } from '../data/brokers';
+
+const slug = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+// Logos SVG que ya subió el cliente: src/assets/aseguradoras/<slug>.svg
+const archivos = import.meta.glob<string>('../assets/aseguradoras/*.svg', { eager: true, query: '?url', import: 'default' });
+const logo = (nombre: string) => archivos[`../assets/aseguradoras/${slug(nombre)}.svg`];
+
+// Dos vueltas para que el loop sea continuo; la segunda no existe para lectores de pantalla
+const vueltas = [false, true];
 ---
 
-<section class="border-t-2 border-ink" aria-labelledby="aseg-titulo">
-	<div class="mx-auto max-w-[84rem] px-4 py-16 sm:px-8 sm:py-20 lg:px-12">
-		<h2 id="aseg-titulo" class="text-[clamp(2rem,1.5rem+2vw,3rem)] font-bold">Trabajamos con estas aseguradoras</h2>
-		<ul class="mt-10 grid grid-cols-2 border-t-2 border-l border-ink sm:grid-cols-3 lg:grid-cols-5">
-			{aseguradoras.map((a) => (
-				<li class="flex min-h-24 items-center border-r border-b border-rule px-4 py-5 text-[1.125rem] font-semibold leading-tight [font-stretch:92%] sm:min-h-28 sm:px-6 sm:text-[1.25rem]">
-					{a}
-				</li>
-			))}
-		</ul>
+<section id="aseguradoras" class="border-t-2 border-ink" aria-labelledby="aseg-titulo" data-aseg>
+	<div class="mx-auto max-w-[84rem] px-4 pt-16 sm:px-8 sm:pt-20 lg:px-12">
+		<div class="flex items-end justify-between gap-6">
+			<div>
+				<h2 id="aseg-titulo" class="text-[clamp(2rem,1.5rem+2vw,3rem)] font-bold">Aseguradoras que confían en nosotros</h2>
+				<p class="mt-4 max-w-[44ch] text-[1.25rem] text-ink-2">Trabajamos con compañías sólidas y con vocación de servicio.</p>
+			</div>
+			<!-- Control de pausa discreto (WCAG 2.2.2): solo el ícono, con nombre accesible -->
+			<button type="button" class="pausa grid size-11 shrink-0 place-items-center border-[1.5px] border-rule text-ink-2 transition-colors duration-200 hover:border-ink hover:text-ink" aria-label="Pausar el carrusel de aseguradoras" data-pausa>
+				<svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+					<g data-icono-pausa><rect x="5" y="4" width="5" height="16" /><rect x="14" y="4" width="5" height="16" /></g>
+					<path data-icono-play d="M7 4l13 8-13 8z" style="display:none" />
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	<div class="carril mt-10 mb-16 overflow-hidden border-y border-rule sm:mb-20" data-carril>
+		<div class="mx-auto max-w-[84rem] lg:px-12">
+			<div class="pista flex w-max motion-reduce:w-auto">
+				{vueltas.map((copia) => (
+					<ul class:list={['vuelta flex', copia && 'vuelta-copia']} aria-hidden={copia ? 'true' : undefined}>
+						{aseguradoras.map((a) => {
+							const src = logo(a);
+							return (
+								<li class="item flex h-24 items-center border-r border-rule px-8 sm:h-28 sm:px-12">
+									{src ? (
+										<span class="logo relative block h-10 sm:h-12" style={`--logo:url(${src})`}>
+											<img src={src} alt={copia ? '' : a} class="logo-color h-full w-auto" loading="lazy" />
+											<span class="logo-tinta" aria-hidden="true"></span>
+										</span>
+									) : (
+										<span class="whitespace-nowrap text-[1.375rem] font-semibold leading-none [font-stretch:92%] sm:text-[1.625rem]">{a}</span>
+									)}
+								</li>
+							);
+						})}
+					</ul>
+				))}
+			</div>
+		</div>
 	</div>
 </section>
+
+<style>
+	.carril {
+		-webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+		mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+	}
+	.pista {
+		animation: aseg-corre 48s linear infinite;
+	}
+	@keyframes aseg-corre {
+		to { transform: translateX(-50%); }
+	}
+	/* Se frena con el mouse o con el botón de pausa */
+	.carril:hover .pista,
+	:global([data-aseg][data-pausado]) .pista {
+		animation-play-state: paused;
+	}
+
+	/* Logos: tinta de la marca por máscara; el color original aparece al hover */
+	.logo-color {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		transition: opacity 0.3s ease-out;
+	}
+	.logo-tinta {
+		display: block;
+		height: 100%;
+		aspect-ratio: auto;
+		background: var(--color-ink);
+		-webkit-mask: var(--logo) left center / contain no-repeat;
+		mask: var(--logo) left center / contain no-repeat;
+		transition: opacity 0.3s ease-out;
+	}
+	.logo { min-width: 6rem; }
+	.item:hover .logo-color { opacity: 1; }
+	.item:hover .logo-tinta { opacity: 0; }
+
+	/* Sin movimiento: grilla estática, sin copia ni botón */
+	@media (prefers-reduced-motion: reduce) {
+		.carril { -webkit-mask-image: none; mask-image: none; }
+		.pista { animation: none; transform: none; width: auto; display: block; }
+		.vuelta.vuelta-copia, .pausa { display: none; }
+		.vuelta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-left: 1px solid var(--color-rule); }
+		.item { border-bottom: 1px solid var(--color-rule); }
+		.item { padding-inline: 1.25rem; }
+		.item span { white-space: normal; }
+	}
+	@media (prefers-reduced-motion: reduce) and (min-width: 640px) {
+		.vuelta { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	}
+	@media (prefers-reduced-motion: reduce) and (min-width: 1024px) {
+		.vuelta { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+	}
+</style>
+
+<script>
+	const raiz = document.querySelector<HTMLElement>('[data-aseg]')!;
+	const boton = raiz.querySelector<HTMLButtonElement>('[data-pausa]')!;
+	boton.addEventListener('click', () => {
+		const pausado = raiz.toggleAttribute('data-pausado');
+		boton.setAttribute('aria-label', pausado ? 'Reanudar el carrusel de aseguradoras' : 'Pausar el carrusel de aseguradoras');
+		boton.querySelector<SVGElement>('[data-icono-pausa]')!.style.display = pausado ? 'none' : '';
+		boton.querySelector<SVGElement>('[data-icono-play]')!.style.display = pausado ? '' : 'none';
+	});
+</script>

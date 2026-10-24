@@ -23,10 +23,10 @@
 	--color-seal-deep: #175843;
 	--color-seal-soft: #e3f0ec;
 
-	/* Rojo reservado para siniestros */
-	--color-claim: #b4232a;
-	--color-claim-deep: #8f1a20;
-	--color-claim-soft: #fbeeee;
+	/* Bordó frío reservado para siniestros (la sección puede probar variantes con data-fondo) */
+	--color-claim: #8a1f45;
+	--color-claim-deep: #66142f;
+	--color-claim-soft: #f7e8ee;
 
 	/* Acento azul del logo: foco y vínculos de acción */
 	--color-teal: #1a759f;
@@ -61,7 +61,8 @@
 	}
 	/* Grano del papel: un tile PNG liviano (alfa ya incluida) que comparten el fondo y las barras */
 	:root {
-		--grano: url('/grano.png');
+		--grano: url('/grano-fino.png');
+		--grano-tam: 128px;
 	}
 	/* Capa fija propia, detrás de todo el contenido */
 	body::before {
@@ -70,7 +71,7 @@
 		inset: 0;
 		z-index: -1;
 		pointer-events: none;
-		background: var(--grano) 0 0 / 200px 200px;
+		background: var(--grano) 0 0 / var(--grano-tam) var(--grano-tam);
 	}
 	::selection {
 		background: var(--color-ink);
@@ -92,19 +93,20 @@
 		outline-offset: 3px;
 	}
 	.font-mono { font-variant-numeric: tabular-nums; }
-	[id] { scroll-margin-top: 5.5rem; }
+	[id] { scroll-margin-top: 6rem; }
 }
 
 @layer components {
 	/* Superficie con el mismo grano que el fondo */
 	.superficie-papel {
-		background: var(--grano) 0 0 / 200px 200px, var(--color-paper);
+		background: var(--grano) 0 0 / var(--grano-tam) var(--grano-tam), var(--color-paper);
 	}
 
-	/* Campo de siniestros: el rojo es solo para esto */
+	/* Campo de siniestros: bordó con el mismo grano del papel por encima */
 	.bg-claim-field {
 		background-color: var(--color-claim-deep);
-		background-image: linear-gradient(125deg, var(--color-claim-deep) 0%, var(--color-claim) 100%);
+		background-image: var(--grano), linear-gradient(125deg, var(--color-claim-deep) 0%, var(--color-claim) 100%);
+		background-size: var(--grano-tam) var(--grano-tam), auto;
 	}
 
 	/* El degradé del logo (azul → teal → verde). El campo es seguro para texto (azul a azul medio);
@@ -112,7 +114,8 @@
 	.bg-logo {
 		position: relative;
 		background-color: var(--color-ink);
-		background-image: linear-gradient(118deg, #184e77 0%, #1a759f 100%);
+		background-image: var(--grano), linear-gradient(118deg, #184e77 0%, #1a759f 100%);
+		background-size: var(--grano-tam) var(--grano-tam), auto;
 	}
 	.bg-logo::after {
 		content: '';
@@ -120,6 +123,12 @@
 		inset: auto 0 0 0;
 		height: 0.5rem;
 		background: linear-gradient(90deg, #184e77 0%, #1a759f 38%, #34a0a4 72%, #52b69a 100%);
+	}
+
+	/* Grano sobre un campo de color liso */
+	.con-grano {
+		background-image: var(--grano);
+		background-size: var(--grano-tam) var(--grano-tam);
 	}
 
 	/* Etiqueta de campo de documento: número + texto */
