@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+.astro
+.claude
+.impeccable
+.playwright-mcp
+.vscode
+docs
+*.log
