@@ -1,20 +1,114 @@
 ---
-import ContactoDatos from './ContactoDatos.astro';
 import ContactoMapa from './ContactoMapa.astro';
+import Icon from './Icon.astro';
+import { contacto, whatsappLink } from '../data/brokers';
+
+const info = contacto.emails[0].email;
 ---
 
-<section id="contacto" class="relative border-t-2 border-ink" aria-labelledby="contacto-titulo">
-	<!-- Mapa a sangre; en escritorio la hoja de datos va a la derecha, sobre el mar -->
+<section id="contacto" class="relative border-t-2 border-ink" aria-labelledby="contacto-titulo" data-contacto data-iconos data-fondo="blanco" data-grano="ninguno">
+	<!-- Mapa a sangre; la hoja va a la derecha, sobre el mar -->
 	<ContactoMapa class="h-80 w-full lg:absolute lg:inset-0 lg:h-auto" />
+
 	<div class="pointer-events-none relative mx-auto max-w-[84rem] px-4 py-12 sm:px-8 lg:flex lg:min-h-[44rem] lg:justify-end lg:px-12 lg:py-16">
-		<div class="pointer-events-auto bg-sheet p-6 sm:p-8 lg:w-[30rem] lg:self-center lg:border-2 lg:border-ink">
-			<h2 id="contacto-titulo" class="text-[clamp(2rem,1.5rem+2vw,3rem)] font-bold">Encontranos</h2>
-			<div class="mt-6"><ContactoDatos /></div>
+		<div class="hoja pointer-events-auto relative isolate p-6 sm:p-8 lg:w-[32rem] lg:self-center lg:border-2 lg:border-ink">
+			<span class="hoja-grano pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></span>
+			<h2 id="contacto-titulo" class="field-no border-t-2 border-current pt-3 opacity-75">Encontranos</h2>
+			<p class="mt-4 text-[clamp(1.75rem,1.2rem+2vw,2.25rem)] leading-[1.05] font-bold [font-stretch:88%] tracking-[-0.02em]">{contacto.direccion}</p>
+			<p class="hoja-sec mt-1 text-[1.125rem]">{contacto.ciudad}</p>
+			<div class="mt-4 text-[1.125rem]">
+				<span class="font-medium">{contacto.horario}</span>
+				<span class="hoja-sec mt-1 flex items-center gap-2 font-mono text-[0.875rem]" data-horario><span class="size-2.5 rounded-full bg-rule" data-horario-dot aria-hidden="true"></span><span data-horario-texto></span></span>
+			</div>
+			<div class="mt-6 grid grid-cols-3 gap-2">
+				<a href={contacto.telefonoHref} class="btn-llamar ix-accion flex min-h-24 flex-col items-center justify-center gap-2 px-2 py-3 text-center text-[1.125rem] font-semibold no-underline"><Icon name="phone" class="size-6" />Llamar</a>
+				<a href={whatsappLink('Hola, quiero hacer una consulta.')} class="ix-accion ix-seal flex min-h-24 flex-col items-center justify-center gap-2 px-2 py-3 text-center text-[1.125rem] font-semibold no-underline"><Icon name="whatsapp" class="size-6" />WhatsApp</a>
+				<a href={contacto.mapa} target="_blank" rel="noopener" class="btn-llegar ix-accion flex min-h-24 flex-col items-center justify-center gap-2 border-2 px-2 py-3 text-center text-[1.125rem] font-semibold no-underline"><Icon name="mapPin" class="size-6" />Cómo llegar</a>
+			</div>
+			<p class="hoja-linea mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t pt-4 text-[1rem]">
+				<a href={`mailto:${info}`} class="ix-sub inline-flex items-center gap-2 [overflow-wrap:anywhere]"><Icon name="mail" class="icono-contacto size-5 shrink-0" />{info}</a>
+				<span class="sep" aria-hidden="true">·</span>
+				<a href={contacto.instagram} target="_blank" rel="noopener" class="ix-sub inline-flex items-center gap-2"><Icon name="instagram" class="icono-contacto size-5 shrink-0" />{contacto.instagramUsuario}</a>
+			</p>
 		</div>
 	</div>
 </section>
 
+<!-- Pruebas temporales de la hoja (K2): se eliminan cuando se elija -->
+<div role="group" aria-label="Probar variantes de la hoja de Contacto (demo)" class="contacto-switch fixed bottom-24 left-3 z-40 flex max-w-[calc(100vw-1.5rem)] flex-wrap items-center gap-1 border-[1.5px] border-ink bg-sheet p-1 text-ink md:bottom-4">
+	<span class="px-2 font-mono text-[0.875rem]">Iconos</span>
+	<button type="button" data-prueba="iconos" data-valor="si" aria-pressed="true" class="min-h-11 px-3 text-[1rem] font-semibold">Con</button>
+	<button type="button" data-prueba="iconos" data-valor="no" aria-pressed="false" class="min-h-11 px-3 text-[1rem] font-semibold">Sin</button>
+	<span class="mx-1 h-6 w-px bg-rule" aria-hidden="true"></span>
+	<span class="px-2 font-mono text-[0.875rem]">Fondo</span>
+	<button type="button" data-prueba="fondo" data-valor="blanco" aria-pressed="true" class="min-h-11 px-3 text-[1rem] font-semibold">Blanco</button>
+	<button type="button" data-prueba="fondo" data-valor="papel" aria-pressed="false" class="min-h-11 px-3 text-[1rem] font-semibold">Papel</button>
+	<button type="button" data-prueba="fondo" data-valor="tinta" aria-pressed="false" class="min-h-11 px-3 text-[1rem] font-semibold">Tinta</button>
+	<span class="mx-1 h-6 w-px bg-rule" aria-hidden="true"></span>
+	<span class="px-2 font-mono text-[0.875rem]">Grano</span>
+	<button type="button" data-prueba="grano" data-valor="ninguno" aria-pressed="true" class="min-h-11 px-3 text-[1rem] font-semibold">No</button>
+	<button type="button" data-prueba="grano" data-valor="hoja" aria-pressed="false" class="min-h-11 px-3 text-[1rem] font-semibold">Hoja</button>
+	<button type="button" data-prueba="grano" data-valor="mapa" aria-pressed="false" class="min-h-11 px-3 text-[1rem] font-semibold">Mapa</button>
+	<button type="button" data-prueba="grano" data-valor="ambos" aria-pressed="false" class="min-h-11 px-3 text-[1rem] font-semibold">Ambos</button>
+</div>
+
+<style>
+	.contacto-switch button[aria-pressed='true'] { background: var(--color-ink); color: var(--color-paper); }
+
+	/* Fondo de la hoja */
+	.hoja { background: var(--color-sheet); color: var(--color-ink); }
+	.hoja-sec { color: var(--color-ink-2); }
+	.hoja-linea { border-color: var(--color-rule); }
+	.btn-llamar { background: var(--color-ink); color: var(--color-paper); --ix-hover: var(--color-ink-deep); }
+	.btn-llegar { border-color: var(--color-ink); color: var(--color-ink); --ix-hover: var(--color-wash); }
+	[data-fondo='papel'] .hoja { background: var(--grano) 0 0 / var(--grano-tam) var(--grano-tam), var(--color-paper); }
+	[data-fondo='tinta'] .hoja { background: var(--color-ink); color: var(--color-paper); }
+	[data-fondo='tinta'] .hoja-sec { color: var(--color-on-dark); }
+	[data-fondo='tinta'] .hoja-linea { border-color: rgb(246 244 239 / 0.4); }
+	[data-fondo='tinta'] .btn-llamar { background: var(--color-celeste); color: var(--color-celeste-ink); --ix-hover: var(--color-celeste-hover); }
+	[data-fondo='tinta'] .btn-llegar { border-color: var(--color-paper); color: var(--color-paper); --ix-hover: var(--color-ink-deep); }
+	[data-fondo='tinta'] .hoja { border-color: var(--color-ink-deep); }
+	/* El punto de estado (bordó o verde) sobre tinta necesita un aro claro para leerse */
+	[data-fondo='tinta'] [data-horario-dot] { outline: 2px solid var(--color-paper); }
+
+	/* Iconos de mail e Instagram */
+	[data-contacto]:not([data-iconos]) :global(.icono-contacto) { display: none; }
+	[data-contacto][data-iconos] .sep { display: none; }
+
+	/* Grano: sobre la hoja y/o sobre el mapa (misma trama de la marca, dos capas) */
+	.hoja-grano { display: none; }
+	[data-grano='hoja'] .hoja-grano,
+	[data-grano='ambos'] .hoja-grano {
+		display: block;
+		background-image: var(--grano), var(--grano);
+		background-size: 128px 128px, 211px 211px;
+		background-position: 0 0, 37px 61px;
+	}
+	[data-grano='mapa'] :global(.mapa)::after,
+	[data-grano='ambos'] :global(.mapa)::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: 5;
+		pointer-events: none;
+		background-image: var(--grano), var(--grano);
+		background-size: 128px 128px, 211px 211px;
+		background-position: 0 0, 37px 61px;
+	}
+</style>
+
 <script>
+	const raiz = document.querySelector<HTMLElement>('[data-contacto]')!;
+	const botones = document.querySelectorAll<HTMLButtonElement>('[data-prueba]');
+	botones.forEach((b) =>
+		b.addEventListener('click', () => {
+			const { prueba, valor } = b.dataset;
+			if (prueba === 'iconos') raiz.toggleAttribute('data-iconos', valor === 'si');
+			else raiz.dataset[prueba!] = valor;
+			document.querySelectorAll<HTMLButtonElement>(`[data-prueba="${prueba}"]`).forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+		}),
+	);
+
 	// Estado de atención según la hora de Argentina (UTC-3, sin horario de verano).
 	const partes = new Intl.DateTimeFormat('en-US', {
 		timeZone: 'America/Argentina/Buenos_Aires',

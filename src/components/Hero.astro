@@ -1,63 +1,80 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import HeroCtas from './HeroCtas.astro';
-import rambla from '../assets/img/rambla-mar-del-plata.jpg';
+import ciudad from '../assets/img/hero/hero-bahia-ciudad1-desktop.webp';
+import movil from '../assets/img/hero/hero-bahia-mobile.webp';
 
-const titulo = ['Tu seguro,', 'bien elegido.'];
 const bajada = 'Asesoramos y gestionamos los seguros de personas y empresas en Mar del Plata hace más de 35 años.';
+
+// Art direction: escritorio (≥768px, 16:9) y móvil (vertical). Es el LCP: eager + fetchpriority high.
+// Anchos: nunca por encima del tamaño real del archivo (no se escala hacia arriba).
+// Calidad por candidato: 90 en los anchos chicos; 85 en el archivo completo (retina), donde cada punto pesa más y no se nota.
+const srcset = async (src: ImageMetadata, candidatos: [number, number][]) => {
+	const imgs = await Promise.all(candidatos.map(([width, quality]) => getImage({ src, width, format: 'webp', quality })));
+	return imgs.map((i, n) => `${i.src} ${candidatos[n][0]}w`).join(', ');
+};
+const srcD = await srcset(ciudad, [[1280, 90], [1920, 90], [ciudad.width, 85]]);
+const srcM = await srcset(movil, [[640, 80], [900, 80], [1170, 80]]);
+const fallback = (await getImage({ src: ciudad, width: 1920, format: 'webp', quality: 90 })).src;
 ---
 
-<section data-hero class="hero hero-a relative isolate flex min-h-[clamp(40rem,94svh,56rem)] flex-col overflow-hidden bg-ink text-paper" aria-labelledby="hero-titulo">
-	<Image
-		src={rambla}
-		alt=""
-		widths={[960, 1600, 2560]}
-		sizes="100vw"
-		loading="eager"
-		fetchpriority="high"
-		class="hero-foto absolute inset-0 -z-20 size-full object-cover object-[30%_55%] max-lg:object-[22%_50%]"
-	/>
+<section class="hero relative isolate flex min-h-[clamp(40rem,94svh,56rem)] flex-col overflow-hidden bg-ink text-paper" aria-labelledby="hero-titulo" data-hero>
+	<picture class="absolute inset-0 -z-20 block size-full">
+		<source media="(min-width: 768px)" srcset={srcD} sizes="100vw" />
+		<img
+			src={fallback}
+			srcset={srcM}
+			sizes="100vw"
+			alt=""
+			width="1170"
+			height="2340"
+			loading="eager"
+			fetchpriority="high"
+			decoding="async"
+			class="hero-foto size-full object-cover"
+		/>
+	</picture>
 	<div class="hero-velo absolute inset-0 -z-10" aria-hidden="true"></div>
+	<!-- Filtro arenoso: dos capas del grano de la marca (el mismo del resto del sitio) sobre la foto y bajo el texto -->
+	<div class="hero-arena pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
 
-	<div class="relative mx-auto flex w-full max-w-[84rem] flex-1 items-center px-4 pt-32 pb-24 sm:px-8 lg:px-12 lg:pb-20">
-		<div class="max-w-[46rem]">
-			<h1 id="hero-titulo" class="text-[clamp(3.25rem,1.9rem+5.2vw,6.25rem)] font-bold [font-stretch:84%]">
-				{titulo[0]}<br />{titulo[1]}
-			</h1>
-			<p class="mt-6 max-w-[46ch] text-[1.25rem] leading-[1.5] text-on-dark sm:text-[1.375rem]">{bajada}</p>
-			<div class="mt-10"><HeroCtas /></div>
+	<div class="relative mx-auto flex w-full max-w-[84rem] flex-1 px-4 pt-32 pb-20 text-center sm:px-8 lg:px-12">
+		<div class="flex flex-1 flex-col items-center justify-center">
+			<h1 id="hero-titulo" class="text-balance text-[clamp(3.25rem,1.9rem+5.2vw,6.25rem)] font-bold [font-stretch:84%]">Elegimos tu seguro<br />con vos.</h1>
+			<p class="mt-6 max-w-[40ch] text-[1.25rem] leading-[1.5] text-on-dark sm:text-[1.375rem]">{bajada}</p>
+			<div class="mt-10 w-full"><HeroCtas centrado /></div>
 		</div>
 	</div>
 
-	<p class="absolute right-4 bottom-4 max-w-[60%] text-right font-mono text-[0.875rem] text-on-dark sm:right-8 lg:right-12">
-		<span class="max-sm:hidden">Rambla de Mar del Plata · </span><span class="whitespace-nowrap">Foto: Ezarate, CC BY-SA 4.0</span>
+	<p class="absolute right-4 bottom-4 left-4 text-right font-mono text-[0.875rem] text-on-dark sm:right-8 sm:left-auto sm:max-w-[70%] lg:right-12">
+		<a href="https://unsplash.com/es/fotos/una-vista-aerea-de-una-ciudad-junto-al-oceano-ejhuBT66U-A" target="_blank" rel="noopener" class="text-on-dark sm:whitespace-nowrap">Foto: Maximiliano Deliso / Unsplash</a>
 	</p>
 </section>
 
 <style>
+	/* Encuadre: la vertical en móvil y la 16:9 en escritorio se encuadran distinto */
+	.hero-foto { object-position: 30% 50%; }
+	@media (min-width: 768px) { .hero-foto { object-position: 60% 50%; } }
+
+	/* Velo: más denso arriba (barra de navegación) y abajo (crédito), calmo en el centro donde va el texto (navy rgb 15 58 92) */
 	.hero-velo {
-		background:
-			linear-gradient(90deg, rgb(15 58 92 / 0.9) 0%, rgb(24 78 119 / 0.78) 34%, rgb(24 78 119 / 0.25) 64%, rgb(24 78 119 / 0) 82%),
-			linear-gradient(0deg, rgb(15 58 92 / 0.55) 0%, rgb(15 58 92 / 0) 22%),
-			linear-gradient(180deg, rgb(15 58 92 / 0.78) 0%, rgb(15 58 92 / 0.4) 4.5rem, rgb(15 58 92 / 0) 8rem);
+		background: linear-gradient(180deg, rgb(15 58 92 / 0.74) 0%, rgb(15 58 92 / 0.6) 22%, rgb(15 58 92 / 0.6) 62%, rgb(15 58 92 / 0.74) 100%);
 	}
-	@media (max-width: 1023px) {
-		.hero-velo {
-			background: linear-gradient(180deg, rgb(15 58 92 / 0.86) 0%, rgb(15 58 92 / 0.8) 52%, rgb(15 58 92 / 0.28) 76%, rgb(15 58 92 / 0.12) 100%);
-		}
+
+	/* Filtro arenoso */
+	.hero-arena {
+		background-image: var(--grano), var(--grano);
+		background-size: 128px 128px, 211px 211px;
+		background-position: 0 0, 37px 61px;
 	}
+
+	/* Un solo alejamiento lento: la foto arranca un poco cerca y se abre para mostrar más ciudad, y queda quieta */
 	.hero-foto {
-		transform-origin: 30% 60%;
-		animation: costa 32s ease-in-out infinite alternate;
-		will-change: transform;
+		animation: costa 14s cubic-bezier(0.22, 1, 0.36, 1) 0.2s 1 both;
 	}
 	@keyframes costa {
-		from {
-			transform: scale(1.14) translate3d(1.5%, 0.5%, 0);
-		}
-		to {
-			transform: scale(1) translate3d(0, 0, 0);
-		}
+		from { transform: scale(1.05) translate3d(0, 0.5%, 0); }
+		to { transform: scale(1) translate3d(0, 0, 0); }
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.hero-foto { animation: none; transform: none; }

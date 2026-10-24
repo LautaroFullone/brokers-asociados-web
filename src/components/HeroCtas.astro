@@ -1,13 +1,21 @@
 ---
 import Icon from './Icon.astro';
 import { whatsappLink } from '../data/brokers';
+
+interface Props {
+	/** oscuro: celeste sobre foto o campo oscuro. claro: tinta sobre papel. */
+	tono?: 'oscuro' | 'claro';
+	centrado?: boolean;
+}
+const { tono = 'oscuro', centrado = false } = Astro.props;
+const boton = tono === 'oscuro' ? 'ix-celeste' : 'ix-ink';
 ---
 
-<div class="cta-grupo">
-	<div class="flex items-center gap-3">
+<div class:list={['cta-grupo flex flex-col', centrado ? 'items-center' : 'items-start']}>
+	<div class:list={['flex w-full items-center gap-3', centrado && 'justify-center']}>
 		<a
 			href="/cotizar"
-			class="ix-accion ix-celeste inline-flex h-14 flex-1 items-center justify-between gap-6 px-6 text-[1.25rem] font-bold no-underline sm:min-w-[19rem] sm:flex-none"
+			class:list={['ix-accion', boton, 'inline-flex h-14 flex-1 items-center justify-between gap-4 px-5 whitespace-nowrap sm:gap-6 sm:px-6 text-[1.25rem] font-bold no-underline sm:min-w-[19rem] sm:flex-none']}
 		>
 			Cotizá tu seguro
 			<Icon name="arrowRight" class="ix-flecha size-6" strokeWidth={2} />
@@ -16,14 +24,14 @@ import { whatsappLink } from '../data/brokers';
 		<a
 			href={whatsappLink('Hola, quiero cotizar un seguro.')}
 			aria-label="Escribinos por WhatsApp"
-			class="ix-accion ix-celeste grid size-14 shrink-0 place-items-center rounded-full no-underline"
+			class:list={['ix-accion', boton, 'grid size-14 shrink-0 place-items-center rounded-full no-underline']}
 		>
 			<Icon name="whatsapp" class="size-6" />
 		</a>
 	</div>
 
-	<a href="#siniestros" class="mt-7 inline-flex items-center gap-2.5 text-[1.125rem] font-medium text-paper no-underline">
-		<span class="size-2.5 rounded-full bg-claim ring-2 ring-paper/80" aria-hidden="true"></span>
+	<a href="#siniestros" class:list={['mt-7 inline-flex items-center gap-2.5 text-[1.125rem] font-medium no-underline', tono === 'oscuro' ? 'text-paper' : 'text-ink']}>
+		<span class:list={['size-2.5 rounded-full bg-claim', tono === 'oscuro' && 'ring-2 ring-paper/80']} aria-hidden="true"></span>
 		<span class="ix-sub pb-0.5">¿Tuviste un siniestro? Te ayudamos</span>
 	</a>
 </div>

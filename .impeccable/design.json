@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T19:13:31Z",
+  "generatedAt": "2026-10-24T21:30:00Z",
   "title": "Design System: Brokers Asociados",
   "extensions": {
     "colorMeta": {
@@ -392,7 +392,7 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Solo el H1 de portada, en paper sobre la foto; Archivo bold a ancho 84%, clamp(3.25rem → 6rem). Las páginas interiores usan clamp(2.5rem → 4rem) para su H1."
+        "purpose": "Solo el H1 de portada, «Elegimos tu seguro / con vos.» (salto de línea explícito), centrado, text-balance: Archivo bold a ancho 84%, clamp(3.25rem, 1.9rem + 5.2vw, 6.25rem), paper sobre la foto. Las páginas interiores usan clamp(2.5rem → 4rem) para su H1."
       },
       "headline": {
         "displayName": "Headline",
@@ -404,7 +404,7 @@
       },
       "lead": {
         "displayName": "Lead",
-        "purpose": "Bajadas de sección en ink-2, 1.25rem (20px), 30–44ch; la de portada sube a 1.375rem (22px). Escala de la home normalizada: bajadas 20–22px, cuerpo 18, secundario 16, mono 14."
+        "purpose": "Bajadas de sección en ink-2, 1.25rem (20px), 30–44ch; la de portada sube a 1.375rem (22px) desde 640px, 40ch, centrada, on-dark sobre la foto. Escala de la home normalizada: bajadas 20–22px, cuerpo 18, secundario 16, mono 14."
       },
       "body": {
         "displayName": "Body",
@@ -459,13 +459,13 @@
       },
       {
         "name": "foto-portada",
-        "value": "src/assets/img/rambla-mar-del-plata.jpg (rambla y skyline de Mar del Plata, Ezarate, CC BY-SA 4.0); object-cover, object-position 30% 55% (22% 50% bajo 1024px); crédito mono 0.875rem on-dark abajo a la derecha",
-        "purpose": "Fotografía real a sangre de la portada; única por página."
+        "value": "src/assets/img/hero/hero-bahia-ciudad1-desktop.webp (2632x1480; q90 en 1280w y 1920w, q85 en 2632w: 302 KB / 610 KB / 976 KB, ≈976 KB a 1440 px DPR2) + hero-bahia-mobile.webp (1170x2340, q80) (ver LEEME.md; licencia Unsplash, acreditada igual). <picture> cortado en 768px: escritorio srcset 1280/1920/2632, móvil 640/900/1170; nunca escalado hacia arriba; object-cover, object-position 60% 50% escritorio / 30% 50% móvil; eager + fetchpriority high; crédito 'Foto: Maximiliano Deliso / Unsplash' enlazado, mono 0.875rem on-dark abajo a la derecha",
+        "purpose": "Foto única de la portada (bahía con la ciudad), a sangre bajo velo marino fijo y con un alejamiento lento único."
       },
       {
         "name": "grano",
         "value": "--grano: url('/grano-fino.png'); --grano-tam: 128px; tile PNG de ruido de tinta cálida rgb(61 51 41), alfa por píxel 0–20; background: var(--grano) 0 0 / var(--grano-tam) var(--grano-tam)",
-        "purpose": "Textura única del papel: capa fija body::before (z -1) detrás de todo el contenido, y la misma en la barra sólida del header y el panel del menú móvil (.superficie-papel), el campo bordó (.bg-claim-field), el campo del logo (.bg-logo) y el footer (.con-grano), todos con --grano a una sola intensidad. Nunca sobre fotos, hojas o mosaicos blancos ni texto."
+        "purpose": "Textura única del papel: capa fija body::before (z -1) detrás de todo el contenido, y la misma en la barra sólida del header y el panel del menú móvil (.superficie-papel), el campo bordó (.bg-claim-field), el campo del logo (.bg-logo) y el footer (.con-grano), todos con --grano a una sola intensidad. Nunca sobre fotos (salvo el filtro arenoso permanente de la portada: 2 capas del mismo tile mixto, 128px y 211px, desfase 37px 61px, sin selector de tono), hojas o mosaicos blancos ni texto."
       }
     ],
     "motion": [
@@ -510,9 +510,9 @@
         "purpose": "Sello con leyenda: se entinta cuando están los datos y se re-sella al enviar; sin animación con prefers-reduced-motion."
       },
       {
-        "name": "ken-burns",
-        "value": "32s ease-in-out infinite alternate; scale(1.14) translate3d(1.5%,0.5%,0) → scale(1); transform-origin 30% 60%",
-        "purpose": "Zoom lento de la foto de portada; estático con prefers-reduced-motion."
+        "name": "zoom-out-portada",
+        "value": "14s cubic-bezier(0.22, 1, 0.36, 1) 0.2s, 1 iteración, fill both (keyframes costa); scale(1.05) translate3d(0,0.5%,0) → scale(1) translate3d(0,0,0); la foto queda quieta; sin will-change",
+        "purpose": "Alejamiento único de la foto de la portada (~14s, no hace bucle, no lleva pausa: WCAG 2.2.2 se cumple porque el movimiento termina); sin animación con prefers-reduced-motion."
       },
       {
         "name": "tile-hover",
@@ -547,7 +547,7 @@
       {
         "name": "header-solido",
         "value": "fondo/color/borde 0.3s ease-out al pasar 24px",
-        "purpose": "La barra sobre la portada pasa de transparente (tinta paper) a papel con grano y filete rule-soft."
+        "purpose": "Con data-sobre-hero (la portada lo activa siempre) la barra pasa de transparente (tinta paper) a papel con grano y filete rule-soft; en páginas sin portada es sólida desde el inicio."
       },
       {
         "name": "mosaico-entra",
@@ -602,13 +602,13 @@
       },
       {
         "name": "hero-veil",
-        "value": "≥1024px: linear-gradient(90deg, rgb(15 58 92/.9) 0%, rgb(24 78 119/.78) 34%, rgb(24 78 119/.25) 64%, rgb(24 78 119/0) 82%) + linear-gradient(0deg, rgb(15 58 92/.55) 0%, transparent 22%) + linear-gradient(180deg, rgb(15 58 92/.78) 0%, rgb(15 58 92/.4) 4.5rem, transparent 8rem) como velo superior bajo el header; <1024px: linear-gradient(180deg, rgb(15 58 92/.86) 0%, rgb(15 58 92/.8) 52%, rgb(15 58 92/.28) 76%, rgb(15 58 92/.12) 100%)",
-        "purpose": "Velo marino sobre la foto de portada: denso detrás del texto, liviano sobre la costa."
+        "value": "linear-gradient(180deg, rgb(15 58 92/.74) 0%, rgb(15 58 92/.60) 22%, rgb(15 58 92/.60) 62%, rgb(15 58 92/.74) 100%)",
+        "purpose": "Velo marino fijo: denso arriba para el header transparente, calmo en el centro donde va el texto, denso abajo para el crédito. Contraste medido de paper contra el píxel más claro (p95) tras H1 + bajada a 1440: 5.5:1; peores píxeles 3.6:1."
       }
     ],
     "sectionRhythm": {
       "home": [
-        "hero: foto a sangre + velo marino (oscura)",
+        "hero (centrado sobre la foto con velo marino)",
         "coberturas: paper + grano",
         "qué hacemos por vos: logo-field",
         "aseguradoras: paper + grano",
@@ -643,9 +643,9 @@
       "name": "Botón primario sobre oscuro",
       "kind": "button",
       "refersTo": "button-on-dark",
-      "description": "CTA de cotizar de la portada, tono 'oscuro', el único en uso (sobre la foto con velo): 56px de alto, 1.25rem bold, flecha; relleno cta-fill-light #a8dadc, tinta cta-ink-deep #0f3554 (8.28:1); flex-1 en celulares y mínimo 19rem desde 640px; hover brightness .94. Solo para CTAs de portada sobre fondo oscuro.",
+      "description": "CTA de cotizar de la portada, HeroCtas tono \"oscuro\" (sobre la foto con velo, centrado; prop centrado): 56px de alto, nowrap, px-5 en celulares (24px desde 640px), 1.25rem bold, flecha; relleno cta-fill-light #a8dadc, tinta cta-ink-deep #0f3554 (8.28:1); flex-1 en celulares y mínimo 19rem desde 640px; hover y foco celeste-hover #9ecdcf. Solo para CTAs sobre fondo oscuro.",
       "html": "<div class=\"ds-dark-wrap\"><a href=\"#\" class=\"ds-btn-on-dark\"><span>Cotizá tu seguro</span><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a></div>",
-      "css": ".ds-dark-wrap { padding:24px; background:var(--color-ink-deep,#0f3a5c); } .ds-btn-on-dark { display:inline-flex; height:56px; min-width:19rem; align-items:center; justify-content:space-between; gap:24px; background:var(--color-cta-fill-light,#a8dadc); color:var(--color-cta-ink-deep,#0f3554); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); font-size:1.25rem; font-weight:700; padding:0 24px; text-decoration:none; border-radius:0; transition:filter .2s ease-out, transform .35s cubic-bezier(0.16,1,0.3,1); } .ds-btn-on-dark svg { width:24px; height:24px; transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-btn-on-dark:hover { filter:brightness(.94); } .ds-btn-on-dark:hover svg { transform:translateX(4px); } .ds-btn-on-dark:active { transform:scale(.98); } .ds-btn-on-dark:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+      "css": ".ds-dark-wrap { padding:24px; background:var(--color-ink-deep,#0f3a5c); } .ds-btn-on-dark { display:inline-flex; height:56px; min-width:19rem; align-items:center; justify-content:space-between; gap:24px; background:var(--color-cta-fill-light,#a8dadc); color:var(--color-cta-ink-deep,#0f3554); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); font-size:1.25rem; font-weight:700; padding:0 24px; text-decoration:none; border-radius:0; transition:background-color .2s ease-out, transform .35s cubic-bezier(0.16,1,0.3,1); } .ds-btn-on-dark svg { width:24px; height:24px; transition:transform .3s cubic-bezier(0.16,1,0.3,1); } .ds-btn-on-dark:hover { background:#9ecdcf; } .ds-btn-on-dark:hover svg { transform:translateX(4px); } .ds-btn-on-dark:active { transform:scale(.98); } .ds-btn-on-dark:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
     },
     {
       "name": "Barra de denuncia (campo de siniestros)",
@@ -677,7 +677,7 @@
       "refersTo": "button-icon-round",
       "description": "Botón de solo ícono, círculo de 56px junto al CTA primario; mismo relleno y tinta que el primario (cta-fill-light / cta-ink-deep). Única excepción circular de un botón (decisión del cliente). aria-label 'Escribinos por WhatsApp'.",
       "html": "<div class=\"ds-wao-wrap\"><a href=\"#\" class=\"ds-wao\" aria-label=\"Escribinos por WhatsApp\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.11-1.48-1.11-2.83 0-1.34.7-2 .96-2.28.24-.27.53-.33.71-.33l.51.01c.17 0 .38-.06.6.46.23.54.77 1.87.84 2.01.07.13.11.29.02.47-.09.18-.13.29-.27.45l-.4.47c-.13.13-.27.28-.12.55.16.27.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.27.13.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.22.6-.13.25.09 1.57.74 1.84.88.27.13.45.2.51.31.07.11.07.63-.17 1.31Z\"/></svg></a></div>",
-      "css": ".ds-wao-wrap { padding:24px; background:var(--color-ink-deep,#0f3a5c); } .ds-wao { display:grid; place-items:center; width:56px; height:56px; border-radius:9999px; background:var(--color-cta-fill-light,#a8dadc); color:var(--color-cta-ink-deep,#0f3554); text-decoration:none; transition:filter .2s ease-out, transform .35s cubic-bezier(0.16,1,0.3,1); } .ds-wao:hover { filter:brightness(.94); } .ds-wao:active { transform:scale(.98); } .ds-wao:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+      "css": ".ds-wao-wrap { padding:24px; background:var(--color-ink-deep,#0f3a5c); } .ds-wao { display:grid; place-items:center; width:56px; height:56px; border-radius:9999px; background:var(--color-cta-fill-light,#a8dadc); color:var(--color-cta-ink-deep,#0f3554); text-decoration:none; transition:background-color .2s ease-out, transform .35s cubic-bezier(0.16,1,0.3,1); } .ds-wao:hover { background:#9ecdcf; } .ds-wao:active { transform:scale(.98); } .ds-wao:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
     },
     {
       "name": "Botón outline",
@@ -739,7 +739,7 @@
       "name": "Sello con leyenda",
       "kind": "custom",
       "refersTo": "stamp",
-      "description": "El sello de goma con leyenda central variable: fantasma (22%) desde la carga, entintado con estampado al completar los datos, re-sellado (RECIBIDO) al enviar.",
+      "description": "El sello de goma con leyenda central variable: fantasma (22%) desde la carga, entintado con estampado al completar los datos, re-sellado (RECIBIDO) al enviar. Vive solo en cotizar; la portada y el Cierre no llevan sello.",
       "html": "<div class=\"ds-stamps\"><span class=\"ds-stamp ds-stamp-ghost\"><svg class=\"ds-stamp-svg\" viewBox=\"0 0 200 200\" aria-hidden=\"true\"><defs><path id=\"ds-st-arc1\" d=\"M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0\"/></defs><g fill=\"none\" stroke=\"currentColor\"><circle cx=\"100\" cy=\"100\" r=\"94\" stroke-width=\"4\"/><circle cx=\"100\" cy=\"100\" r=\"87\" stroke-width=\"1.5\"/><circle cx=\"100\" cy=\"100\" r=\"56\" stroke-width=\"1.5\"/><g fill=\"currentColor\" stroke=\"none\"><text font-family=\"Chivo Mono, monospace\" font-size=\"13.5\" font-weight=\"500\" letter-spacing=\"2.2\"><textPath href=\"#ds-st-arc1\">BROKERS ASOCIADOS · MAR DEL PLATA ·</textPath></text><text text-anchor=\"middle\" font-family=\"Archivo Variable, sans-serif\" font-weight=\"800\" font-size=\"21\" style=\"font-stretch:80%\"><tspan x=\"100\" y=\"96\">LISTO PARA</tspan><tspan x=\"100\" y=\"118\">ENVIAR</tspan></text></g></g></svg></span><span class=\"ds-stamp ds-stamp-inked\"><svg class=\"ds-stamp-svg\" viewBox=\"0 0 200 200\" aria-hidden=\"true\"><defs><path id=\"ds-st-arc2\" d=\"M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0\"/></defs><g fill=\"none\" stroke=\"currentColor\"><circle cx=\"100\" cy=\"100\" r=\"94\" stroke-width=\"4\"/><circle cx=\"100\" cy=\"100\" r=\"87\" stroke-width=\"1.5\"/><circle cx=\"100\" cy=\"100\" r=\"56\" stroke-width=\"1.5\"/><g fill=\"currentColor\" stroke=\"none\"><text font-family=\"Chivo Mono, monospace\" font-size=\"13.5\" font-weight=\"500\" letter-spacing=\"2.2\"><textPath href=\"#ds-st-arc2\">BROKERS ASOCIADOS · MAR DEL PLATA ·</textPath></text><text text-anchor=\"middle\" font-family=\"Archivo Variable, sans-serif\" font-weight=\"800\" font-size=\"21\" style=\"font-stretch:80%\"><tspan x=\"100\" y=\"107\">RECIBIDO</tspan></text></g></g></svg></span></div>",
       "css": ".ds-stamps { display:flex; gap:32px; } .ds-stamp { display:block; width:160px; height:160px; } .ds-stamp .ds-stamp-svg { width:100%; height:100%; color:var(--color-seal,#1f6e55); mix-blend-mode:multiply; transform:rotate(-11deg); } .ds-stamp-ghost { opacity:.22; transition:opacity .3s ease-out; } .ds-stamp-ghost:hover { opacity:1; } .ds-stamp-inked { animation:ds-stamp .8s cubic-bezier(0.16,1,0.3,1) both; } @keyframes ds-stamp { from { opacity:.2; transform:scale(1.4) rotate(6deg); } to { opacity:1; transform:scale(1) rotate(0); } } @media (prefers-reduced-motion: reduce) { .ds-stamp-inked { animation:none; } }"
     },
@@ -778,7 +778,7 @@
       "name": "Mapa de Contacto",
       "kind": "custom",
       "refersTo": "mapa-marcador",
-      "description": "Mapa estático a sangre de Google Maps por coordenadas (iframe inert, sin eventos de puntero; sin pin ni tarjeta de Google) en grises con velo de tinta y único marcador propio, que marca siempre la dirección. En escritorio (lg) la hoja de datos de 30rem con borde de 2px ink va a la derecha y el mapa se corre (136% de ancho, left -36%) para que el pin quede al 32%; en celulares el mapa va arriba (20rem) con el pin centrado y la hoja debajo. Para explorar la zona está 'Cómo llegar' en el renglón de dirección: rótulo semibold subrayado con borde inferior de 2px ink y flecha derecha que avanza 4px al hover, sin ícono a la izquierda.",
+      "description": "Mapa estático a sangre de Google Maps por coordenadas (iframe inert, sin eventos de puntero; sin pin ni tarjeta de Google) en grises con velo de tinta y único marcador propio, que marca siempre la dirección. En escritorio (lg) la hoja de datos de 32rem con borde de 2px ink va a la derecha, centrada en vertical, con padding p-6/sm:p-8, y el mapa se corre (136% de ancho, left -36%) para que el pin quede al 32%; en celulares el mapa va arriba (20rem) con el pin centrado y la hoja debajo. Hoja elegida (K2): rótulo mono 'Encontranos' bajo regla de 2px (opacidad .75), calle como título (clamp 1.75-2.25rem, bold, wdth 88, tracking -0.02em), ciudad en ink-2, horario y estado en vivo (mono 14px, punto seal/claim), tres mosaicos de 96px en 3 columnas (Llamar ink, WhatsApp seal, Cómo llegar contorno 2px ink) y, bajo regla de 1px, email e Instagram con ícono de línea de 20px. TEMPORAL (pendiente del cliente): panel fijo con interruptores Iconos / Fondo (blanco, papel, tinta) / Grano (no, hoja, mapa, ambos); el grano sobre hoja o mapa contradice The One Grain Rule y no está canonizado. Sin colores nuevos.",
       "html": "<div class=\"ds-mapa\"><div class=\"ds-mapa-base\"></div><div class=\"ds-mapa-velo\"></div><svg class=\"ds-mapa-pin\" viewBox=\"0 0 44 56\" aria-hidden=\"true\"><path d=\"M22 54C22 54 3 33.5 3 21a19 19 0 0 1 38 0c0 12.5-19 33-19 33z\" fill=\"#184e77\" stroke=\"#f6f4ef\" stroke-width=\"3\"/><circle cx=\"22\" cy=\"21\" r=\"7\" fill=\"#f6f4ef\"/></svg></div>",
       "css": ".ds-mapa { position:relative; isolation:isolate; overflow:hidden; height:20rem; background:var(--color-rule-soft,#d3dee5); } .ds-mapa-base { position:absolute; inset:0; background:var(--color-rule-soft,#d3dee5); filter:grayscale(1) contrast(.95) brightness(1.04); } .ds-mapa-velo { position:absolute; inset:0; background:rgb(24 78 119 / .1); mix-blend-mode:multiply; pointer-events:none; } .ds-mapa-pin { position:absolute; top:50%; left:50%; z-index:10; width:44px; height:56px; transform:translate(-50%,-100%); pointer-events:none; } @media (min-width:1024px) { .ds-mapa-pin { left:32%; } }"
     },
@@ -786,7 +786,7 @@
       "name": "CTAs sobre claro (Cierre)",
       "kind": "button",
       "refersTo": "button-on-light",
-      "description": "Cotizá tu seguro → de 56px y WhatsApp redondo de 56px (CierreCtas.astro, prop tono). tono 'claro': ink con texto paper, hover ink-deep, sin uso hoy en la home. tono 'oscuro' (el que usa el Cierre): celeste #a8dadc con #0f3554, hover brightness .94, igual que la portada. Clic .98.",
+      "description": "Cotizá tu seguro → de 56px y WhatsApp redondo de 56px (CierreCtas.astro, prop tono). tono 'claro': ink con texto paper, hover ink-deep (HeroCtas.astro conserva la prop, sin uso hoy). tono 'oscuro' (el que usa el Cierre): celeste #a8dadc con #0f3554, hover brightness .94, igual que la portada. Clic .98.",
       "html": "<div class=\"ds-cierre-ctas\"><a href=\"#\" class=\"ds-cc\">Cotizá tu seguro <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a><a href=\"#\" class=\"ds-cc ds-cc-wa\" aria-label=\"Escribinos por WhatsApp\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z\"/></svg></a></div>",
       "css": ".ds-cierre-ctas { display:flex; align-items:center; gap:12px; font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-cc { display:inline-flex; align-items:center; justify-content:space-between; gap:24px; height:56px; min-width:19rem; padding:0 24px; background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); font-size:1.25rem; font-weight:700; text-decoration:none; transition:background-color .2s ease-out, transform .35s cubic-bezier(0.16,1,0.3,1); } .ds-cc-wa { display:grid; place-items:center; width:56px; min-width:0; padding:0; border-radius:9999px; } .ds-cc:hover { background:var(--color-ink-deep,#0f3a5c); } .ds-cc:active { transform:scale(.98); } .ds-cc:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
     },
@@ -805,18 +805,33 @@
       "description": "Hoja numerada de siniestros: borde de 2px claim-deep, números 01–03 en mono claim, envío ix-claim (claim-deep, hover claim). Demo: valida y no envía.",
       "html": "<div class=\"ds-denuncia\"><div class=\"ds-d-row\"><span class=\"ds-d-no\">01</span><div><label class=\"ds-d-label\">¿Qué te pasó?</label><div class=\"ds-d-input\">Elegí una opción</div></div></div><div class=\"ds-d-row\"><span class=\"ds-d-no\">02</span><div><label class=\"ds-d-label\">El hecho</label><div class=\"ds-d-input\">Fecha</div></div></div><div class=\"ds-d-bar\"><button class=\"ds-d-btn\">Enviar la denuncia →</button></div></div>",
       "css": ".ds-denuncia { background:#fff; border:2px solid #66142f; color:#184e77; font-family:'Archivo Variable',system-ui,sans-serif; } .ds-d-row { display:grid; grid-template-columns:3.25rem 1fr; border-bottom:1px solid #7f95a6; } .ds-d-no { border-right:1px solid #7f95a6; padding-top:14px; text-align:center; font-family:'Chivo Mono',monospace; font-size:.875rem; font-weight:500; color:#8a1f45; } .ds-d-row > div { padding:12px 20px 16px; } .ds-d-label { display:block; font-size:1.125rem; font-weight:600; margin-bottom:8px; } .ds-d-input { border:1.5px solid #7f95a6; padding:10px 14px; font-size:1.125rem; max-width:26rem; } .ds-d-bar { padding:16px 20px; } .ds-d-btn { background:#66142f; color:#f6f4ef; border:0; padding:16px 20px; font-size:1.25rem; font-weight:600; min-width:22rem; text-align:left; transition:background-color 200ms; } .ds-d-btn:hover, .ds-d-btn:focus-visible { background:#8a1f45; } .ds-d-btn:focus-visible { outline:3px solid #1a759f; outline-offset:3px; }"
+    },
+    {
+      "name": "Portada: filtro arenoso",
+      "kind": "custom",
+      "description": "Filtro arenoso permanente de la foto de la portada (.hero-arena): dos capas de --grano, el mismo tile mixto del sitio, a 128px y 211px con desfase 37px 61px, opacidad 1, entre el velo y el texto. Sin selector de tono. The One Grain Rule se enmendó para permitirlo solo sobre la foto de la portada.",
+      "html": "<div class=\"ds-arena\" aria-hidden=\"true\"></div>",
+      "css": ".ds-arena { height:160px; background-color:#0f3a5c; background-image:var(--grano), var(--grano); background-size:128px 128px, 211px 211px; background-position:0 0, 37px 61px; }"
+    },
+    {
+      "name": "Hoja de Contacto (K2)",
+      "kind": "card",
+      "refersTo": "claim-tile",
+      "description": "Hoja sheet de 32rem sobre el mapa, borde de 2px ink en lg, padding 24/32px: rótulo mono bajo regla de 2px, calle como título, ciudad, horario con estado en vivo, tres mosaicos de acción de 96px y, bajo regla de 1px, email e Instagram con ícono de 20px.",
+      "html": "<div class=\"ds-hoja\"><h2 class=\"ds-rot\">Encontranos</h2><p class=\"ds-calle\">11 de Septiembre 2702</p><p class=\"ds-ciudad\">Mar del Plata</p><p class=\"ds-estado\"><i class=\"ds-dot\"></i>Abierto ahora · hasta las 15 hs</p><div class=\"ds-tiles\"><a href=\"#\" class=\"ds-t ds-llamar\">Llamar</a><a href=\"#\" class=\"ds-t ds-wa\">WhatsApp</a><a href=\"#\" class=\"ds-t ds-llegar\">Cómo llegar</a></div><p class=\"ds-linea\"><a href=\"#\">info@brokers.example</a><a href=\"#\">@brokers</a></p></div>",
+      "css": ".ds-hoja { max-width:32rem; padding:32px; background:var(--color-sheet,#fff); color:var(--color-ink,#184e77); border:2px solid var(--color-ink,#184e77); font-family:var(--font-sans,'Archivo Variable',Archivo,system-ui,sans-serif); } .ds-rot { margin:0; padding-top:12px; border-top:2px solid currentColor; opacity:.75; font-family:var(--font-mono,'Chivo Mono',ui-monospace,monospace); font-size:.875rem; font-weight:500; letter-spacing:.02em; } .ds-calle { margin:16px 0 0; font-size:2.25rem; line-height:1.05; font-weight:700; font-stretch:88%; letter-spacing:-.02em; } .ds-ciudad { margin:4px 0 0; font-size:1.125rem; color:var(--color-ink-2,#3f5870); } .ds-estado { display:flex; align-items:center; gap:8px; margin:8px 0 0; font-family:var(--font-mono,'Chivo Mono',ui-monospace,monospace); font-size:.875rem; color:var(--color-ink-2,#3f5870); } .ds-dot { width:10px; height:10px; border-radius:9999px; background:var(--color-seal,#1f6e55); } .ds-tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:24px; } .ds-t { display:flex; min-height:96px; align-items:center; justify-content:center; text-align:center; padding:12px 8px; font-size:1.125rem; font-weight:600; text-decoration:none; } .ds-llamar { background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); } .ds-llamar:hover { background:var(--color-ink-deep,#0f3a5c); } .ds-wa { background:var(--color-seal,#1f6e55); color:var(--color-paper,#f6f4ef); } .ds-wa:hover { background:var(--color-seal-deep,#175843); } .ds-llegar { border:2px solid var(--color-ink,#184e77); color:var(--color-ink,#184e77); } .ds-llegar:hover { background:var(--color-wash,#eef3f6); } .ds-linea { display:flex; flex-wrap:wrap; gap:8px 20px; margin:20px 0 0; padding-top:16px; border-top:1px solid var(--color-rule,#7f95a6); font-size:1rem; } .ds-linea a { color:inherit; } .ds-t:focus-visible, .ds-linea a:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
     }
   ],
   "narrative": {
     "northStar": "La póliza bien hecha",
-    "overview": "El sistema trata cada superficie como un documento de seguros redactado con cuidado: papel cálido con grano alternado con hojas blancas, tinta azul marino, campos con reglas finas y números de campo en monoespaciada, cláusulas numeradas (\"Art. 1\") y, en el pedido de cotización, un sello de goma verde que certifica el estado del trámite. La confianza no se declara con adornos: se construye con orden, jerarquía legible y datos verificables puestos en su campo.\n\nLa densidad es de formulario bien diagramado, no de folleto. Los bloques se separan con reglas (filetes de 1px y líneas de 2px en tinta) en vez de tarjetas flotantes; la profundidad es plana y tipográfica. La tipografía es grande y generosa para un público mayor de 45 que lee desde el celular: el cuerpo arranca en 18px. El color tiene funciones fijas: el azul es la tinta, el verde es el sello (solo en cotizar) y WhatsApp, el bordó existe solo para siniestros y el azul teal solo para el foco y el acento.\n\nLa portada abre con una fotografía real de Mar del Plata (la rambla y el skyline de la costa) a sangre completa, con un velo marino que asienta el texto y un zoom lento que la mantiene viva; el crédito de la foto queda visible en mono. Es el único momento fotográfico grande: el resto de la página vuelve al papel. El guilloché sobrevive en una sola forma, la tira: una banda horizontal de onda fina en teal, de 24px de alto, que marca la cabecera de una carátula como papel de seguridad. El logo del cliente es una insignia circular y se respeta como tal; su línea (azul → teal → verde) es el campo de color que el sistema toma del logo: un degradé seguro para texto (ink a teal) como fondo de sección, rematado por una tira de 8px con el degradé completo. El otro campo de color es el de siniestros: un bordó frío pleno, para que quien tuvo un problema encuentre la sección sin buscarla. El cierre de la página es un tercer campo oscuro, de tinta profunda con grano y solo tipografía: una frase enorme y dos botones, sin foto ni sello.",
+    "overview": "El sistema trata cada superficie como un documento de seguros redactado con cuidado: papel cálido con grano alternado con hojas blancas, tinta azul marino, campos con reglas finas y números de campo en monoespaciada, cláusulas numeradas (\"Art. 1\") y, en el pedido de cotización, un sello de goma verde que certifica el estado del trámite. La confianza no se declara con adornos: se construye con orden, jerarquía legible y datos verificables puestos en su campo.\n\nLa densidad es de formulario bien diagramado, no de folleto. Los bloques se separan con reglas (filetes de 1px y líneas de 2px en tinta) en vez de tarjetas flotantes; la profundidad es plana y tipográfica. La tipografía es grande y generosa para un público mayor de 45 que lee desde el celular: el cuerpo arranca en 18px. El color tiene funciones fijas: el azul es la tinta, el verde es el sello (solo en cotizar) y WhatsApp, el bordó existe solo para siniestros y el azul teal solo para el foco y el acento.\n\nLa portada es una sola sección centrada sobre una fotografía real de la costa de Mar del Plata, a sangre bajo un velo marino y con su crédito visible en mono. Es el único momento fotográfico grande: el resto de la página vuelve al papel. El guilloché sobrevive en una sola forma, la tira: una banda horizontal de onda fina en teal, de 24px de alto, que marca la cabecera de una carátula como papel de seguridad. El logo del cliente es una insignia circular y se respeta como tal; su línea (azul → teal → verde) es el campo de color que el sistema toma del logo: un degradé seguro para texto (ink a teal) como fondo de sección, rematado por una tira de 8px con el degradé completo. El otro campo de color es el de siniestros: un bordó frío pleno, para que quien tuvo un problema encuentre la sección sin buscarla. El cierre de la página es un tercer campo oscuro, de tinta profunda con grano y solo tipografía: una frase enorme y dos botones, sin foto ni sello.",
     "keyCharacteristics": [
       "Un solo papel cálido (`paper`) con grano de página completa como fondo común; hojas blancas (`sheet`) para formularios, carátula, mosaicos; tinta marina en todo el texto.",
       "Esquinas rectas; reglas de 1px, 1.5px y 2px como única estructura.",
       "Números de campo y metadatos en Chivo Mono con cifras tabulares.",
       "Archivo variable condensado (ancho 84–92%) para titulares compactos y firmes.",
       "Rojo reservado para siniestros (incluido su campo de sección completa); verde para el sello y WhatsApp.",
-      "Portada fotográfica real con velo marino; una sola por página.",
+      "Portada centrada sobre una fotografía real de la costa de Mar del Plata, a sangre bajo un velo marino y con crédito visible; una sola foto por página.",
       "Sin sombras, sin tarjetas redondeadas; única excepción circular: el botón de solo ícono de WhatsApp (portada y etiqueta de cada persona)."
     ],
     "rules": [
@@ -852,7 +867,7 @@
       },
       {
         "name": "The One Grain Rule",
-        "body": "Hay un solo grano, el mismo tile parametrizado por --grano y --grano-tam, a una sola intensidad. Cubre el papel (fondo de página, barra del header, panel del menú, etiqueta de cada persona), el campo bordó de siniestros, el campo del logo, el Cierre en `ink-deep` y el footer, siempre por encima del color. Nunca cubre fotos, hojas o mosaicos blancos ni texto.",
+        "body": "Hay un solo grano, el mismo tile mixto parametrizado por --grano y --grano-tam, a una sola intensidad. Cubre el papel (fondo de página, barra del header, panel del menú, etiqueta de cada persona), el campo bordó de siniestros, el campo del logo, el Cierre en `ink-deep` y el footer, siempre por encima del color. Nunca cubre fotos, hojas o mosaicos blancos ni texto. Excepción por decisión del cliente: la foto de la portada lleva un filtro arenoso permanente de dos capas del mismo tile mixto de la marca (128px y 211px con desfase 37px 61px), sobre el velo y bajo el texto; es el único lugar donde el grano toca una foto y no tiene variante de tono.",
         "section": "colors"
       },
       {
@@ -877,7 +892,7 @@
       },
       {
         "name": "The Pausable Motion Rule",
-        "body": "El movimiento continuo se frena al hover y tiene un control de pausa discreto y accesible por teclado (ícono solo, 44px, nombre que alterna Pausar/Reanudar); con `prefers-reduced-motion` desaparece junto con el control, y queda una grilla estática. Lo repetido para el movimiento (la copia) queda fuera del árbol de accesibilidad. Lo cumplen el carril de Aseguradoras y las filas de Equipo.",
+        "body": "El movimiento continuo (en bucle) se frena al hover y tiene un control de pausa discreto y accesible por teclado (ícono solo, 44px, nombre que alterna Pausar/Reanudar); con `prefers-reduced-motion` desaparece junto con el control, y queda una grilla estática. Lo repetido para el movimiento (la copia) queda fuera del árbol de accesibilidad. Lo cumplen el carril de Aseguradoras y las filas de Equipo. No aplica al alejamiento único de la portada: es finito (~14s, termina quieto), así que no lleva pausa.",
         "section": "components"
       },
       {
@@ -887,7 +902,7 @@
       },
       {
         "name": "The Allowed Motion Rule",
-        "body": "El movimiento continuo solo existe en el carril de Aseguradoras y en las filas de Equipo. Ambos se frenan al hover, ocultan la copia a lectores de pantalla y quedan estáticos con `prefers-reduced-motion`; las filas de Equipo además se frenan al foco de teclado y al tocar una foto. Las filas de Equipo además se frenan con su botón de pausa, igual que el carril.",
+        "body": "El movimiento continuo (en bucle) solo existe en el carril de Aseguradoras y en las filas de Equipo. Ambos se frenan al hover, ocultan la copia a lectores de pantalla y quedan estáticos con `prefers-reduced-motion`; las filas de Equipo además se frenan al foco de teclado y al tocar una foto. Las filas de Equipo además se frenan con su botón de pausa, igual que el carril. Excepción finita: el alejamiento de la portada dura ~14s una vez y termina quieto, sin pausa (WCAG 2.2.2 satisfecha porque el movimiento termina; fondo decorativo).",
         "section": "components"
       },
       {
@@ -907,7 +922,7 @@
       "**Do** mantener el cuerpo en 1.125rem o más y los objetivos táctiles en 48px o más.",
       "**Do** reservar `claim` para siniestros, errores y \"Cerrado\", y `teal` para el foco.",
       "**Do** marcar lo que falta confirmar con una única nota mono de versión demo en el footer y placeholders con borde punteado, en vez de inventar contenido o repetir avisos por sección.",
-      "**Do** respetar `prefers-reduced-motion` en el sello, el zoom de la foto de portada, el scroll suave y el movimiento del header.",
+      "**Do** respetar `prefers-reduced-motion` en el sello, el alejamiento de la foto de portada, el scroll suave y el movimiento del header.",
       "**Do** frenar al hover todo movimiento continuo, darle un botón de pausa discreto de 44px con nombre accesible y dejarlo estático con `prefers-reduced-motion`, como el carril de aseguradoras y las filas de Equipo.",
       "**Do** dejar las secciones de papel sin fondo propio y poner el grano una sola vez en la página, más la barra y el panel del header, el campo bordó, el campo del logo y el footer.",
       "**Do** usar fotografía real de Mar del Plata con su procedencia registrada y el crédito visible cuando la licencia lo pide.",
@@ -921,9 +936,9 @@
       "**Don't** redondear botones, campos u opciones; lo circular se limita al logo, el sello y los indicadores de estado. Única excepción: un botón de solo ícono puede ser circular (el WhatsApp de la portada y el de la etiqueta de cada persona); un botón con rótulo nunca.",
       "**Don't** usar el guilloché como marca de agua de fondo; su única forma es la tira, y va solo en la cabecera de una carátula.",
       "**Don't** teñir las secciones (salvo el Cierre en `ink-deep` con grano) ni usar el degradé del logo como tarjeta o bloque dentro de una sección, ni repetir el campo del logo, el campo de siniestros o la portada fotográfica más de una vez por página.",
-      "**Don't** poner el grano sobre hojas blancas, mosaicos blancos, fotos ni texto: es una textura del papel, no un motivo.",
+      "**Don't** poner el grano sobre hojas blancas, mosaicos blancos, fotos (salvo la arena de la portada) ni texto: es una textura del papel, no un motivo.",
       "**Don't** usar `cta-fill-light` ni `cta-ink-deep` fuera de los CTAs de la portada y del Cierre sobre fondo oscuro.",
-      "**Don't** repetir el sello de goma más de una vez por página (la home no tiene ninguno)."
+      "**Don't** repetir el sello de goma más de una vez por página (hoy solo vive en cotizar)."
     ]
   }
 }
