@@ -1,0 +1,63 @@
+---
+import CierreCtas from './CierreCtas.astro';
+import Stamp from './Stamp.astro';
+---
+
+<!-- Cierre: le habla al lector y lo empuja a cotizar o escribir. Papel teñido (wash + grano) para marcar el corte entre Equipo y Contacto. -->
+<section class="con-grano border-y-2 border-ink bg-wash" data-cierre data-var="a" aria-labelledby="cierre-titulo-a">
+	<!-- A · Carta firmada -->
+	<div data-var-seccion="a" class="mx-auto grid max-w-[84rem] gap-10 px-4 py-16 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,8fr)_minmax(0,3fr)] lg:items-center lg:gap-16 lg:px-12 lg:py-24">
+		<div>
+			<h2 id="cierre-titulo-a" class="field-no border-t-2 border-ink pt-3 text-ink-2">Nota al pie de la póliza</h2>
+			<p class="mt-6 max-w-[38ch] text-[clamp(1.5rem,1.2rem+1.1vw,2.125rem)] leading-[1.35] [font-stretch:92%]">
+				Elegir un seguro no debería ser un trámite a ciegas. Hace más de 35 años que nos sentamos con cada cliente a entender qué necesita, y cuando algo pasa, atendemos el teléfono. Si querés, empezamos por una charla.
+			</p>
+			<p class="field-no mt-6 text-ink">— Brokers Asociados · Mar del Plata</p>
+			<div class="mt-10"><CierreCtas /></div>
+		</div>
+		<div class="hidden justify-self-center lg:block lg:size-60">
+			<Stamp id="sello-cierre" lineas={['+35', 'AÑOS']} class="size-full" />
+		</div>
+	</div>
+
+	<!-- B · Pregunta directa -->
+	<div data-var-seccion="b" hidden class="mx-auto max-w-[84rem] px-4 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
+		<h2 id="cierre-titulo-b" class="max-w-[16ch] text-[clamp(3rem,1.6rem+5.6vw,6.25rem)] font-bold [font-stretch:84%]">¿Sabés qué cubre tu seguro?</h2>
+		<p class="mt-6 max-w-[40ch] text-[1.375rem] text-ink-2">Si dudaste, hablemos. Lo revisamos con vos.</p>
+		<div class="mt-10"><CierreCtas /></div>
+	</div>
+
+	<!-- C · Traé tu póliza (texto pendiente de confirmar con el cliente) -->
+	<div data-var-seccion="c" hidden class="mx-auto max-w-[84rem] px-4 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
+		<h2 id="cierre-titulo-c" class="max-w-[16ch] text-[clamp(3rem,1.6rem+5.6vw,6.25rem)] font-bold [font-stretch:84%]">¿Ya tenés seguro?</h2>
+		<p class="mt-6 max-w-[40ch] text-[1.375rem] text-ink-2">Traé tu póliza y te decimos si estás pagando de más o te falta cobertura.</p>
+		<div class="mt-10"><CierreCtas /></div>
+	</div>
+</section>
+
+<!-- Selector temporal de variantes del cierre: se elimina cuando se elija una -->
+<div role="group" aria-label="Probar versiones del cierre (demo)" class="cierre-switch fixed bottom-4 left-3 z-40 flex flex-wrap items-center gap-1 border-[1.5px] border-ink bg-sheet p-1 text-ink">
+	<span class="px-2 font-mono text-[0.875rem]">Cierre</span>
+	<button type="button" data-cierre-opcion="a" aria-pressed="true" class="min-h-11 px-3 text-[1rem] font-semibold">A · Carta firmada</button>
+	<button type="button" data-cierre-opcion="b" aria-pressed="false" class="min-h-11 px-3 text-[1rem] font-semibold">B · Pregunta</button>
+	<button type="button" data-cierre-opcion="c" aria-pressed="false" class="min-h-11 px-3 text-[1rem] font-semibold">C · Traé tu póliza</button>
+</div>
+
+<style>
+	[data-var-seccion][hidden] { display: none; }
+	.cierre-switch button[aria-pressed='true'] { background: var(--color-ink); color: var(--color-paper); }
+</style>
+
+<script>
+	const raiz = document.querySelector<HTMLElement>('[data-cierre]')!;
+	const opciones = document.querySelectorAll<HTMLButtonElement>('[data-cierre-opcion]');
+	opciones.forEach((b) =>
+		b.addEventListener('click', () => {
+			const v = b.dataset.cierreOpcion!;
+			raiz.dataset.var = v;
+			raiz.setAttribute('aria-labelledby', `cierre-titulo-${v}`);
+			raiz.querySelectorAll<HTMLElement>('[data-var-seccion]').forEach((s) => (s.hidden = s.dataset.varSeccion !== v));
+			opciones.forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+		}),
+	);
+</script>

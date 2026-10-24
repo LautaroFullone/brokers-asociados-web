@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T12:00:00Z",
+  "generatedAt": "2026-10-24T18:00:00Z",
   "title": "Design System: Brokers Asociados",
   "extensions": {
     "colorMeta": {
@@ -559,6 +559,11 @@
         "name": "logo-tinta",
         "value": "opacity 0.3s ease-out; máscara de ink ⇄ color original al hover del ítem",
         "purpose": "Logos de aseguradoras en tinta que revelan su color al hover."
+      },
+      {
+        "name": "cierre-cta",
+        "value": "fondo 0.2s ease-out a ink-deep al hover; :active scale(.98) 0.35s ease-out-expo",
+        "purpose": "CTAs del Cierre sobre claro; sin transición ni escala con prefers-reduced-motion."
       }
     ],
     "breakpoints": [
@@ -770,6 +775,22 @@
       "description": "Mapa estático a sangre de Google Maps por coordenadas (iframe inert, sin eventos de puntero; sin pin ni tarjeta de Google) en grises con velo de tinta y único marcador propio, que marca siempre la dirección. En escritorio (lg) la hoja de datos de 30rem con borde de 2px ink va a la derecha y el mapa se corre (136% de ancho, left -36%) para que el pin quede al 32%; en celulares el mapa va arriba (20rem) con el pin centrado y la hoja debajo. Para explorar la zona está 'Cómo llegar' en el renglón de dirección: rótulo semibold subrayado con borde inferior de 2px ink y flecha derecha que avanza 4px al hover, sin ícono a la izquierda.",
       "html": "<div class=\"ds-mapa\"><div class=\"ds-mapa-base\"></div><div class=\"ds-mapa-velo\"></div><svg class=\"ds-mapa-pin\" viewBox=\"0 0 44 56\" aria-hidden=\"true\"><path d=\"M22 54C22 54 3 33.5 3 21a19 19 0 0 1 38 0c0 12.5-19 33-19 33z\" fill=\"#184e77\" stroke=\"#f6f4ef\" stroke-width=\"3\"/><circle cx=\"22\" cy=\"21\" r=\"7\" fill=\"#f6f4ef\"/></svg></div>",
       "css": ".ds-mapa { position:relative; isolation:isolate; overflow:hidden; height:20rem; background:var(--color-rule-soft,#d3dee5); } .ds-mapa-base { position:absolute; inset:0; background:var(--color-rule-soft,#d3dee5); filter:grayscale(1) contrast(.95) brightness(1.04); } .ds-mapa-velo { position:absolute; inset:0; background:rgb(24 78 119 / .1); mix-blend-mode:multiply; pointer-events:none; } .ds-mapa-pin { position:absolute; top:50%; left:50%; z-index:10; width:44px; height:56px; transform:translate(-50%,-100%); pointer-events:none; } @media (min-width:1024px) { .ds-mapa-pin { left:32%; } }"
+    },
+    {
+      "name": "CTAs sobre claro (Cierre)",
+      "kind": "button",
+      "refersTo": "button-on-light",
+      "description": "Cotizá tu seguro → de 56px en ink con texto paper y WhatsApp redondo de 56px; versión para fondos claros (el celeste queda para oscuros). Hover ink-deep, clic .98.",
+      "html": "<div class=\"ds-cierre-ctas\"><a href=\"#\" class=\"ds-cc\">Cotizá tu seguro <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a><a href=\"#\" class=\"ds-cc ds-cc-wa\" aria-label=\"Escribinos por WhatsApp\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z\"/></svg></a></div>",
+      "css": ".ds-cierre-ctas { display:flex; align-items:center; gap:12px; font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-cc { display:inline-flex; align-items:center; justify-content:space-between; gap:24px; height:56px; min-width:19rem; padding:0 24px; background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); font-size:1.25rem; font-weight:700; text-decoration:none; transition:background-color .2s ease-out, transform .35s cubic-bezier(0.16,1,0.3,1); } .ds-cc-wa { display:grid; place-items:center; width:56px; min-width:0; padding:0; border-radius:9999px; } .ds-cc:hover { background:var(--color-ink-deep,#0f3a5c); } .ds-cc:active { transform:scale(.98); } .ds-cc:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+    },
+    {
+      "name": "Cierre (campo de cierre)",
+      "kind": "custom",
+      "refersTo": "section-cierre",
+      "description": "Sección wash con grano y reglas de 2px en tinta arriba y abajo entre Equipo y Contacto. Las tres variantes (A Carta firmada, B Pregunta directa, C Traé tu póliza) y el selector son TEMPORALES: borrar al elegir; no canonizadas.",
+      "html": "<section class=\"ds-cierre\"><h2 class=\"ds-cierre-h\">¿Ya tenés seguro?</h2><p class=\"ds-cierre-p\">Traé tu póliza y te decimos si estás pagando de más o te falta cobertura.</p></section>",
+      "css": ".ds-cierre { padding:64px 16px; background:var(--color-wash,#eef3f6); border-block:2px solid var(--color-ink,#184e77); color:var(--color-ink,#184e77); font-family: var(--font-sans, 'Archivo Variable', Archivo, system-ui, sans-serif); } .ds-cierre-h { margin:0; max-width:16ch; font-size:clamp(3rem,1.6rem + 5.6vw,6.25rem); font-weight:700; font-stretch:84%; line-height:1.04; letter-spacing:-0.02em; } .ds-cierre-p { margin:24px 0 0; max-width:40ch; font-size:1.375rem; color:var(--color-ink-2,#3f5870); }"
     }
   ],
   "narrative": {
@@ -807,17 +828,17 @@
       },
       {
         "name": "The Hero Action Rule",
-        "body": "El celeste de acción y la tinta marina (`cta-fill-light`, `cta-ink-deep`) existen solo para los CTAs de la portada sobre fondo oscuro y para el botón de solo ícono de WhatsApp del panel de persona. No se promueven a botones con rótulo de otras secciones.",
+        "body": "El celeste de acción y la tinta marina (`cta-fill-light`, `cta-ink-deep`) existen solo para los CTAs de la portada sobre fondo oscuro y para el botón de solo ícono de WhatsApp del panel de persona. No se promueven a botones con rótulo de otras secciones. Sobre fondos claros el mismo par de acciones va en `ink` con texto `paper`.",
         "section": "colors"
       },
       {
         "name": "The One Paper Rule",
-        "body": "El fondo común es un único papel (`paper` con grano); las secciones no lo tiñen. El color de fondo llega solo como el degradé del logo o el campo bordó de siniestros, siempre a sección completa. Nunca como tarjeta, franja suelta o bloque de color dentro de una sección.",
+        "body": "El fondo común es un único papel (`paper` con grano); las secciones no lo tiñen, con una excepción: el Cierre (`wash` con grano entre dos reglas de 2px en tinta), que marca el corte entre Equipo y Contacto sin sumar un segundo campo del logo ni el bordó. El color de fondo llega solo como el degradé del logo, el campo bordó de siniestros o ese corte, siempre a sección completa. Nunca como tarjeta, franja suelta o bloque de color dentro de una sección.",
         "section": "colors"
       },
       {
         "name": "The One Grain Rule",
-        "body": "Hay un solo grano, el mismo tile parametrizado por --grano y --grano-tam, a una sola intensidad. Cubre el papel (fondo de página, barra del header, panel del menú), el campo bordó de siniestros, el campo del logo y el footer, siempre por encima del color. Nunca cubre fotos, hojas o mosaicos blancos ni texto.",
+        "body": "Hay un solo grano, el mismo tile parametrizado por --grano y --grano-tam, a una sola intensidad. Cubre el papel (fondo de página, barra del header, panel del menú), el campo bordó de siniestros, el campo del logo, el Cierre en `wash` y el footer, siempre por encima del color. Nunca cubre fotos, hojas o mosaicos blancos ni texto.",
         "section": "colors"
       },
       {
@@ -872,17 +893,18 @@
       "**Do** dejar las secciones de papel sin fondo propio y poner el grano una sola vez en la página, más la barra y el panel del header, el campo bordó, el campo del logo y el footer.",
       "**Do** usar fotografía real de Mar del Plata con su procedencia registrada y el crédito visible cuando la licencia lo pide.",
       "**Do** mostrar personas como retratos 3:4 en escala de grises sobre el degradé gris `portrait-top` → `portrait-bottom`, en tiras de scroll horizontal enfocables por teclado, con el contacto en un panel de `ink` que sube al hover o foco con mouse y queda visible debajo de la foto en táctil.",
-      "**Do** dibujar los datos pendientes de una carátula como renglón discontinuo de 1.5px `rule` y escribir los placeholders como \"Ej.: …\"."
+      "**Do** dibujar los datos pendientes de una carátula como renglón discontinuo de 1.5px `rule` y escribir los placeholders como \"Ej.: …\".",
+      "**Do** usar el par de CTAs en `ink` con texto `paper` (56px, WhatsApp redondo) sobre fondos claros, y el celeste solo sobre fondos oscuros."
     ],
     "donts": [
       "**Don't** usar sombras ni tarjetas con esquinas redondeadas.",
       "**Don't** usar el bordó como acento decorativo ni en acciones de cotización.",
       "**Don't** redondear botones, campos u opciones; lo circular se limita al logo, el sello y los indicadores de estado. Única excepción: un botón de solo ícono puede ser circular (el WhatsApp de la portada y el del panel de persona); un botón con rótulo nunca.",
       "**Don't** usar el guilloché como marca de agua de fondo; su única forma es la tira, y va solo en la cabecera de una carátula.",
-      "**Don't** teñir las secciones ni usar el degradé del logo como tarjeta o bloque dentro de una sección, ni repetir el campo del logo, el campo de siniestros o la portada fotográfica más de una vez por página.",
+      "**Don't** teñir las secciones (salvo el Cierre en `wash` con grano) ni usar el degradé del logo como tarjeta o bloque dentro de una sección, ni repetir el campo del logo, el campo de siniestros o la portada fotográfica más de una vez por página.",
       "**Don't** poner el grano sobre hojas blancas, mosaicos blancos, fotos ni texto: es una textura del papel, no un motivo.",
       "**Don't** usar `cta-fill-light` ni `cta-ink-deep` fuera de los CTAs de la portada sobre fondo oscuro y del botón de solo ícono de WhatsApp de las personas.",
-      "**Don't** repetir el sello de goma más de una vez por página (el sello con leyenda de cotizar)."
+      "**Don't** repetir el sello de goma más de una vez por página (la home no tiene otro, así que el del Cierre variante A cumple la regla mientras exista)."
     ]
   }
 }
