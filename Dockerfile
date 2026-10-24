@@ -4,6 +4,9 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+# Variable pública del crédito del footer (opcional): docker build --build-arg PUBLIC_CONTACTO_DEV=549...
+ARG PUBLIC_CONTACTO_DEV
+ENV PUBLIC_CONTACTO_DEV=$PUBLIC_CONTACTO_DEV
 RUN npm run build
 
 # Runtime: nginx sirve la carpeta dist

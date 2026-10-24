@@ -54,7 +54,7 @@ Restricciones:
 
 **Pendiente de confirmar con el cliente:**
 1. Padrón vigente de productores (19 publicados contra 28 en los formularios) y si se muestran mails personales o del dominio.
-2. Lista vigente de aseguradoras y logos oficiales.
+2. Logos oficiales de las aseguradoras (la lista de aseguradoras ya está confirmada por el cliente).
 3. Teléfono correcto de Cobranzas (el cargado tiene 11 dígitos).
 4. Destino real de cotizaciones y denuncias (productor, info@ o ambos).
 5. Logo en vector y fotos originales sin filtros.
@@ -73,11 +73,11 @@ Todo en `docs/brief-web-actual.md`:
 - Textos institucionales literales (Quiénes somos, Qué hacemos, Aseguradoras, Siniestros).
 - Datos de contacto completos y equipo de administración (Jorge Couto e Ignacio Victorel en Producción, Leticia Lazzati en Siniestros, Pedro Victorel en Cobranzas).
 - Ramas y coberturas, en su versión literal.
-- Aseguradoras: Allianz, Asociart ART, Mercantil Andina, Provincia ART, Río Uruguay Seguros, Experta, Sancor Seguros, Woranz, Federación Patronal y Cooperación Seguros (lista a confirmar).
+- Aseguradoras: Allianz, Asociart ART, Mercantil Andina, Provincia ART, Río Uruguay Seguros, Experta, Sancor Seguros, Woranz, Federación Patronal y Cooperación Seguros (lista confirmada por el cliente).
 - 19 productores publicados, con teléfono y email.
 - Fotos existentes (frente del edificio, productores, administración). Todavía no están en el repo y las originales tienen filtros.
 
-**No existen y no se inventan:** testimonios, reseñas de Google, cantidad de clientes, cifras de siniestros resueltos, precios ni premios. Las aseguradoras y el padrón se muestran como "a confirmar" mientras no haya lista vigente.
+**No existen y no se inventan:** testimonios, reseñas de Google, cantidad de clientes, cifras de siniestros resueltos, precios ni premios. El padrón se muestra como "a confirmar" mientras no haya lista vigente; la lista de aseguradoras ya está confirmada.
 
 ## Product Principles
 

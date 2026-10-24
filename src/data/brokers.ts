@@ -104,6 +104,13 @@ export const siniestros = [
 	{ grupo: 'Comercio y consorcio', tipos: ['Daños en el comercio', 'Daños en el consorcio'] },
 ];
 
+const slugTipo = (s: string) =>
+	s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-');
+
+/** Lista plana de tipos con su slug (el mismo que usan los mosaicos de Siniestros). */
+export const tiposSiniestro = (): { slug: string; grupo: string; tipo: string }[] =>
+	siniestros.flatMap((g) => g.tipos.map((tipo) => ({ slug: slugTipo(`${g.grupo} ${tipo}`), grupo: g.grupo, tipo })));
+
 export const equipo = [
 	{ nombre: 'Jorge Couto', area: 'Producción', telefono: '223 596-3894', email: 'produccion@brokersasociados.com.ar' },
 	{ nombre: 'Ignacio Victorel', area: 'Producción', telefono: '223 596-3894', email: 'produccion@brokersasociados.com.ar' },

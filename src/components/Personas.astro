@@ -37,7 +37,16 @@ const vueltas = [false, true];
 
 <section id="personas" class="border-t-2 border-ink" aria-labelledby="personas-titulo" data-equipo>
 	<div class="mx-auto max-w-[84rem] px-4 pt-16 sm:px-8 sm:pt-20 lg:px-12 lg:pt-24">
-		<h2 id="personas-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Nuestro equipo</h2>
+		<div class="flex items-end justify-between gap-6">
+			<h2 id="personas-titulo" class="text-[clamp(2.25rem,1.6rem+2.6vw,3.75rem)] font-bold">Nuestro equipo</h2>
+			<!-- Control de pausa discreto (WCAG 2.2.2): solo el ícono, con nombre accesible -->
+			<button type="button" class="pausa-equipo grid size-11 shrink-0 place-items-center border-[1.5px] border-rule text-ink-2 ix-control hover:border-ink hover:text-ink focus-visible:border-ink focus-visible:text-ink" aria-label="Pausar el carrusel del equipo" data-pausa-equipo>
+				<svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+					<g data-icono-pausa><rect x="5" y="4" width="5" height="16" /><rect x="14" y="4" width="5" height="16" /></g>
+					<path data-icono-play d="M7 4l13 8-13 8z" style="display:none" />
+				</svg>
+			</button>
+		</div>
 	</div>
 
 	<div class="mx-auto mb-16 mt-10 max-w-[84rem] space-y-2 px-4 sm:mb-20 sm:mt-12 sm:px-8 lg:mb-24 lg:px-12">
@@ -142,6 +151,7 @@ const vueltas = [false, true];
 		width: calc((100cqw + var(--gap)) / var(--n));
 	}
 	/* Se frena con el foco de teclado, con el mouse o mientras hay una foto tocada */
+	#personas[data-pausado] .pista,
 	#personas .fila:focus-within .pista,
 	#personas .fila:has(.tocada) .pista { animation-play-state: paused; }
 	@media (hover: hover) {
@@ -159,7 +169,7 @@ const vueltas = [false, true];
 			scrollbar-color: var(--color-ink) transparent;
 		}
 		#personas .pista { animation: none; transform: none; }
-		#personas .vuelta-copia { display: none; }
+		#personas .vuelta-copia, .pausa-equipo { display: none; }
 		#personas .vuelta > .persona { scroll-snap-align: start; }
 		#personas .foto-color, #personas .marco img { transition: none; }
 		#personas .persona:hover .marco img, #personas .persona:focus-within .marco img { transform: none; }
@@ -180,6 +190,15 @@ const vueltas = [false, true];
 
 <script>
 	const raiz = document.querySelector<HTMLElement>('[data-equipo]')!;
+
+	// Pausa explícita del carrusel
+	const botonPausa = raiz.querySelector<HTMLButtonElement>('[data-pausa-equipo]')!;
+	botonPausa.addEventListener('click', () => {
+		const pausado = raiz.toggleAttribute('data-pausado');
+		botonPausa.setAttribute('aria-label', pausado ? 'Reanudar el carrusel del equipo' : 'Pausar el carrusel del equipo');
+		botonPausa.querySelector<SVGElement>('[data-icono-pausa]')!.style.display = pausado ? 'none' : '';
+		botonPausa.querySelector<SVGElement>('[data-icono-play]')!.style.display = pausado ? '' : 'none';
+	});
 
 	// Táctil: la foto pasa a color al tocarla (una a la vez)
 	if (matchMedia('(hover: none)').matches) {

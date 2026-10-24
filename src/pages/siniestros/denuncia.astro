@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MobileBar from '../../components/MobileBar.astro';
+import Icon from '../../components/Icon.astro';
+import { tiposSiniestro, contacto, whatsappLink } from '../../data/brokers';
+
+const tipos = tiposSiniestro();
+const inputBase =
+	'block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
+const row = 'grid grid-cols-[2.75rem_minmax(0,1fr)] border-b border-rule sm:grid-cols-[3.25rem_minmax(0,1fr)]';
+const no = 'field-no border-r border-rule pt-3.5 text-center text-ink-2';
+const label = 'mb-1 block text-[1rem] text-ink-2';
+const err = 'mt-1.5 hidden text-[1rem] font-medium text-claim';
+---
+
+<Layout
+	title="Denunciar un siniestro · Brokers Asociados"
+	description="Contanos qué pasó y el área de Siniestros de Brokers Asociados te acompaña con la denuncia."
+>
+	<Header />
+	<main id="contenido" class="pt-[4.5rem]">
+		<div class="mx-auto max-w-[56rem] px-4 pt-8 pb-16 sm:px-8 lg:pt-10 lg:pb-24">
+			<a href="/#siniestros" class="ix-sub inline-flex items-center gap-2 text-[1rem] font-medium">
+				<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+				Volver a Siniestros
+			</a>
+			<h1 class="mt-5 text-[clamp(2.5rem,1.8rem+2.8vw,4rem)] font-bold [font-stretch:84%]">Denunciar un siniestro</h1>
+			<p class="mt-3 max-w-[48ch] text-[1.25rem] text-ink-2">Respirá. Contanos qué pasó y una persona del área de Siniestros te llama para hacer la denuncia con vos.</p>
+
+			<div class="mt-8 border-2 border-claim-deep bg-sheet">
+				<form data-denuncia novalidate class="contents">
+					<div class={row}>
+						<span class="field-no border-r border-rule pt-3.5 text-center text-claim" aria-hidden="true">01</span>
+						<div class="px-4 pt-3 pb-4 sm:px-5">
+							<label for="d-tipo" class="mb-2 block text-[1.125rem] font-semibold">¿Qué te pasó?</label>
+							<div class="relative max-w-[26rem]">
+								<select id="d-tipo" name="tipo" aria-describedby="err-tipo" class={`${inputBase} appearance-none pr-10`} required>
+									<option value="">Elegí una opción</option>
+									{tipos.map((t) => <option value={t.slug}>{t.grupo} · {t.tipo}</option>)}
+								</select>
+								<svg class="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+							</div>
+							<p id="err-tipo" class={err} data-error="tipo">Elegí qué te pasó.</p>
+						</div>
+					</div>
+
+					<div class={row}>
+						<span class="field-no border-r border-rule pt-3.5 text-center text-claim" aria-hidden="true">02</span>
+						<div class="px-4 pt-3 pb-4 sm:px-5">
+							<p class="mb-2 text-[1.125rem] font-semibold">El hecho</p>
+							<div class="grid gap-3 sm:grid-cols-2">
+								<div>
+									<label for="d-fecha" class={label}>Fecha</label>
+									<input id="d-fecha" name="fecha" type="date" aria-describedby="err-fecha" class={inputBase} required />
+									<p id="err-fecha" class={err} data-error="fecha">Indicá cuándo fue.</p>
+								</div>
+								<div>
+									<label for="d-lugar" class={label}>Lugar</label>
+									<input id="d-lugar" name="lugar" autocomplete="off" aria-describedby="err-lugar" class={inputBase} placeholder="Ej.: Av. Colón y Güemes" required />
+									<p id="err-lugar" class={err} data-error="lugar">Indicá dónde pasó.</p>
+								</div>
+							</div>
+							<div class="mt-3">
+								<label for="d-relato" class={label}>Contanos qué pasó <span class="text-ink-2">Opcional</span></label>
+								<textarea id="d-relato" name="relato" rows="3" class={`${inputBase} resize-y`}></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class={row}>
+						<span class="field-no border-r border-rule pt-3.5 text-center text-claim" aria-hidden="true">03</span>
+						<div class="px-4 pt-3 pb-4 sm:px-5">
+							<p class="mb-2 text-[1.125rem] font-semibold">Cómo te encontramos</p>
+							<div class="grid gap-3 sm:grid-cols-2">
+								<div>
+									<label for="d-nombre" class={label}>Nombre y apellido</label>
+									<input id="d-nombre" name="nombre" autocomplete="name" aria-describedby="err-nombre" class={inputBase} required />
+									<p id="err-nombre" class={err} data-error="nombre">Escribí tu nombre.</p>
+								</div>
+								<div>
+									<label for="d-telefono" class={label}>Teléfono</label>
+									<input id="d-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="err-telefono" class={inputBase} placeholder="Ej.: 223 555-1234" required />
+									<p id="err-telefono" class={err} data-error="telefono">Escribí un teléfono con característica.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="px-4 py-4 sm:px-5">
+						<button type="submit" class="ix-accion ix-claim flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[1.25rem] font-semibold sm:w-fit sm:min-w-[22rem]">
+							Enviar la denuncia
+							<Icon name="arrowRight" class="ix-flecha size-6 shrink-0" strokeWidth={2} />
+						</button>
+					</div>
+				</form>
+
+				<div data-enviado hidden tabindex="-1" role="status" class="px-5 py-7 sm:px-6">
+					<h2 class="text-[1.875rem] font-bold">Listo, recibimos tu denuncia.</h2>
+					<p class="mt-3 max-w-[48ch] text-[1.125rem] text-ink-2">Una persona de Siniestros te llama de lunes a viernes, de 9 a 15 hs.</p>
+					<div class="mt-6 flex flex-col gap-3 sm:flex-row">
+						<a href={whatsappLink('Hola, tuve un siniestro y necesito ayuda con la denuncia.')} class="ix-accion ix-seal inline-flex items-center justify-center gap-2.5 px-5 py-3.5 font-semibold no-underline">
+							<Icon name="whatsapp" class="size-5" />Seguir por WhatsApp
+						</a>
+						<a href="/" class="ix-accion ix-wash inline-flex items-center justify-center border-2 border-ink px-5 py-3 font-semibold no-underline">Volver al inicio</a>
+					</div>
+					<p class="mt-6 border-t border-rule-soft pt-4 font-mono text-[0.875rem] text-ink-2">Versión demo: este formulario todavía no envía datos.</p>
+				</div>
+			</div>
+
+			<p class="mt-6 text-[1rem] text-ink-2">
+				¿Preferís hablar? Llamá a Siniestros al <a href="tel:+542236247475" class="ix-sub font-semibold">223 624-7475</a> o escribinos por
+				<a href={whatsappLink('Hola, tuve un siniestro y necesito ayuda con la denuncia.')} class="ix-sub font-semibold text-seal">WhatsApp {contacto.whatsapp}</a>.
+			</p>
+		</div>
+	</main>
+	<Footer />
+	<MobileBar soloWhatsapp />
+</Layout>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>('[data-denuncia]')!;
+	const enviado = document.querySelector<HTMLElement>('[data-enviado]')!;
+	const campo = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
+	const valido: Record<string, (v: string) => boolean> = {
+		tipo: (v) => v !== '',
+		fecha: (v) => v !== '',
+		lugar: (v) => v.trim().length > 2,
+		nombre: (v) => v.trim().length > 2,
+		telefono: (v) => v.replace(/\D/g, '').length >= 10,
+	};
+	const mostrar = (n: string, malo: boolean) => {
+		campo(n).setAttribute('aria-invalid', String(malo));
+		form.querySelector<HTMLElement>(`[data-error="${n}"]`)!.classList.toggle('hidden', !malo);
+	};
+
+	// El tipo llega por la URL desde los mosaicos de la home
+	const tipo = new URLSearchParams(location.search).get('tipo');
+	if (tipo && [...campo('tipo').querySelectorAll('option')].some((o) => (o as HTMLOptionElement).value === tipo)) campo('tipo').value = tipo;
+	const hoy = new Date().toISOString().slice(0, 10);
+	campo('fecha').max = hoy;
+
+	form.addEventListener('input', (e) => {
+		const t = e.target as HTMLInputElement;
+		if (t.getAttribute('aria-invalid') === 'true' && valido[t.name]) mostrar(t.name, !valido[t.name](t.value));
+	});
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		let primero: HTMLInputElement | null = null;
+		for (const n of Object.keys(valido)) {
+			const malo = !valido[n](campo(n).value);
+			mostrar(n, malo);
+			if (malo && !primero) primero = campo(n);
+		}
+		if (primero) return primero.focus();
+		form.hidden = true;
+		enviado.hidden = false;
+		enviado.focus();
+	});
+</script>
