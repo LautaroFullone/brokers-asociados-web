@@ -31,10 +31,9 @@
 	/* Acento azul del logo: foco y vínculos de acción */
 	--color-teal: #1a759f;
 
-	/* Sobre campos oscuros: texto en on-dark o seal-on-dark; seal-glow solo para gráficos (sello) */
+	/* Sobre campos oscuros: texto en on-dark o seal-on-dark */
 	--color-on-dark: #e6f2f7;
 	--color-seal-on-dark: #e8f8ef;
-	--color-seal-glow: #76c893;
 
 	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }

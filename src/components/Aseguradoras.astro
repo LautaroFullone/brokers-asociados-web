@@ -39,7 +39,7 @@ const vueltas = [false, true];
 								<li class="item flex h-24 items-center border-r border-rule px-8 sm:h-28 sm:px-12">
 									{src ? (
 										<span class="logo relative block h-10 sm:h-12" style={`--logo:url(${src})`}>
-											<img src={src} alt={copia ? '' : a} class="logo-color h-full w-auto" loading="lazy" />
+											<img src={src} alt={copia ? '' : a} class="h-full w-auto opacity-0" />
 											<span class="logo-tinta" aria-hidden="true"></span>
 										</span>
 									) : (
@@ -68,29 +68,22 @@ const vueltas = [false, true];
 	}
 	/* Se frena con el mouse o con el botón de pausa */
 	.carril:hover .pista,
+	.carril:focus-within .pista,
 	:global([data-aseg][data-pausado]) .pista {
 		animation-play-state: paused;
 	}
 
-	/* Logos: tinta de la marca por máscara; el color original aparece al hover */
-	.logo-color {
+	/* Logos: monocromos (currentColor) pintados con la tinta por máscara, al 70% y al 100% con hover o foco */
+	.logo-tinta {
 		position: absolute;
 		inset: 0;
-		opacity: 0;
-		transition: opacity 0.3s ease-out;
-	}
-	.logo-tinta {
-		display: block;
-		height: 100%;
-		aspect-ratio: auto;
 		background: var(--color-ink);
-		-webkit-mask: var(--logo) left center / contain no-repeat;
-		mask: var(--logo) left center / contain no-repeat;
+		opacity: 0.7;
+		-webkit-mask: var(--logo) center / contain no-repeat;
+		mask: var(--logo) center / contain no-repeat;
 		transition: opacity 0.3s ease-out;
 	}
-	.logo { min-width: 6rem; }
-	.item:hover .logo-color { opacity: 1; }
-	.item:hover .logo-tinta { opacity: 0; }
+	.item:hover .logo-tinta { opacity: 1; }
 
 	/* Sin movimiento: grilla estática, sin copia ni botón */
 	@media (prefers-reduced-motion: reduce) {

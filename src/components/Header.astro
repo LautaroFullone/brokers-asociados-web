@@ -186,14 +186,13 @@ const nav = [
 	const header = document.querySelector<HTMLElement>('[data-header]')!;
 	const toggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
 	const menu = header.querySelector<HTMLElement>('[data-menu]')!;
-	const sobreHero = header.hasAttribute('data-sobre-hero');
 	const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
 	let ultimoY = window.scrollY;
 	let pendiente = false;
 
 	function alScrollear() {
 		const y = window.scrollY;
-		header.toggleAttribute('data-solido', !sobreHero || y > 24);
+		header.toggleAttribute('data-solido', !header.hasAttribute('data-sobre-hero') || y > 24);
 		const bajando = y > ultimoY + 2;
 		const subiendo = y < ultimoY - 2;
 		if (bajando && y > 160 && !header.hasAttribute('data-abierto') && !sinMovimiento.matches) header.setAttribute('data-oculto', '');

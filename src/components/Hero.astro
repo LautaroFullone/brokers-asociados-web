@@ -1,13 +1,13 @@
 ---
 import { Image } from 'astro:assets';
-import Seal from './Seal.astro';
-import Icon from './Icon.astro';
+import HeroCtas from './HeroCtas.astro';
 import rambla from '../assets/img/rambla-mar-del-plata.jpg';
-import { whatsappLink } from '../data/brokers';
+
+const titulo = ['Tu seguro,', 'bien elegido.'];
+const bajada = 'Asesoramos y gestionamos los seguros de personas y empresas en Mar del Plata hace más de 35 años.';
 ---
 
-<section data-hero class="hero relative isolate flex min-h-[clamp(40rem,94svh,56rem)] items-start lg:items-center overflow-hidden bg-ink text-paper" aria-labelledby="hero-titulo">
-	<!-- Foto de la costa con zoom lento -->
+<section data-hero class="hero hero-a relative isolate flex min-h-[clamp(40rem,94svh,56rem)] flex-col overflow-hidden bg-ink text-paper" aria-labelledby="hero-titulo">
 	<Image
 		src={rambla}
 		alt=""
@@ -19,40 +19,13 @@ import { whatsappLink } from '../data/brokers';
 	/>
 	<div class="hero-velo absolute inset-0 -z-10" aria-hidden="true"></div>
 
-	<div class="relative mx-auto w-full max-w-[84rem] px-4 pt-[8rem] pb-[15rem] sm:px-8 sm:pt-[9.5rem] sm:pb-[18rem] lg:px-12 lg:pt-32 lg:pb-20">
-		<div class="relative max-w-[44rem]">
-			<div class="relative text-[clamp(3.25rem,1.9rem+5.2vw,6rem)]">
-				<h1 id="hero-titulo" class="font-bold [font-stretch:84%]">
-					Tu seguro,<br /> bien elegido.
-				</h1>
-				<Seal claro class="pointer-events-none absolute top-[-0.6em] left-[3.85em] size-[1.7em]" />
-			</div>
-			<p class="mt-6 max-w-[46ch] text-[1.25rem] leading-[1.5] text-on-dark sm:text-[1.375rem]">
-				Asesoramos y gestionamos los seguros de personas y empresas en Mar del Plata hace más de 35 años.
-			</p>
-
-			<div class="mt-10 flex flex-col gap-3 sm:flex-row">
-				<a
-					href="/cotizar"
-					class="group inline-flex items-center justify-between gap-6 bg-paper px-7 py-5 text-[1.375rem] font-bold text-ink no-underline transition-colors duration-200 hover:bg-sheet sm:min-w-[19rem]"
-				>
-					Cotizá tu seguro
-					<Icon name="arrowRight" class="size-6 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
-				</a>
-				<a
-					href={whatsappLink('Hola, quiero cotizar un seguro.')}
-					aria-label="Escribinos por WhatsApp"
-					class="inline-flex items-center justify-center gap-2.5 border-[1.5px] border-paper/80 px-5 py-4.5 text-[1.125rem] font-semibold text-paper no-underline transition-colors duration-200 hover:bg-paper hover:text-ink sm:self-center"
-				>
-					<Icon name="whatsapp" class="size-5" />
-					WhatsApp
-				</a>
-			</div>
-
-			<a href="#siniestros" class="group mt-7 inline-flex items-center gap-2.5 text-[1.0625rem] font-medium text-paper">
-				<span class="size-2.5 rounded-full bg-claim ring-2 ring-paper/80" aria-hidden="true"></span>
-				<span class="underline decoration-paper/60 underline-offset-[0.25em] group-hover:decoration-paper">¿Tuviste un siniestro? Te ayudamos</span>
-			</a>
+	<div class="relative mx-auto flex w-full max-w-[84rem] flex-1 items-center px-4 pt-32 pb-24 sm:px-8 lg:px-12 lg:pb-20">
+		<div class="max-w-[46rem]">
+			<h1 id="hero-titulo" class="text-[clamp(3.25rem,1.9rem+5.2vw,6.25rem)] font-bold [font-stretch:84%]">
+				{titulo[0]}<br />{titulo[1]}
+			</h1>
+			<p class="mt-6 max-w-[46ch] text-[1.25rem] leading-[1.5] text-on-dark sm:text-[1.375rem]">{bajada}</p>
+			<div class="mt-10"><HeroCtas tono="oscuro" /></div>
 		</div>
 	</div>
 

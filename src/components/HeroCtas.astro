@@ -1,0 +1,55 @@
+---
+import Icon from './Icon.astro';
+import { whatsappLink } from '../data/brokers';
+
+interface Props {
+	/** oscuro: sobre foto o campo azul. papel: sobre el fondo claro. */
+	tono: 'oscuro' | 'papel';
+}
+const { tono } = Astro.props;
+---
+
+<div class:list={['cta-grupo', tono]}>
+	<div class="flex items-center gap-3">
+		<a
+			href="/cotizar"
+			class="cta group inline-flex h-14 flex-1 items-center justify-between gap-6 px-6 text-[1.25rem] font-bold no-underline sm:min-w-[19rem] sm:flex-none"
+		>
+			Cotizá tu seguro
+			<Icon name="arrowRight" class="size-6 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
+		</a>
+		<!-- Botón de solo ícono: puede ser circular (excepción de DESIGN.md) -->
+		<a
+			href={whatsappLink('Hola, quiero cotizar un seguro.')}
+			aria-label="Escribinos por WhatsApp"
+			class="cta grid size-14 shrink-0 place-items-center rounded-full no-underline"
+		>
+			<Icon name="whatsapp" class="size-6" />
+		</a>
+	</div>
+
+	<a href="#siniestros" class:list={['group mt-7 inline-flex items-center gap-2.5 text-[1.0625rem] font-medium', tono === 'oscuro' ? 'text-paper' : 'text-ink']}>
+		<span class:list={['size-2.5 rounded-full bg-claim', tono === 'oscuro' && 'ring-2 ring-paper/80']} aria-hidden="true"></span>
+		<span class:list={['underline underline-offset-[0.25em]', tono === 'oscuro' ? 'decoration-paper/60 group-hover:decoration-paper' : 'decoration-ink/40 group-hover:decoration-ink']}>¿Tuviste un siniestro? Te ayudamos</span>
+	</a>
+</div>
+
+<style>
+	.cta {
+		transition: filter 0.2s ease-out, transform 0.35s var(--ease-out-expo);
+	}
+	.oscuro .cta {
+		background: #a8dadc;
+		color: #0f3554;
+	}
+	.papel .cta {
+		background: var(--color-ink);
+		color: var(--color-paper);
+	}
+	.cta:hover { filter: brightness(0.94); }
+	.papel .cta:hover { filter: brightness(1.15); }
+	.cta:active { transform: scale(0.98); }
+	@media (prefers-reduced-motion: reduce) {
+		.cta, .cta:active { transition: none; transform: none; }
+	}
+</style>

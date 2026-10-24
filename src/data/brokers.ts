@@ -88,6 +88,7 @@ export const aseguradoras = [
 	'Allianz',
 	'Asociart ART',
 	'Cooperación Seguros',
+	'Experta ART',
 	'Experta Seguros',
 	'Federación Patronal',
 	'Mercantil Andina',

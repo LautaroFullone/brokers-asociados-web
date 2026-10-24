@@ -8,7 +8,8 @@ colors:
   link: "#1e6091"
   on-dark: "#e6f2f7"
   seal-on-dark: "#e8f8ef"
-  seal-glow: "#76c893"
+  cta-fill-light: "#a8dadc"
+  cta-ink-deep: "#0f3554"
   rule: "#7f95a6"
   rule-soft: "#d3dee5"
   wash: "#eef3f6"
@@ -77,6 +78,11 @@ typography:
     fontSize: "1.5rem"
     fontWeight: 700
     lineHeight: 1.04
+  cta:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 700
+    lineHeight: 1.3
   item-lg-bold:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
     fontSize: "1.375rem"
@@ -145,14 +151,26 @@ components:
     padding: "20px 24px"
   button-claim-hover:
     backgroundColor: "{colors.claim-soft}"
+  # Botones de la portada (HeroCtas.astro), dos tonos. Ambos de 56px de alto.
   button-on-dark:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.cta-fill-light}"
+    textColor: "{colors.cta-ink-deep}"
     rounded: "{rounded.none}"
-    padding: "20px 28px"
-    typography: "{typography.item-lg-bold}"
-  button-on-dark-hover:
-    backgroundColor: "{colors.sheet}"
+    padding: "0 24px"
+    height: "56px"
+    typography: "{typography.cta}"
+  button-on-paper:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    rounded: "{rounded.none}"
+    padding: "0 24px"
+    height: "56px"
+    typography: "{typography.cta}"
+  button-icon-round:
+    backgroundColor: "{colors.cta-fill-light}"
+    textColor: "{colors.cta-ink-deep}"
+    rounded: "{rounded.full}"
+    size: "56px"
   button-whatsapp:
     backgroundColor: "{colors.seal}"
     textColor: "{colors.paper}"
@@ -160,14 +178,6 @@ components:
     padding: "18px 24px"
   button-whatsapp-hover:
     backgroundColor: "{colors.seal-deep}"
-  button-whatsapp-outline-on-dark:
-    backgroundColor: "transparent"
-    textColor: "{colors.paper}"
-    rounded: "{rounded.none}"
-    padding: "18px 20px"
-  button-whatsapp-outline-on-dark-hover:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
   nav-bar:
     backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
@@ -256,8 +266,6 @@ components:
   stamp:
     textColor: "{colors.seal}"
     size: "160px"
-  stamp-claro:
-    textColor: "{colors.seal-glow}"
 ---
 
 # Design System: Brokers Asociados
@@ -266,11 +274,11 @@ components:
 
 **Creative North Star: "La póliza bien hecha"**
 
-El sistema trata cada superficie como un documento de seguros redactado con cuidado: papel cálido con grano alternado con hojas blancas, tinta azul marino, campos con reglas finas y números de campo en monoespaciada, cláusulas numeradas ("Art. 1") y un sello de goma verde que certifica la trayectoria. La confianza no se declara con adornos: se construye con orden, jerarquía legible y datos verificables puestos en su campo.
+El sistema trata cada superficie como un documento de seguros redactado con cuidado: papel cálido con grano alternado con hojas blancas, tinta azul marino, campos con reglas finas y números de campo en monoespaciada, cláusulas numeradas ("Art. 1") y, en el pedido de cotización, un sello de goma verde que certifica el estado del trámite. La confianza no se declara con adornos: se construye con orden, jerarquía legible y datos verificables puestos en su campo.
 
-La densidad es de formulario bien diagramado, no de folleto. Los bloques se separan con reglas (filetes de 1px y líneas de 2px en tinta) en vez de tarjetas flotantes; la única grilla de mosaicos es la de Coberturas, de piezas rectas sin sombra. La profundidad es plana y tipográfica. La tipografía es grande y generosa para un público mayor de 45 que lee desde el celular: el cuerpo arranca en 18px. El color tiene funciones fijas: el azul es la tinta, el verde es el sello y WhatsApp, el bordó existe solo para siniestros y el azul teal solo para el foco y el acento.
+La densidad es de formulario bien diagramado, no de folleto. Los bloques se separan con reglas (filetes de 1px y líneas de 2px en tinta) en vez de tarjetas flotantes; la única grilla de mosaicos es la de Coberturas, de piezas rectas sin sombra. La profundidad es plana y tipográfica. La tipografía es grande y generosa para un público mayor de 45 que lee desde el celular: el cuerpo arranca en 18px. El color tiene funciones fijas: el azul es la tinta, el verde es el sello (solo en cotizar) y WhatsApp, el bordó existe solo para siniestros y el azul teal solo para el foco y el acento.
 
-La portada abre con una fotografía real de Mar del Plata (la rambla y el skyline de la costa) a sangre completa, con un velo marino que asienta el texto y un zoom lento que la mantiene viva; el crédito de la foto queda visible en mono. Es el único momento fotográfico grande: el resto de la página vuelve al papel. El guilloché sobrevive en una sola forma, la tira: una banda horizontal de onda fina en teal, de 24px de alto, que marca la cabecera de una carátula como papel de seguridad. El logo del cliente es una insignia circular y se respeta como tal; su línea (azul → teal → verde) es el campo de color que el sistema toma del logo: un degradé seguro para texto (de `ink` a `teal`, 118°) como fondo de sección, rematado por una tira de 8px con el degradé completo. El otro campo de color es el de siniestros: un bordó frío pleno, para que quien tuvo un problema encuentre la sección sin buscarla.
+La portada abre con una fotografía real de Mar del Plata (la rambla y el skyline de la costa) a sangre completa, con un velo marino que asienta el texto y un zoom lento que la mantiene viva; el crédito de la foto queda visible en mono. (Hoy conviven tres composiciones de portada en comparación; ver "Variantes temporales".) Es el único momento fotográfico grande: el resto de la página vuelve al papel. El guilloché sobrevive en una sola forma, la tira: una banda horizontal de onda fina en teal, de 24px de alto, que marca la cabecera de una carátula como papel de seguridad. El logo del cliente es una insignia circular y se respeta como tal; su línea (azul → teal → verde) es el campo de color que el sistema toma del logo: un degradé seguro para texto (de `ink` a `teal`, 118°) como fondo de sección, rematado por una tira de 8px con el degradé completo. El otro campo de color es el de siniestros: un bordó frío pleno, para que quien tuvo un problema encuentre la sección sin buscarla.
 
 **Key Characteristics:**
 - Un solo papel cálido (`paper`) con grano de página completa como fondo común; hojas blancas (`sheet`) para formularios, carátula, mosaicos y marco de foto; tinta marina en todo el texto.
@@ -279,7 +287,7 @@ La portada abre con una fotografía real de Mar del Plata (la rambla y el skylin
 - Archivo variable condensado (ancho 84–92%) para titulares compactos y firmes.
 - Bordó reservado para siniestros (incluido su campo de sección completa); verde para el sello y WhatsApp.
 - Portada fotográfica real con velo marino; una sola por página.
-- Sin sombras, sin tarjetas redondeadas.
+- Sin sombras, sin tarjetas redondeadas; única excepción circular: el botón de solo ícono de WhatsApp de la portada.
 
 ## Colors
 
@@ -291,11 +299,16 @@ Una paleta de documento: tinta marina sobre un papel cálido con grano, con tres
 - **Tinta secundaria** (`ink-2`): leads, etiquetas de campo, números de campo, notas y pies de foto.
 
 ### Secondary
-- **Verde sello** (`seal`): el sello con leyenda de la carátula (y el "+35 AÑOS" cuando se estampa sobre papel), el teléfono de WhatsApp, los botones de WhatsApp (texto blanco 6.14:1), el punto de "Abierto ahora" y el ícono de confirmación. Hover en **Verde sello profundo** (`seal-deep`). `seal-soft` está definido en el tema para fondos de confirmación.
+- **Verde sello** (`seal`): el sello con leyenda de la carátula, el teléfono de WhatsApp, los botones de WhatsApp (texto blanco 6.14:1), el punto de "Abierto ahora" y el ícono de confirmación. Hover en **Verde sello profundo** (`seal-deep`). `seal-soft` está definido en el tema para fondos de confirmación.
 
 ### Tertiary
 - **Bordó siniestro** (`claim`, un bordó frío): el enlace "Siniestros" del menú, el punto del acceso "¿Tuviste un siniestro?" de la portada, los íconos y flechas de los mosaicos de siniestro, los mensajes de error de formulario y el punto de "Cerrado". El campo de siniestros es un degradé de `claim-deep` a `claim` (125°) a sección completa, con el grano del papel encima; sobre él, `claim-soft` es el texto secundario y `claim-deep` el texto de la barra blanca de denuncia. `claim-soft` es también el relleno de hover de los mosaicos y de la barra de denuncia.
 - **Azul de foco y acento** (`teal`): el anillo de foco visible (3px, offset 3px), la tinta de la tira de guilloché y el extremo claro del campo del logo.
+
+### Acción sobre oscuro
+- **Celeste de acción** (`cta-fill-light`): relleno de los CTAs de la portada sobre foto o campo azul (tono `oscuro` de `HeroCtas.astro`): el botón "Cotizá tu seguro" y el WhatsApp redondo.
+- **Tinta marina** (`cta-ink-deep`): texto e ícono sobre `cta-fill-light`; 8.28:1.
+Estos dos colores se usan solo en los CTAs de la portada sobre fondos oscuros. Sobre papel el CTA es `ink` con texto `paper` (tono `papel`). No se usan en otros botones, texto ni fondos.
 
 ### Degradé del logo
 - **Campo del logo** (`ink` → `teal`, a 118°): la línea de la insignia del cliente (azul → teal → verde) como fondo de sección ("Qué hacemos por vos"). El campo es seguro para texto: solo va de azul a azul medio.
@@ -309,17 +322,18 @@ Una paleta de documento: tinta marina sobre un papel cálido con grano, con tres
 - **Regla** (`rule`): filetes de 1px entre filas y bordes de inputs (1.5px).
 - **Regla suave** (`rule-soft`): bordes de opciones sin elegir y separadores dentro de bloques.
 - **Texto sobre oscuro** (`on-dark`): texto secundario sobre campos oscuros (la foto de portada con velo, el degradé del logo y el footer en `ink`); 4.5:1 o más sobre `teal`.
-- **Sello sobre oscuro** (`seal-on-dark`): los rótulos "Art. N" en mono sobre el degradé del logo (4.7:1 sobre `teal`); la versión clara del verde sello para texto sobre fondos oscuros.
-- **Brillo del sello** (`seal-glow`): solo gráficos; el sello "+35" estampado sobre la foto con velo. Nunca texto.
+- **Sello sobre oscuro** (`seal-on-dark`): los rótulos "Art. N" y los números 01-03 en mono sobre el degradé del logo (4.7:1 sobre `teal`); la versión clara del verde sello para texto sobre fondos oscuros.
 
 ### Named Rules
 **The Red Means Claim Rule.** El bordó (`claim` y sus variantes, hoy #8a1f45) aparece solo en lo relacionado con siniestros, errores de validación y el estado "Cerrado". Nunca como acento decorativo ni en un CTA de cotización.
 
 **The Teal Is Focus Rule.** El token `teal` marca el anillo de foco y la tira de guilloché, y es el extremo del campo del logo; no se usa en botones ni fondos planos, para que el foco sea inconfundible. Los vínculos de texto cambian con `link`, no con `teal`.
 
-**The Seal Is Green Rule.** El verde del logo se usa como tinta de sello y como color de WhatsApp; sobre oscuro, `seal-on-dark` marca los rótulos de artículo. Sobre la foto con velo el sello se estampa sin multiplicar en `seal-glow`, un verde claro que es gráfico y no texto. No colorea titulares ni bloques de texto.
+**The Seal Is Green Rule.** El verde del logo se usa como tinta de sello y como color de WhatsApp; sobre oscuro, `seal-on-dark` marca los rótulos de artículo. No colorea titulares ni bloques de texto.
 
-**The Light Greens Never Carry Text Rule.** Los verdes y azules claros del degradé (`logo-aqua`, `logo-mint`) y `seal-glow` viven solo en la tira de 8px y en gráficos; nunca en texto ni debajo de texto (blanco sobre `logo-mint` da 2.47:1). Todo texto sobre el campo del logo va sobre `ink` a `teal`.
+**The Light Greens Never Carry Text Rule.** Los verdes y azules claros del degradé (`logo-aqua`, `logo-mint`) viven solo en la tira de 8px; nunca en texto ni debajo de texto (blanco sobre `logo-mint` da 2.47:1). Todo texto sobre el campo del logo va sobre `ink` a `teal`.
+
+**The Hero Action Rule.** El celeste de acción y la tinta marina (`cta-fill-light`, `cta-ink-deep`) existen solo para los CTAs de la portada sobre fondo oscuro; sobre papel el mismo CTA vuelve a `ink` y `paper`. No se promueven a botones de otras secciones.
 
 **The One Paper Rule.** El fondo común es un único papel (`paper` con grano); las secciones no lo tiñen. El color de fondo llega solo como el campo del logo o el campo bordó de siniestros, siempre a sección completa. Nunca como tarjeta, franja suelta o bloque de color dentro de una sección.
 
@@ -350,7 +364,7 @@ Una paleta de documento: tinta marina sobre un papel cálido con grano, con tres
 
 Contenedor central de 84rem con márgenes laterales de 16px (móvil), 32px (≥640px) y 48px (≥1024px). Las secciones respiran con 64 / 80 / 96px verticales según el ancho y se separan entre sí con una regla de 2px en tinta en el borde superior; la portada fotográfica, el campo del logo y el campo de siniestros no llevan regla. El ritmo alterna papel con grano y campos de color, con este orden: portada foto con velo marino (oscura) → Coberturas (papel con grano) → "Qué hacemos por vos" en el degradé del logo → Aseguradoras (papel con grano) → Siniestros en el campo bordó → Equipo (papel con grano) → Contacto (papel con grano) → footer `ink`. Los anclajes dejan 5.5rem de margen superior para no quedar bajo el header fijo.
 
-Las cabeceras de sección son una grilla de dos columnas iguales en escritorio: titular a la izquierda, bajada alineada abajo a la derecha. Los contenidos usan grillas asimétricas (5/7, 7/5, 6/6) y listas con reglas en lugar de tarjetas. Coberturas es la excepción: una grilla de mosaicos de 4 columnas desde 1024px, 2 desde 640px y 1 en celulares, con 12px de separación; los mosaicos grandes ocupan 2×2 (2 columnas en 640px) y el último de Empresas ocupa todo el ancho como barra. La portada no lleva formulario: ocupa clamp(36rem → 50rem) de alto (82svh) con la foto a sangre, y el texto (H1, bajada, CTA claro de cotizar, WhatsApp y acceso a siniestros) en una columna de hasta 44rem a la izquierda, centrada en vertical desde 1024px, con alto mínimo clamp(40rem → 56rem) (94svh) y arriba en móvil, donde deja ~15–18rem libres abajo para que se vea la costa. El velo va de izquierda a derecha en escritorio y de arriba hacia abajo en móvil (denso detrás del texto, liviano sobre la costa). El sello "+35" se estampa sobre el H1, posicionado en em desde un contenedor que lleva el tamaño del H1, para que acompañe la escala del titular. Siniestros es una grilla 5/7: a la izquierda titular, bajada y una sola acción; a la derecha los mosaicos por tipo, en una subgrilla de 6 columnas (Auto completo, Hogar y Comercio y consorcio a medias).
+Las cabeceras de sección son una grilla de dos columnas iguales en escritorio: titular a la izquierda, bajada alineada abajo a la derecha. Los contenidos usan grillas asimétricas (5/7, 7/5, 6/6) y listas con reglas en lugar de tarjetas. Coberturas es la excepción: una grilla de mosaicos de 4 columnas desde 1024px, 2 desde 640px y 1 en celulares, con 12px de separación; los mosaicos grandes ocupan 2×2 (2 columnas en 640px) y el último de Empresas ocupa todo el ancho como barra. La portada no lleva formulario: ocupa clamp(36rem → 50rem) de alto (82svh) con la foto a sangre, y el texto (H1, bajada, CTA de cotizar con el WhatsApp redondo a su lado, y acceso a siniestros; en la versión A, una tira de tres datos con filetes (3 celdas) cierra la portada) en una columna de hasta 44rem a la izquierda, centrada en vertical desde 1024px, con alto mínimo clamp(40rem → 56rem) (94svh) y arriba en móvil, donde deja ~15–18rem libres abajo para que se vea la costa. El velo va de izquierda a derecha en escritorio y de arriba hacia abajo en móvil (denso detrás del texto, liviano sobre la costa). Siniestros es una grilla 5/7: a la izquierda titular, bajada y una sola acción; a la derecha los mosaicos por tipo, en una subgrilla de 6 columnas (Auto completo, Hogar y Comercio y consorcio a medias).
 
 Los campos de documento usan un margen numerado fijo: una columna de 2.75rem (3.25rem desde 640px) con el número, separada por una regla vertical de 1px, y el contenido a la derecha. En móvil todo pasa a una columna y aparece una barra fija inferior (Cotizá → /cotizar / WhatsApp, 72px de alto) que se oculta desde 768px; en una página con portada fotográfica la barra queda escondida (desliza hacia abajo, 300ms `ease-out-expo`) mientras la portada está a la vista, porque la portada ya lleva las mismas acciones. En una página que ya es un formulario, la barra lleva solo WhatsApp a ancho completo: no compite con el envío. La navegación completa aparece desde 1024px (`lg`); por debajo queda el botón Menú. La barra inferior móvil se oculta desde 768px.
 
@@ -358,17 +372,17 @@ Página de formulario con carátula (cotizar): sobre el papel con grano de pági
 
 ## Elevation & Depth
 
-El sistema es plano. No hay sombras en ninguna superficie: la jerarquía y la profundidad se expresan con reglas de distinto grosor (1px, 1.5px y 2px), con el contraste entre `paper` (con grano), `sheet` y `wash`, y con campos plenos (tinta, degradé del logo, campo bordó de siniestros, foto con velo marino). La única superposición es el sello: sobre papel se imprime con `mix-blend-mode: multiply` como tinta; sobre la foto se estampa en `seal-glow` sin mezcla.
+El sistema es plano. No hay sombras en ninguna superficie: la jerarquía y la profundidad se expresan con reglas de distinto grosor (1px, 1.5px y 2px), con el contraste entre `paper` (con grano), `sheet` y `wash`, y con campos plenos (tinta, degradé del logo, campo bordó de siniestros, foto con velo marino). La única superposición es el sello de cotizar, que se imprime con `mix-blend-mode: multiply` como tinta.
 
 ### Named Rules
 **The Ruled Not Raised Rule.** Un bloque se separa con una regla o un cambio de papel, nunca con una sombra. Si algo necesita destacarse, gana una regla de 2px o un campo oscuro.
 
 ## Shapes
 
-Esquinas rectas (0px) en todo lo construido: formularios, campos, opciones, botones, bloques, el carril de aseguradoras y el marco de la foto. Las casillas de elección son cuadrados de 24px con borde de 2px que se rellenan de tinta al elegir; los mosaicos de cobertura son rectángulos rectos de borde de 1.5px (`rule-soft`, o `ink` en los grandes rellenos) y el selector de coberturas es una barra de borde de 2px en tinta con dos pestañas rectas. Los únicos círculos son nativos del mundo: la insignia circular del logo del cliente, los puntos indicadores de 10px (8px en el menú; estado de atención; aviso bordó del acceso a siniestros, con anillo `paper`) y el sello de goma. Un dato que todavía falta se dibuja como una línea discontinua de 1.5px en `rule`, el renglón vacío de un formulario impreso. La foto de contenido (Contacto) vive dentro de un marco de 2px en tinta con 10–12px de passe-partout `paper`, como una imagen pegada en un expediente; la foto de portada es la excepción a sangre, sin marco.
+Esquinas rectas (0px) en todo lo construido: formularios, campos, opciones, botones, bloques, el carril de aseguradoras y el marco de la foto. Las casillas de elección son cuadrados de 24px con borde de 2px que se rellenan de tinta al elegir; los mosaicos de cobertura son rectángulos rectos de borde de 1.5px (`rule-soft`, o `ink` en los grandes rellenos) y el selector de coberturas es una barra de borde de 2px en tinta con dos pestañas rectas. Los únicos círculos son nativos del mundo, más una excepción de botón: la insignia circular del logo del cliente, el botón de solo ícono de WhatsApp de la portada (56px, en ambos tonos), los puntos indicadores de 10px (8px en el menú; estado de atención; aviso bordó del acceso a siniestros, con anillo `paper`) y el sello de goma. Un dato que todavía falta se dibuja como una línea discontinua de 1.5px en `rule`, el renglón vacío de un formulario impreso. La foto de contenido (Contacto) vive dentro de un marco de 2px en tinta con 10–12px de passe-partout `paper`, como una imagen pegada en un expediente; la foto de portada es la excepción a sangre, sin marco.
 
 ### Named Rules
-**The Square Corner Rule.** Lo que el sistema dibuja tiene esquinas rectas. Lo circular se limita a lo que es circular por naturaleza: el logo, el sello y los indicadores de estado.
+**The Square Corner Rule.** Lo que el sistema dibuja tiene esquinas rectas. Lo circular se limita a lo que es circular por naturaleza: el logo, el sello y los indicadores de estado. Excepción (decisión del cliente): un botón de solo ícono puede ser circular; el ejemplo es el botón redondo de 56px de WhatsApp de la portada (`aria-label` "Escribinos por WhatsApp"). Toda otra esquina, incluidos los botones con rótulo, sigue recta.
 
 ## Components
 
@@ -376,12 +390,20 @@ Esquinas rectas (0px) en todo lo construido: formularios, campos, opciones, boto
 Barras de ancho completo o bloques sólidos, firmes y legibles, con una flecha que avanza 4px al hover.
 - **Shape:** esquinas rectas (0px).
 - **Primary (Cotizá):** fondo `ink`, texto `paper`, 1.25–1.375rem semibold, padding 14px × 20–24px, texto a la izquierda y flecha a la derecha. El rótulo nombra la rama elegida ("Cotizá tu seguro de Auto").
-- **Primario sobre oscuro (portada):** fondo `paper`, texto `ink`, 1.375rem bold, padding 20px × 28px, mínimo 19rem desde 640px, flecha a la derecha; hover `sheet`. Lo acompaña el WhatsApp en outline.
+- **Primario sobre oscuro (portada, tono `oscuro`):** "Cotizá tu seguro →", 56px de alto (`h-14`), 1.25rem bold, padding horizontal 24px, texto a la izquierda y flecha de 24px a la derecha (avanza 4px al hover); `flex-1` en celulares y mínimo 19rem desde 640px. Relleno `cta-fill-light`, tinta `cta-ink-deep` (8.28:1). Se usa sobre la foto (versión A) y sobre el campo azul (versión C). Hover: `brightness(0.94)` en 200ms; clic a escala .98; sin movimiento con `prefers-reduced-motion`.
+- **Primario sobre papel (portada, tono `papel`):** misma geometría (56px, 1.25rem bold, flecha), relleno `ink` y texto `paper`; hover `brightness(1.15)`. Se usa sobre la hoja clara (versión B).
 - **Claim (sobre el campo bordó):** barra `paper` con texto `claim-deep` 1.375rem bold, padding 20px × 24px y flecha de 28px; hover `claim-soft`. Las acciones secundarias del campo (teléfono, WhatsApp) son outline de 2px en `paper` que se invierten a fondo `paper` con texto `claim-deep`.
 - **WhatsApp:** sólido en `seal` con el ícono de WhatsApp, hover `seal-deep` (menú móvil y barra inferior).
-- **WhatsApp sobre la portada:** outline más angosto que el primario: borde de 1.5px `paper` al 80%, sin fondo, ícono y rótulo "WhatsApp" en 1.125rem semibold, padding 18px × 20px, centrado en vertical junto al primario; al hover se rellena de `paper` con texto `ink`. Su `aria-label` es "Escribinos por WhatsApp". Sobre la foto no se usa el verde sólido.
+- **WhatsApp sobre la portada (ícono redondo):** botón de solo ícono, círculo de 56px (`size-14`, `rounded-full`) con el ícono de WhatsApp de 24px, pegado a la derecha del primario con 12px de separación. Mismo relleno, tinta y hover que el primario de su tono (`cta-fill-light` / `cta-ink-deep` sobre oscuro; `ink` / `paper` sobre papel). Sin rótulo visible; `aria-label` "Escribinos por WhatsApp". Es la única excepción circular de un botón (ver Square Corner Rule).
 - **Outline:** borde de 2px en tinta, sin fondo; al hover se invierte a `ink` con texto `paper` (o pasa a `wash` en acciones menores).
 - **Hover / Focus:** transición de color de 200ms; flecha con `translate-x` 4px en 300ms `ease-out-expo`; foco con anillo teal de 3px.
+
+### Variantes temporales (borrar cuando el cliente elija)
+Bloque transitorio, no parte del sistema: tres portadas alternativas se comparan con un selector provisorio, el panel "Hero" fijo abajo a la izquierda (`data-hero-switch`), que escribe `data-var` en `[data-hero]` (`src/components/Hero.astro`) y muestra una sola `<section data-var-seccion>`. Todas comparten H1, bajada y `HeroCtas`.
+- **A · Foto completa** (por defecto): foto a sangre con velo marino, H1, CTAs en tono `oscuro` y, al pie, una tira de tres datos entre filetes `paper`: "+35 años de trayectoria", "Personas y empresas", "Atención en Mar del Plata". Header transparente sobre la foto.
+- **B · Hoja y foto**: fondo papel, rótulo mono con regla de 2px en tinta, H1 en `ink`, CTAs en tono `papel`; foto en marco de 2px `ink` con pie mono "Fig. 1" y el crédito. El header es sólido.
+- **C · Campo azul**: campo del logo con grano, H1 y CTAs en tono `oscuro`, lista numerada 01-03 con los mismos tres datos entre filetes `paper`; foto en marco de 2px `paper`. Header transparente.
+El header cambia en tiempo de ejecución: el selector conmuta el atributo `data-sobre-hero` de `[data-header]` (activo en A y C, ausente en B); la prop `sobreHero` solo fija su valor inicial. Al elegir: dejar la versión ganadora, borrar las otras dos secciones, el panel, el `<script>` y la regla `[data-var-seccion][hidden]`, y fijar `sobreHero` según corresponda. Hasta entonces, las composiciones B y C (marco de foto, lista numerada) no son reglas del sistema.
 
 ### Inputs / Fields
 - **Style:** fondo `sheet`, borde de 1.5px en `rule`, esquinas rectas, padding 10px × 14px, texto 1.125rem. Etiqueta arriba en 1rem `ink-2`.
@@ -399,7 +421,7 @@ Barras de ancho completo o bloques sólidos, firmes y legibles, con una flecha q
 Una sola fila fija de 5rem (h-20), sin segunda franja: el estado de atención vive solo en Contacto.
 - **Contenido:** logo circular de 44px en celulares y 56px desde 640px, con "Brokers Asociados" en Archivo bold condensado (1.1875rem en celulares, 1.5rem desde 640px); enlaces Seguros · Aseguradoras · Siniestros · Equipo · Contacto en 1.0625rem medium con 28px entre ellos; botón "Cotizá →" en `ink` con texto `paper`, 1.125rem bold, padding 12px × 20px y flecha (hover `ink-deep`, la flecha avanza 2px), del mismo peso que el primario de la portada. "Siniestros" lleva un punto de 8px en `claim` delante del texto, no el texto en rojo.
 - **Sección activa:** el enlace de la sección que cruza el 35% superior de la ventana recibe `aria-current="location"` y un subrayado de 2px persistente (el mismo que se dibuja al hover).
-- **Estados de la barra:** sobre la portada fotográfica arranca transparente, con tinta `paper` y el botón invertido (`paper` con texto `ink`), apoyada en un velo superior de la portada; pasada una distancia de 24px se vuelve papel con grano y un filete de 1px `rule-soft` abajo. En páginas sin portada es sólida desde el inicio.
+- **Estados de la barra:** sobre la portada fotográfica (o el campo azul) arranca transparente, con tinta `paper` y el botón invertido (`paper` con texto `ink`), apoyada en un velo superior de la portada; pasada una distancia de 24px se vuelve papel con grano y un filete de 1px `rule-soft` abajo. En páginas sin portada, o con la portada sobre hoja clara, es sólida desde el inicio. El estado se lee del atributo `data-sobre-hero`, que puede conmutarse en ejecución.
 - **Movimiento:** entra deslizándose desde arriba al cargar (0.7s `ease-out-expo`); se esconde al bajar pasados 160px y vuelve al subir o cuando algo dentro recibe foco; los enlaces dibujan un subrayado de 2px de izquierda a derecha al hover y al foco (0.35s). Todo se desactiva con `prefers-reduced-motion`.
 - **Móvil y tableta (bajo 1024px):** botón de texto "Menú" / "Cerrar" junto a un ícono de dos líneas que se cruzan en una X; el panel, con el mismo papel con grano, se despliega animando la altura (`grid-template-rows` 0fr → 1fr, 0.45s), queda inerte mientras está cerrado y se cierra con Escape. Adentro: los cinco enlaces como filas de 1.5rem semibold con filete `rule-soft` y flecha, una barra "Cotizá tu seguro" en `ink` y una barra de WhatsApp en `seal`. Además, la barra fija inferior lleva las dos acciones principales (oculta mientras se ve la portada y desde 768px); en páginas de formulario, solo WhatsApp.
 - **Salto al contenido:** el enlace de salto aparece por encima del header (capa 60).
@@ -424,7 +446,7 @@ Cada producto es un vínculo entero a `/cotizar?rama=…&producto=…`: ícono l
 - **Movimiento:** hover sube 2px sin sombra (200ms `ease-out-expo`) y la flecha avanza 4px; al cambiar de pestaña los mosaicos entran en escalón (0.55s `ease-out-expo`, 55ms de demora por posición, desde 0.75rem abajo y opacidad 0). Con `prefers-reduced-motion` no hay entrada ni elevación.
 
 ### Portada fotográfica
-Sección oscura a sangre con una fotografía real de la ciudad (`object-cover`, encuadre 30% 55% (22% 50% bajo 1024px) para que la costa quede a la derecha en escritorio y abajo en móvil), un velo marino en degradé por encima (en escritorio, además, un velo superior de 8rem que asienta la barra transparente del header) y un zoom lento tipo Ken Burns (32s, alternado, de escala 1.14 a 1, origen 30% 60%) que se detiene con `prefers-reduced-motion`. Texto en `paper` y `on-dark`; CTA primario claro + WhatsApp; enlace subrayado a siniestros con punto bordó. El crédito de la foto ("Rambla de Mar del Plata · Foto: Ezarate, CC BY-SA 4.0"; el lugar se oculta en celulares) va abajo a la derecha en Chivo Mono 0.875rem `on-dark`. Una por página.
+Sección oscura a sangre con una fotografía real de la ciudad (`object-cover`, encuadre 30% 55% (22% 50% bajo 1024px) para que la costa quede a la derecha en escritorio y abajo en móvil), un velo marino en degradé por encima (en escritorio, además, un velo superior de 8rem que asienta la barra transparente del header) y un zoom lento tipo Ken Burns (32s, alternado, de escala 1.14 a 1, origen 30% 60%) que se detiene con `prefers-reduced-motion`. Texto en `paper` y `on-dark`; CTAs de 56px (tono `oscuro`, ver Buttons) + botón redondo de WhatsApp; enlace subrayado a siniestros con punto bordó. El crédito de la foto ("Rambla de Mar del Plata · Foto: Ezarate, CC BY-SA 4.0"; el lugar se oculta en celulares) va abajo a la derecha en Chivo Mono 0.875rem `on-dark`. Una por página.
 
 ### Campo de siniestros
 Sección completa en degradé `claim-deep` → `claim` (125°) con el grano por encima (`--grano` a `--grano-tam` sobre el degradé), sin regla superior, texto en `paper` y secundario en `claim-soft`. Una por página. Columna izquierda: titular "¿Tuviste un siniestro?" (clamp 2.5rem → 4.5rem, ancho 84%), bajada "Respirá. Elegí qué te pasó y te guiamos con la denuncia." (1.25rem, 32ch, `claim-soft`) y una sola acción, la barra de denuncia "Denunciar un siniestro →" (`paper`, texto `claim-deep` 1.375rem bold, hover `claim-soft`, mínimo 22rem desde 1024px). Columna derecha: tres grupos bajo subtítulos de 1.125rem semibold con regla superior de 2px `paper`, sobre una grilla de 6 columnas desde 1024px (2 en celulares): Auto a ancho completo (3 mosaicos por fila, el último de la lista se extiende dos columnas), Hogar y Comercio y consorcio a la mitad cada uno. Ya no hay pasos numerados, teléfono, WhatsApp ni persona de guardia dentro del campo.
@@ -443,8 +465,7 @@ Un carril continuo de nombres entre dos reglas, sin tarjetas: la lista de asegur
 Sección completa con el campo de la insignia (base `ink`, degradé `ink` → `teal` a 118°), texto principal en `paper`, secundario en `on-dark` y rótulos mono en `seal-on-dark`, rematada por la tira de 8px con el degradé completo (`ink`, `teal`, `logo-aqua`, `logo-mint`). Una sola por página: es el momento de color de marca, no un fondo repetible.
 
 ### Sello de goma
-Sello SVG circular en `seal`, rotado −11°, con texto en arco en Chivo Mono, "+35" en Archivo 800 condensado y una textura de tinta irregular (filtro de ruido). Entra con una animación de estampado de 0.9s (`ease-out-expo`, 0.35s de demora) que se anula con `prefers-reduced-motion`. Es un único sello por página.
-- **Sello claro:** la misma pieza en `seal-glow` y sin multiplicar, para estamparse sobre la foto de portada con velo.
+Sello SVG circular en `seal` (`Stamp.astro`), rotado −11°, con texto en arco en Chivo Mono, leyenda central en Archivo 800 condensado y una textura de tinta irregular (filtro de ruido). Vive solo en la página de cotizar; la portada ya no lleva sello. Es un único sello por página.
 - **Sello con leyenda:** la misma tinta, anillos, textura y rotación, con el arco fijo ("BROKERS ASOCIADOS · MAR DEL PLATA") y una leyenda central variable de una o más líneas en Archivo 800 condensado ("LISTO PARA / ENVIAR", "RECIBIDO"). Certifica un estado y tiene tres tiempos: **fantasma** (22% de opacidad desde la carga, anticipa lo que se va a ganar), **entintado** (opacidad plena y estampado de 0.8s `ease-out-expo`, desde escala 1.4 y 6° de giro) cuando están los datos requeridos, y **re-sellado** con una leyenda nueva al enviar. Es decorativo para lectores de pantalla; el estado se anuncia una sola vez en una región `aria-live` oculta. Cuenta como el sello único de su página.
 
 ### Carátula
@@ -467,8 +488,9 @@ La portada de la póliza: resume en vivo lo que el usuario va completando en un 
 ### Don't:
 - **Don't** usar sombras ni tarjetas con esquinas redondeadas.
 - **Don't** usar el bordó como acento decorativo ni en acciones de cotización.
-- **Don't** redondear botones, campos u opciones; lo circular se limita al logo, el sello y los indicadores de estado.
+- **Don't** redondear botones, campos u opciones; lo circular se limita al logo, el sello y los indicadores de estado. Única excepción: un botón de solo ícono puede ser circular (el WhatsApp de 56px de la portada, en ambos tonos); un botón con rótulo nunca.
 - **Don't** usar el guilloché como marca de agua de fondo; su única forma es la tira, y va solo en la cabecera de una carátula.
 - **Don't** teñir las secciones ni usar el degradé del logo como tarjeta o bloque dentro de una sección, ni repetir el campo del logo, el campo de siniestros o la portada fotográfica más de una vez por página.
 - **Don't** poner el grano sobre hojas blancas, mosaicos blancos, fotos ni texto: es una textura del papel, no un motivo.
-- **Don't** repetir el sello de goma más de una vez por página (el de "+35 años" o el sello con leyenda, nunca ambos).
+- **Don't** usar `cta-fill-light` ni `cta-ink-deep` fuera de los CTAs de la portada sobre fondo oscuro.
+- **Don't** repetir el sello de goma más de una vez por página (el sello con leyenda de cotizar).
