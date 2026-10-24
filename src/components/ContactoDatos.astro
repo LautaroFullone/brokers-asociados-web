@@ -10,8 +10,12 @@ const fila = 'grid grid-cols-[2rem_minmax(0,1fr)] gap-x-3 py-4';
 		<div class={`${fila} border-b border-rule`}>
 			<dt class="pt-0.5"><Icon name="mapPin" class="size-5" /><span class="sr-only">Dirección</span></dt>
 			<dd>
-				<span class="font-semibold">{contacto.direccion}</span>, {contacto.ciudad}
-				<a href={contacto.mapa} target="_blank" rel="noopener" class="mt-1 block w-fit font-medium">Cómo llegar</a>
+				<span class="block font-semibold">{contacto.direccion}</span>
+				<span class="block text-ink-2">{contacto.ciudad}</span>
+				<a href={contacto.mapa} target="_blank" rel="noopener" class="group mt-3 inline-flex items-center gap-3 font-semibold no-underline">
+					<span class="border-b-2 border-ink pb-0.5">Cómo llegar</span>
+					<Icon name="arrowRight" class="size-5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" strokeWidth={2} />
+				</a>
 			</dd>
 		</div>
 		<div class={`${fila} border-b border-rule`}>

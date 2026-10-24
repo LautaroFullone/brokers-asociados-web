@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T22:00:00Z",
+  "generatedAt": "2026-10-24T12:00:00Z",
   "title": "Design System: Brokers Asociados",
   "extensions": {
     "colorMeta": {
@@ -355,6 +355,38 @@
           "#9bbcd7",
           "#dff0ff"
         ]
+      },
+      "portrait-top": {
+        "role": "neutral",
+        "displayName": "Fondo de retrato · arriba",
+        "canonical": "#ececec",
+        "oklch": "oklch(94.8% 0 0)",
+        "tonalRamp": [
+          "#262626",
+          "#434343",
+          "#616161",
+          "#7e7e7e",
+          "#9b9b9b",
+          "#b8b8b8",
+          "#d5d5d5",
+          "#f2f2f2"
+        ]
+      },
+      "portrait-bottom": {
+        "role": "neutral",
+        "displayName": "Fondo de retrato · abajo",
+        "canonical": "#dedede",
+        "oklch": "oklch(90.2% 0 0)",
+        "tonalRamp": [
+          "#262626",
+          "#434343",
+          "#616161",
+          "#7e7e7e",
+          "#9b9b9b",
+          "#b8b8b8",
+          "#d5d5d5",
+          "#f2f2f2"
+        ]
       }
     },
     "typographyMeta": {
@@ -527,11 +559,6 @@
         "name": "logo-tinta",
         "value": "opacity 0.3s ease-out; máscara de ink ⇄ color original al hover del ítem",
         "purpose": "Logos de aseguradoras en tinta que revelan su color al hover."
-      },
-      {
-        "name": "mapa-tapa",
-        "value": "sin transición: la tapa (botón inset-0) se oculta con [data-activo] al clic y se restituye en mouseleave",
-        "purpose": "El mapa no atrapa el scroll hasta que se toca."
       }
     ],
     "breakpoints": [
@@ -732,17 +759,17 @@
       "name": "Tiras de retratos (Personas)",
       "kind": "card",
       "refersTo": "persona-card",
-      "description": "Retrato 3:4 en escala de grises sobre gris parejo; el panel de tinta con rol, nombre y WhatsApp redondo de 44px sube al hover o foco con mouse (>=768px) y queda visible bajo la foto en táctil.",
+      "description": "Retrato 3:4 en escala de grises sobre degradé gris neutro (#ececec → #dedede); el panel de tinta con rol, nombre y WhatsApp redondo de 44px sube al hover o foco con mouse (>=768px) y queda visible bajo la foto en táctil.",
       "html": "<ul class=\"ds-tira\" tabindex=\"0\" role=\"list\" aria-label=\"En la oficina\"><li class=\"ds-persona\"><div class=\"ds-marco\"><svg viewBox=\"0 0 120 160\" fill=\"currentColor\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMax slice\"><circle cx=\"60\" cy=\"62\" r=\"23\"/><path d=\"M10 160c0-36 21-58 50-58s50 22 50 58z\"/></svg></div><div class=\"ds-info\"><p class=\"ds-rol\">Productor asesor</p><p class=\"ds-nombre\">Nombre Apellido</p><a class=\"ds-wa\" href=\"#\" aria-label=\"Escribirle a Nombre Apellido por WhatsApp\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.300 1.200-1.800 1.200-.5.100-1.100.1-1.800-.1-2.700-.9-4.500-3.500-4.600-3.700-.1-.2-1.100-1.400-1.100-2.700s.7-1.900.9-2.200c.2-.2.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 1.900c.1.200.1.400 0 .5l-.4.600c-.1.200-.3.300-.1.600.600 1 1.300 1.700 2.300 2.200.3.100.4.100.6-.1l.7-.9c.2-.2.400-.2.600-.1l1.800.9c.2.100.4.200.4.300.100.200.100.700-.1 1.300z\"/></svg></a></div></li></ul>",
-      "css": ".ds-tira { display:flex; gap:4px; overflow-x:auto; scroll-snap-type:x proximity; padding:0 0 16px; margin:0; list-style:none; scrollbar-width:thin; scrollbar-color:var(--color-ink,#184e77) transparent; } .ds-tira:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; } .ds-persona { position:relative; width:16rem; flex-shrink:0; scroll-snap-align:start; overflow:hidden; } .ds-marco { aspect-ratio:3/4; background:var(--color-rule-soft,#d3dee5); overflow:hidden; color:var(--color-ink,#184e77); } .ds-marco svg { width:100%; height:100%; } .ds-info { position:absolute; inset:auto 0 0 0; background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); padding:16px; transform:translateY(101%); transition:transform .5s cubic-bezier(.16,1,.3,1); } .ds-persona:hover .ds-info, .ds-persona:focus-within .ds-info { transform:translateY(0); } .ds-rol { margin:0; font-family:'Chivo Mono',ui-monospace,monospace; font-size:.875rem; font-weight:500; letter-spacing:.02em; color:var(--color-on-dark,#e6f2f7); } .ds-nombre { margin:4px 0 0; font-size:1.25rem; font-weight:700; line-height:1.2; } .ds-wa { display:grid; place-items:center; width:44px; height:44px; margin-top:12px; border-radius:9999px; background:var(--color-cta-fill-light,#a8dadc); color:var(--color-cta-ink-deep,#0f3554); } .ds-wa:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
+      "css": ".ds-tira { display:flex; gap:4px; overflow-x:auto; scroll-snap-type:x proximity; padding:0 0 16px; margin:0; list-style:none; scrollbar-width:thin; scrollbar-color:var(--color-ink,#184e77) transparent; } .ds-tira:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; } .ds-persona { position:relative; width:16rem; flex-shrink:0; scroll-snap-align:start; overflow:hidden; } .ds-marco { aspect-ratio:3/4; background:linear-gradient(#ececec,#dedede); overflow:hidden; color:var(--color-ink,#184e77); } .ds-marco svg { width:100%; height:100%; } .ds-info { position:absolute; inset:auto 0 0 0; background:var(--color-ink,#184e77); color:var(--color-paper,#f6f4ef); padding:16px; transform:translateY(101%); transition:transform .5s cubic-bezier(.16,1,.3,1); } .ds-persona:hover .ds-info, .ds-persona:focus-within .ds-info { transform:translateY(0); } .ds-rol { margin:0; font-family:'Chivo Mono',ui-monospace,monospace; font-size:.875rem; font-weight:500; letter-spacing:.02em; color:var(--color-on-dark,#e6f2f7); } .ds-nombre { margin:4px 0 0; font-size:1.25rem; font-weight:700; line-height:1.2; } .ds-wa { display:grid; place-items:center; width:44px; height:44px; margin-top:12px; border-radius:9999px; background:var(--color-cta-fill-light,#a8dadc); color:var(--color-cta-ink-deep,#0f3554); } .ds-wa:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:3px; }"
     },
     {
       "name": "Mapa de Contacto",
       "kind": "custom",
-      "refersTo": "mapa-tapa",
-      "description": "Mapa a sangre de Google Maps por coordenadas (sin pin ni tarjeta de Google) en grises con velo de tinta, único marcador propio y tapa 'Tocá el mapa para moverlo' abajo a la izquierda. En escritorio (lg) la hoja de datos de 30rem con borde de 2px ink va a la derecha y el mapa se corre (136% de ancho, left -36%) para que el pin quede al 32%; en celulares el mapa va arriba (20rem) con el pin centrado y la hoja debajo.",
-      "html": "<div class=\"ds-mapa\"><div class=\"ds-mapa-base\"></div><div class=\"ds-mapa-velo\"></div><svg class=\"ds-mapa-pin\" viewBox=\"0 0 44 56\" aria-hidden=\"true\"><path d=\"M22 54C22 54 3 33.5 3 21a19 19 0 0 1 38 0c0 12.5-19 33-19 33z\" fill=\"#184e77\" stroke=\"#f6f4ef\" stroke-width=\"3\"/><circle cx=\"22\" cy=\"21\" r=\"7\" fill=\"#f6f4ef\"/></svg><button class=\"ds-mapa-tapa\" type=\"button\"><span>Tocá el mapa para moverlo</span></button></div>",
-      "css": ".ds-mapa { position:relative; isolation:isolate; overflow:hidden; height:20rem; background:var(--color-rule-soft,#d3dee5); } .ds-mapa-base { position:absolute; inset:0; background:var(--color-rule-soft,#d3dee5); filter:grayscale(1) contrast(.95) brightness(1.04); } .ds-mapa-velo { position:absolute; inset:0; background:rgb(24 78 119 / .1); mix-blend-mode:multiply; pointer-events:none; } .ds-mapa-pin { position:absolute; top:50%; left:50%; z-index:10; width:44px; height:56px; transform:translate(-50%,-100%); pointer-events:none; } .ds-mapa-tapa { position:absolute; inset:0; z-index:20; display:flex; align-items:flex-end; justify-content:flex-start; padding:12px; border:0; background:transparent; cursor:pointer; text-align:left; } .ds-mapa-tapa span { background:var(--color-paper,#f6f4ef); color:var(--color-ink,#184e77); padding:8px 12px; font-family:var(--font-mono,'Chivo Mono',ui-monospace,monospace); font-size:.875rem; font-weight:500; letter-spacing:.02em; } .ds-mapa-tapa:focus-visible { outline:3px solid var(--color-teal,#1a759f); outline-offset:-3px; } @media (min-width:1024px) { .ds-mapa-pin { left:32%; } }"
+      "refersTo": "mapa-marcador",
+      "description": "Mapa estático a sangre de Google Maps por coordenadas (iframe inert, sin eventos de puntero; sin pin ni tarjeta de Google) en grises con velo de tinta y único marcador propio, que marca siempre la dirección. En escritorio (lg) la hoja de datos de 30rem con borde de 2px ink va a la derecha y el mapa se corre (136% de ancho, left -36%) para que el pin quede al 32%; en celulares el mapa va arriba (20rem) con el pin centrado y la hoja debajo. Para explorar la zona está 'Cómo llegar' en el renglón de dirección: rótulo semibold subrayado con borde inferior de 2px ink y flecha derecha que avanza 4px al hover, sin ícono a la izquierda.",
+      "html": "<div class=\"ds-mapa\"><div class=\"ds-mapa-base\"></div><div class=\"ds-mapa-velo\"></div><svg class=\"ds-mapa-pin\" viewBox=\"0 0 44 56\" aria-hidden=\"true\"><path d=\"M22 54C22 54 3 33.5 3 21a19 19 0 0 1 38 0c0 12.5-19 33-19 33z\" fill=\"#184e77\" stroke=\"#f6f4ef\" stroke-width=\"3\"/><circle cx=\"22\" cy=\"21\" r=\"7\" fill=\"#f6f4ef\"/></svg></div>",
+      "css": ".ds-mapa { position:relative; isolation:isolate; overflow:hidden; height:20rem; background:var(--color-rule-soft,#d3dee5); } .ds-mapa-base { position:absolute; inset:0; background:var(--color-rule-soft,#d3dee5); filter:grayscale(1) contrast(.95) brightness(1.04); } .ds-mapa-velo { position:absolute; inset:0; background:rgb(24 78 119 / .1); mix-blend-mode:multiply; pointer-events:none; } .ds-mapa-pin { position:absolute; top:50%; left:50%; z-index:10; width:44px; height:56px; transform:translate(-50%,-100%); pointer-events:none; } @media (min-width:1024px) { .ds-mapa-pin { left:32%; } }"
     }
   ],
   "narrative": {
@@ -829,8 +856,8 @@
         "section": "components"
       },
       {
-        "name": "The Locked Map Rule",
-        "body": "Un mapa incrustado no captura el scroll hasta que alguien lo toca, y se vuelve a trabar al salir.",
+        "name": "The Still Map Rule",
+        "body": "El mapa nunca se desplaza ni se acerca, para que el único pin de tinta marque siempre la dirección. Quien quiere explorar lo hace con \"Cómo llegar\".",
         "section": "components"
       }
     ],
@@ -844,7 +871,7 @@
       "**Do** frenar al hover todo movimiento continuo, darle un botón de pausa discreto de 44px con nombre accesible y dejarlo estático con `prefers-reduced-motion`, como el carril de aseguradoras.",
       "**Do** dejar las secciones de papel sin fondo propio y poner el grano una sola vez en la página, más la barra y el panel del header, el campo bordó, el campo del logo y el footer.",
       "**Do** usar fotografía real de Mar del Plata con su procedencia registrada y el crédito visible cuando la licencia lo pide.",
-      "**Do** mostrar personas como retratos 3:4 en escala de grises sobre `rule-soft`, en tiras de scroll horizontal enfocables por teclado, con el contacto en un panel de `ink` que sube al hover o foco con mouse y queda visible debajo de la foto en táctil.",
+      "**Do** mostrar personas como retratos 3:4 en escala de grises sobre el degradé gris `portrait-top` → `portrait-bottom`, en tiras de scroll horizontal enfocables por teclado, con el contacto en un panel de `ink` que sube al hover o foco con mouse y queda visible debajo de la foto en táctil.",
       "**Do** dibujar los datos pendientes de una carátula como renglón discontinuo de 1.5px `rule` y escribir los placeholders como \"Ej.: …\"."
     ],
     "donts": [

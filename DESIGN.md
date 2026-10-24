@@ -12,6 +12,9 @@ colors:
   cta-ink-deep: "#0f3554"
   rule: "#7f95a6"
   rule-soft: "#d3dee5"
+  # Fondo de los retratos de Personas: degradé gris neutro (arriba #ececec, abajo #dedede), sin matiz azul.
+  portrait-top: "#ececec"
+  portrait-bottom: "#dedede"
   wash: "#eef3f6"
   paper: "#f6f4ef"
   sheet: "#ffffff"
@@ -170,7 +173,7 @@ components:
     rounded: "{rounded.full}"
     size: "44px"
   persona-card:
-    backgroundColor: "{colors.rule-soft}"
+    backgroundColor: "{colors.portrait-bottom}"
     textColor: "{colors.ink}"
     rounded: "{rounded.none}"
     width: "256px"
@@ -274,11 +277,6 @@ components:
   stamp:
     textColor: "{colors.seal}"
     size: "160px"
-  mapa-tapa:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    typography: "{typography.label}"
-    padding: "8px 12px"
   mapa-marcador:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.paper}"
@@ -338,7 +336,8 @@ Estos dos colores se usan solo en los CTAs de la portada sobre fondo oscuro y en
 - **Grano** (`--grano` y `--grano-tam`; `--grano` es `url('/grano-fino.png')`, `--grano-tam` es 128px; tile PNG de ruido de tinta cálida, el grano "Fino" elegido por el cliente): la textura del papel, no un color. Una sola variable y una sola intensidad en todo el sitio. Lleva grano: el fondo de papel (capa fija detrás de todo el contenido), la barra sólida del header y el panel del menú móvil (`.superficie-papel`), el campo bordó de siniestros (`.bg-claim-field`), el campo del logo (`.bg-logo`) y el footer (`.con-grano`). No lleva grano: fotos, hojas y mosaicos blancos (`sheet`) ni texto. Tile y tamaño salen de las variables, nunca de valores sueltos.
 - **Lavado** (`wash`): opción elegida en un campo, placeholders de foto, hover de botones secundarios.
 - **Regla** (`rule`): filetes de 1px entre filas y bordes de inputs (1.5px).
-- **Regla suave** (`rule-soft`): bordes de opciones sin elegir y separadores dentro de bloques.
+- **Regla suave** (`rule-soft`): bordes de opciones sin elegir, separadores dentro de bloques y el fondo del mapa mientras carga.
+- **Fondo de retrato** (`portrait-top` #ececec arriba, `portrait-bottom` #dedede abajo, en degradé vertical): el gris neutro, sin matiz azul, detrás de los retratos de Personas y de la silueta provisoria. Elegido por el cliente porque el azul pálido de `rule-soft` desentonaba junto a las fotos en gris. Solo se usa en ese fondo.
 - **Texto sobre oscuro** (`on-dark`): texto secundario sobre campos oscuros (la foto de portada con velo, el degradé del logo y el footer en `ink`); 4.5:1 o más sobre `teal`.
 - **Sello sobre oscuro** (`seal-on-dark`): los rótulos "Art. N" y los números 01-03 en mono sobre el degradé del logo (4.7:1 sobre `teal`); la versión clara del verde sello para texto sobre fondos oscuros.
 
@@ -443,24 +442,24 @@ Una sola fila fija de 5rem (h-20), sin segunda franja: el estado de atención vi
 El formulario de cotización (página cotizar) es una hoja `sheet` con borde de 2px en tinta: campos numerados en un margen rayado (columna mono `ink-2` separada por un filete de 1px `rule`), filetes de 1px entre campos y la barra de envío en tinta pegada al borde inferior. La confirmación reemplaza el formulario en el mismo bloque y ofrece volver al inicio con un botón outline.
 
 ### Ruled List / Table
-Cláusulas y contacto son listas con regla de 2px arriba y filetes de 1px entre filas, sin tarjetas. El contacto lleva cinco renglones (dirección con "Cómo llegar", horario con estado de atención, teléfono, un único email `info@`, Instagram), cada uno con un ícono lucide de 20px en una columna de 2rem; no hay datos escondidos detrás de un desplegable. Las cláusulas llevan "Art. N" en mono (en `seal-on-dark` sobre el degradé del logo, con el texto en `on-dark` y la regla superior en `paper`).
+Cláusulas y contacto son listas con regla de 2px arriba y filetes de 1px entre filas, sin tarjetas. El contacto lleva cinco renglones (dirección en dos líneas, calle en semibold y ciudad en `ink-2`, y debajo el vínculo "Cómo llegar": solo el rótulo semibold subrayado con borde inferior de 2px en `ink`, seguido de una flecha derecha de 20px que avanza 4px al hover (300ms `ease-out-expo`), sin caja ni ícono a la izquierda, abre Google Maps en otra pestaña; horario con estado de atención, teléfono, un único email `info@`, Instagram), cada uno con un ícono lucide de 20px en una columna de 2rem; no hay datos escondidos detrás de un desplegable. Las cláusulas llevan "Art. N" en mono (en `seal-on-dark` sobre el degradé del logo, con el texto en `on-dark` y la regla superior en `paper`).
 
 ### Mapa de Contacto
-Contacto es una sola sección, «Encontranos», con un mapa a sangre que se lee como parte del papel y no como un widget de Google. Es el embed de Google Maps (sin clave de API) en un `iframe` de carga diferida (`loading="lazy"`) con `title` accesible que nombra la dirección (11 de Septiembre 2702, Mar del Plata). Va centrado por coordenadas (`ll=-37.9948,-57.5446`, `z=16`) y no por búsqueda de dirección, para que Google no dibuje su marcador ni su tarjeta de información: el único pin es el propio.
+Contacto es una sola sección, «Encontranos», con un mapa a sangre que se lee como parte del papel y no como un widget de Google. Es el embed de Google Maps (sin clave de API) en un `iframe` estático y de carga diferida (`loading="lazy"`, `inert`, `tabindex="-1"`, `pointer-events: none`) con `title` accesible que nombra la dirección (11 de Septiembre 2702, Mar del Plata). Va centrado por coordenadas (`ll=-37.9948,-57.5446`, `z=16`) y no por búsqueda de dirección, para que Google no dibuje su marcador ni su tarjeta de información: el único pin es el propio.
 - **Composición en escritorio (`lg`, 1024px):** el mapa ocupa toda la sección (mínimo 44rem de alto) y la hoja de datos, una `sheet` de 30rem de ancho con borde de 2px en tinta y padding 32px, queda a la DERECHA, centrada en vertical, sobre el mar. Para que el pin no quede tapado, el `iframe` se corre (ancho 136%, `left` −36%) y el marcador se ubica al 32% desde la izquierda, en el área libre de la hoja.
 - **Composición en celulares:** el mapa va arriba (20rem de alto, `h-80`) con el pin centrado, y la hoja de datos debajo, a ancho completo, sin borde, con padding 24px (32px desde 640px).
-- **Hoja de datos:** el titular «Encontranos» (clamp 2rem → 3rem, bold) y la lista con regla (ver Ruled List / Table) con el botón de WhatsApp en `seal`. La capa que contiene la hoja no captura punteros salvo en la hoja, así el mapa sigue siendo arrastrable alrededor.
+- **Hoja de datos:** el titular «Encontranos» (clamp 2rem → 3rem, bold) y la lista con regla (ver Ruled List / Table) con el botón de WhatsApp en `seal`. La capa que contiene la hoja no captura punteros salvo en la hoja.
 - **Integración a la paleta:** el `iframe` lleva `filter: grayscale(1) contrast(.95) brightness(1.04)` y encima un velo `ink` al 10% con `mix-blend-mode: multiply`, de modo que ningún color de Google entra al sistema; el fondo bajo el mapa mientras carga es `rule-soft`. Esquinas rectas, sin sombra.
-- **Marcador propio:** un pin SVG a medida de 44×56px, relleno `ink` con trazo `paper` de 3px y un punto `paper` al centro, con la punta en el centro vertical del mapa (horizontal: 50% en celulares, 32% en escritorio), sin eventos de puntero y oculto a lectores de pantalla. No usa el pin de Google ni un ícono lucide. Los colores van como valores del SVG (#184e77, #f6f4ef), no como variables.
-- **Tapa de interacción:** hasta que se toca, un botón transparente cubre el mapa y bloquea el arrastre y el zoom para no atrapar el scroll de la página; abajo a la izquierda lleva una etiqueta `paper` en mono (`field-no`) con el texto "Tocá el mapa para moverlo". Al tocar, la tapa desaparece y el mapa responde; al sacar el mouse (`mouseleave`) vuelve a bloquearse.
+- **Marcador propio:** un pin SVG a medida de 44×56px, relleno `ink` con trazo `paper` de 3px y un punto `paper` al centro, con la punta en el centro vertical del mapa (horizontal: 50% en celulares, 32% en escritorio), sin eventos de puntero y oculto a lectores de pantalla. No usa el pin de Google ni un ícono lucide. Los colores van como valores del SVG (#184e77, #f6f4ef), no como variables. El mapa no se desplaza ni se acerca, así que el pin marca siempre la dirección.
+- **Exploración:** el mapa no se mueve; para recorrer la zona está el vínculo "Cómo llegar" del renglón de dirección, que abre Google Maps en otra pestaña.
 
 **The Map Wears the Paper Rule.** Un mapa incrustado se desatura y se tiñe de tinta antes de entrar a la página, y lleva el marcador propio como único pin. Nunca se muestra con los colores de Google ni con su pin o su tarjeta de información.
 
-**The Locked Map Rule.** Un mapa incrustado no captura el scroll hasta que alguien lo toca, y se vuelve a trabar al salir.
+**The Still Map Rule.** El mapa nunca se desplaza ni se acerca, para que el único pin de tinta marque siempre la dirección. Quien quiere explorar lo hace con "Cómo llegar".
 
 ### Tiras de retratos (Personas)
 Dos tiras horizontales de retratos, sin tabla ni tarjetas con borde: cada persona es una pieza recta de proporción 3:4. Los emails no se muestran (viven en Contacto) y la sección ya no enlaza a /productores.
-- **Retrato:** foto de `src/assets/equipo/<slug>.(jpg|png|webp)` a `object-cover`, siempre en escala de grises, sobre un fondo gris parejo `rule-soft`. Mientras no hay foto, la pieza es gris `rule-soft` con una silueta de tinta (`ink`, cabeza y hombros) pegada abajo. Carga diferida; `alt` vacío porque el nombre está en el panel.
+- **Retrato:** foto de `src/assets/equipo/<slug>.(jpg|png|webp)` a `object-cover`, siempre en escala de grises, sobre el degradé gris neutro `portrait-top` → `portrait-bottom`. Mientras no hay foto, la pieza lleva ese mismo degradé con una silueta de tinta (`ink`, cabeza y hombros) pegada abajo. Carga diferida; `alt` vacío porque el nombre está en el panel.
 - **Panel de datos:** hoja de `ink` con texto `paper` y padding 16px, con el rol en mono (`field-no`, `on-dark`), el nombre en 1.25rem bold y el botón redondo de WhatsApp de 44px debajo. Con mouse desde 768px (`hover: hover`) el panel queda oculto bajo la foto y sube desde abajo (0.5s `ease-out-expo`) al hover o al foco dentro de la pieza (`focus-within`), mientras la foto hace un zoom de 1.03 (0.7s). En pantallas táctiles o estrechas el mismo contenido queda siempre visible debajo de la foto, sin fondo, con texto `ink` y rol en `ink-2`.
 - **Movimiento:** con `prefers-reduced-motion` el panel aparece sin transición y no hay zoom.
 
@@ -514,7 +513,7 @@ La portada de la póliza: resume en vivo lo que el usuario va completando en un 
 - **Do** respetar `prefers-reduced-motion` en el sello, el zoom de la foto de portada, el scroll suave y el movimiento del header.
 - **Do** dejar las secciones de papel sin fondo propio y poner el grano una sola vez en la página, más la barra y el panel del header, el campo bordó, el campo del logo y el footer.
 - **Do** usar fotografía real de Mar del Plata con su procedencia registrada y el crédito visible cuando la licencia lo pide.
-- **Do** mostrar personas como retratos 3:4 en escala de grises sobre `rule-soft`, en tiras de scroll horizontal enfocables por teclado, con el contacto en un panel de `ink` que sube al hover o foco con mouse y queda visible debajo de la foto en táctil.
+- **Do** mostrar personas como retratos 3:4 en escala de grises sobre el degradé gris `portrait-top` → `portrait-bottom`, en tiras de scroll horizontal enfocables por teclado, con el contacto en un panel de `ink` que sube al hover o foco con mouse y queda visible debajo de la foto en táctil.
 - **Do** dibujar los datos pendientes de una carátula como renglón discontinuo de 1.5px `rule` y escribir los placeholders como "Ej.: …".
 
 ### Don't:
