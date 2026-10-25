@@ -48,7 +48,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 
 <Layout
 	title="Pedí tu cotización · Brokers Asociados"
-	description="Cotizá tu seguro de auto, hogar, comercio, accidentes personales y más con productores asesores de Mar del Plata. Pocos datos y un asesor te contacta."
+	description="Cotizá tu seguro de auto, hogar, comercio, accidentes personales y más con productores asesores de Mar del Plata. Completás pocos datos y un asesor se comunica con vos."
 >
 	<Header />
 	<main id="contenido" class="relative overflow-hidden pt-[4.5rem]">
@@ -59,7 +59,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 					Volver al inicio
 				</a>
 				<h1 id="pedido-titulo" class="mt-5 text-[clamp(2.5rem,1.8rem+2.8vw,4rem)] font-bold [font-stretch:84%]">Pedí tu cotización</h1>
-				<p class="mt-3 max-w-[44ch] text-[1.25rem] text-ink-2">Con pocos datos alcanza: un asesor te contacta con la propuesta.</p>
+				<p class="mt-3 max-w-[44ch] text-[1.25rem] text-ink-2">Completá estos datos y un asesor se comunica con vos con la propuesta.</p>
 			</header>
 
 			<section class="cot-form" aria-labelledby="pedido-titulo">
@@ -242,12 +242,12 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 				</div>
 			</section>
 
-			<!-- Carátula del pedido, con el sello en tres estados y el botón de enviar debajo -->
+			<!-- Recibo de la solicitud, con el sello en tres estados y el botón de enviar debajo -->
 			<aside class="cot-aside lg:self-start" aria-labelledby="caratula-titulo">
 				<div class="lg:sticky lg:top-24">
 					<div class="car relative" data-caratula data-estado="vacio">
 						<div class="car-head">
-							<h2 id="caratula-titulo" class="car-titulo" data-caratula-titulo>Carátula del pedido</h2>
+							<h2 id="caratula-titulo" class="car-titulo" data-caratula-titulo>Tu solicitud</h2>
 							<span class="field-no car-fecha">{hoy}</span>
 						</div>
 						<div class="car-corte" aria-hidden="true"></div>
@@ -264,7 +264,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 								<ul class="car-meter" aria-hidden="true" data-meter>
 									<li></li><li></li><li></li><li></li>
 								</ul>
-								<p class="car-falta" id="falta-texto" data-falta>Elegí qué querés asegurar para empezar.</p>
+								<p class="car-falta" id="falta-texto" data-falta>Empezá eligiendo qué querés asegurar.</p>
 							</div>
 							<div class="car-sello pointer-events-none" data-sello data-estado="vacio">
 								<Stamp id="sello-pedido" lineas={estadoInicial} class="size-full" />
@@ -446,8 +446,8 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 	// Sello en tres estados: rojo sin empezar, naranja incompleto, verde listo
 	const sellos: Record<string, string[]> = {
 		vacio: ['SIN', 'EMPEZAR'],
-		incompleto: ['PEDIDO', 'INCOMPLETO'],
-		listo: ['LISTO PARA', 'ENVIAR'],
+		incompleto: ['SOLICITUD', 'INCOMPLETA'],
+		listo: ['LISTA PARA', 'ENVIAR'],
 	};
 	function escribirSello(lineas: string[]) {
 		const y0 = 100 - (lineas.length - 1) * 11;
@@ -508,9 +508,9 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 		if (!items[3]) faltantes.push('un teléfono válido');
 		const texto =
 			nuevo === 'listo'
-				? 'Todo listo: ya podés pedir tu cotización.'
+				? 'Solicitud completa: ya podés enviarla.'
 				: nuevo === 'vacio'
-					? 'Elegí qué querés asegurar para empezar.'
+					? 'Empezá eligiendo qué querés asegurar.'
 					: `Falta: ${faltantes.join(', ')}.`;
 		falta.textContent = texto;
 
@@ -525,7 +525,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 				sello.classList.remove('golpe');
 				void sello.offsetWidth;
 				sello.classList.add('golpe');
-				anuncio.textContent = nuevo === 'listo' ? 'Pedido completo. Ya podés pedir tu cotización.' : nuevo === 'incompleto' ? `Pedido incompleto. ${texto}` : '';
+				anuncio.textContent = nuevo === 'listo' ? 'Solicitud completa. Ya podés enviarla.' : nuevo === 'incompleto' ? `Solicitud incompleta. ${texto}` : '';
 				if (nuevo === 'listo' && !sinMovimiento.matches) navigator.vibrate?.(15);
 			}
 			estado = nuevo;
@@ -647,14 +647,14 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 				? 'Un asesor se comunicará con vos por WhatsApp, al número que ingresaste, con la propuesta a la brevedad.'
 				: 'Un asesor se comunicará con vos al número que ingresaste con la propuesta a la brevedad.';
 		enviado.querySelector<HTMLAnchorElement>('[data-enviado-wa]')!.href = whatsappLink(
-			`Hola, soy ${nombre}. Pedí una cotización de ${etiqueta.toLowerCase()}: ${bien(r)}.`,
+			`Hola, soy ${nombre}. Quiero cotizar mi seguro de ${etiqueta.toLowerCase()}: ${bien(r)}.`,
 		);
 		recibido = true;
 		caratula.querySelector('[data-caratula-titulo]')!.textContent = 'Solicitud recibida';
 		caratula.dataset.estado = 'listo';
 		sello.dataset.estado = 'listo';
-		escribirSello(['RECIBIDO']);
-		falta.textContent = 'Un asesor se comunicará con vos a la brevedad.';
+		escribirSello(['RECIBIDA']);
+		falta.textContent = 'Tus datos ya están con nuestro equipo.';
 		sello.classList.remove('golpe');
 		void sello.offsetWidth;
 		sello.classList.add('golpe');
