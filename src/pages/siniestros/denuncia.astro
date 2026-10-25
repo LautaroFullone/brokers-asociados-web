@@ -4,80 +4,120 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import MobileBar from '../../components/MobileBar.astro';
 import Icon from '../../components/Icon.astro';
-import { tiposSiniestro, contacto, whatsappLink } from '../../data/brokers';
+import { tiposSiniestro, siniestros, equipo } from '../../data/brokers';
 
 const tipos = tiposSiniestro();
+const grupos = siniestros.map((g, i) => ({ id: `g${i}`, grupo: g.grupo, items: tipos.filter((t) => t.grupo === g.grupo) }));
+// Pestañas de categoría: las del sitio más «Otro», con un campo para describirlo
+const categorias = [...grupos.map((g) => ({ id: g.id, grupo: g.grupo })), { id: 'otro', grupo: 'Otro' }];
+const iconos: Record<string, Parameters<typeof Icon>[0]['name']> = {
+	Choque: 'carFront',
+	Cristales: 'parabrisas',
+	Cerraduras: 'lockKeyhole',
+	'Robo de ruedas': 'llanta',
+	'Robo del vehículo': 'siren',
+	'Robo o daño del celular': 'smartphone',
+	'Otros daños en el hogar': 'house',
+	'Daños en el comercio': 'store',
+	'Daños en el consorcio': 'building2',
+};
+const area = equipo.find((e) => e.area === 'Siniestros');
+const telSiniestros = area?.telefono ?? '';
+// WhatsApp del área de Siniestros (mismo número que su teléfono)
+const waSiniestros = (texto: string) => `https://wa.me/549${telSiniestros.replace(/\D/g, '')}?text=${encodeURIComponent(texto)}`;
+const mensajeWa = 'Hola, cargué una denuncia y quiero consultar por su seguimiento.';
+
 const inputBase =
-	'block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
-const row = 'grid grid-cols-[2.75rem_minmax(0,1fr)] border-b border-rule sm:grid-cols-[3.25rem_minmax(0,1fr)]';
-const no = 'field-no border-r border-rule pt-3.5 text-center text-ink-2';
-const label = 'mb-1 block text-[1rem] text-ink-2';
+	'campo block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
+const label = 'rotulo mb-1 block text-[1rem] text-ink-2';
 const err = 'mt-1.5 hidden text-[1rem] font-medium text-claim';
 ---
 
 <Layout
 	title="Denunciar un siniestro · Brokers Asociados"
-	description="Contanos qué pasó y el área de Siniestros de Brokers Asociados te acompaña con la denuncia."
+	description="Cargá la denuncia en pocos pasos y el área de Siniestros de Brokers Asociados se comunica con vos."
 >
 	<Header />
 	<main id="contenido" class="pt-[4.5rem]">
-		<div class="mx-auto max-w-[56rem] px-4 pt-8 pb-16 sm:px-8 lg:pt-10 lg:pb-24">
-			<a href="/#siniestros" class="ix-sub inline-flex items-center gap-2 text-[1rem] font-medium">
-				<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-				Volver a Siniestros
-			</a>
-			<h1 class="mt-5 text-[clamp(2.5rem,1.8rem+2.8vw,4rem)] font-bold [font-stretch:84%]">Denunciar un siniestro</h1>
-			<p class="mt-3 max-w-[48ch] text-[1.25rem] text-ink-2">Contanos qué pasó y alguien del equipo se pondrá en contacto con vos.</p>
+		<div class="den mx-auto max-w-[84rem] px-4 pt-8 pb-16 sm:px-8 lg:px-12 lg:pt-10 lg:pb-24" data-den>
+			<header class="den-intro">
+				<a href="/" class="ix-sub inline-flex items-center gap-2 text-[1rem] font-medium">
+					<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+					Volver al inicio
+				</a>
+				<h1 id="den-titulo" class="mt-5 text-[clamp(2.5rem,1.8rem+2.8vw,4rem)] font-bold [font-stretch:84%]">Denunciar un siniestro</h1>
+				<p class="mt-3 max-w-[48ch] text-[1.25rem] text-ink-2">Completá los datos y el área de Siniestros se comunica con vos.</p>
+			</header>
 
-			<div class="mt-8 border-2 border-claim-deep bg-sheet">
-				<form data-denuncia novalidate class="contents">
-					<div class={row}>
-						<span class="field-no border-r border-rule pt-3.5 text-center text-claim" aria-hidden="true">01</span>
-						<div class="px-4 pt-3 pb-4 sm:px-5">
-							<label for="d-tipo" class="mb-2 block text-[1.125rem] font-semibold">¿Qué te pasó?</label>
-							<div class="relative max-w-[26rem]">
-								<select id="d-tipo" name="tipo" aria-describedby="err-tipo" class={`${inputBase} appearance-none pr-10`} required>
-									<option value="">Elegí una opción</option>
-									{tipos.map((t) => <option value={t.slug}>{t.grupo} · {t.tipo}</option>)}
-								</select>
-								<svg class="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+			<section class="den-hoja" aria-labelledby="den-titulo">
+				<form id="denuncia-form" data-denuncia novalidate>
+					<!-- 01 · Tipo: categorías en pestañas, una sola visible a la vez -->
+					<div class="den-sec" data-sec="1">
+						<span class="den-no field-no" aria-hidden="true"></span>
+						<fieldset class="den-cuerpo" data-grupo="tipo" aria-describedby="err-tipo">
+							<legend class="den-t">¿Qué ocurrió?</legend>
+							<div class="den-cats" role="tablist" aria-label="Categoría">
+								{categorias.map((c, i) => (
+									<button type="button" role="tab" id={`cat-${c.id}`} aria-controls={`panel-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-cat={c.id} class="den-cat ix-control">{c.grupo}</button>
+								))}
 							</div>
-							<p id="err-tipo" class={err} data-error="tipo">Elegí qué te pasó.</p>
-						</div>
+							{grupos.map((g, i) => (
+								<div role="tabpanel" id={`panel-${g.id}`} aria-labelledby={`cat-${g.id}`} data-panel={g.id} hidden={i !== 0} class="den-panel">
+									<div class="den-tiles">
+										{g.items.map((t) => (
+											<label class="den-tile">
+												<input type="radio" name="tipo" value={t.slug} data-label={t.tipo} data-cat-de={g.id} class="peer sr-only" />
+												<span class="den-radio" aria-hidden="true"><span class="den-punto"></span></span>
+												<Icon name={iconos[t.tipo]} class="den-icono size-6" strokeWidth={1.6} />
+												<span class="den-tile-t">{t.tipo}</span>
+											</label>
+										))}
+									</div>
+								</div>
+							))}
+							<div role="tabpanel" id="panel-otro" aria-labelledby="cat-otro" data-panel="otro" hidden class="den-panel">
+								<label for="d-otro" class={label}>Describí qué ocurrió</label>
+								<input id="d-otro" name="otro" autocomplete="off" aria-describedby="err-otro" class={`${inputBase} max-w-[34rem]`} placeholder="Ej.: Daños por granizo en el techo" />
+								<p id="err-otro" class={err} data-error="otro">Contanos qué ocurrió.</p>
+							</div>
+							<p id="err-tipo" class={err} data-error="tipo">Elegí qué ocurrió.</p>
+						</fieldset>
 					</div>
 
-					<div class={row}>
-						<span class="field-no border-r border-rule pt-3.5 text-center text-claim" aria-hidden="true">02</span>
-						<div class="px-4 pt-3 pb-4 sm:px-5">
-							<p class="mb-2 text-[1.125rem] font-semibold">El hecho</p>
+					<!-- 02 · El hecho -->
+					<div class="den-sec" data-sec="2">
+						<span class="den-no field-no" aria-hidden="true"></span>
+						<div class="den-cuerpo">
+							<p class="den-t">El hecho</p>
 							<div class="grid gap-3 sm:grid-cols-2">
 								<div>
 									<label for="d-fecha" class={label}>Fecha</label>
 									<input id="d-fecha" name="fecha" type="date" aria-describedby="err-fecha" class={inputBase} required />
-									<p id="err-fecha" class={err} data-error="fecha">Indicá cuándo fue.</p>
+									<p id="err-fecha" class={err} data-error="fecha">Indicá la fecha.</p>
 								</div>
 								<div>
 									<label for="d-lugar" class={label}>Lugar</label>
 									<input id="d-lugar" name="lugar" autocomplete="off" aria-describedby="err-lugar" class={inputBase} placeholder="Ej.: Av. Colón y Güemes" required />
-									<p id="err-lugar" class={err} data-error="lugar">Indicá dónde pasó.</p>
+									<p id="err-lugar" class={err} data-error="lugar">Indicá dónde ocurrió.</p>
 								</div>
 							</div>
 							<div class="mt-3">
-								<label for="d-relato" class={label}>Contanos qué pasó <span class="text-ink-2">Opcional</span></label>
+								<label for="d-relato" class={label}>Descripción del hecho <span class="text-ink-2">Opcional</span></label>
 								<textarea id="d-relato" name="relato" rows="3" class={`${inputBase} resize-y`}></textarea>
 							</div>
 						</div>
 					</div>
 
-					<div class={row}>
-						<span class="field-no border-r border-rule pt-3.5 text-center text-claim" aria-hidden="true">03</span>
-						<div class="px-4 pt-3 pb-4 sm:px-5">
-							<p class="mb-2 text-[1.125rem] font-semibold">Cómo te encontramos</p>
+					<!-- 03 · Contacto -->
+					<div class="den-sec" data-sec="3">
+						<span class="den-no field-no" aria-hidden="true"></span>
+						<div class="den-cuerpo">
+							<p class="den-t">Datos de contacto</p>
 							<div class="grid gap-3 sm:grid-cols-2">
 								<div>
 									<label for="d-nombre" class={label}>Nombre y apellido</label>
 									<input id="d-nombre" name="nombre" autocomplete="name" aria-describedby="err-nombre" class={inputBase} required />
-									<p id="err-nombre" class={err} data-error="nombre">Escribí tu nombre.</p>
+									<p id="err-nombre" class={err} data-error="nombre">Escribí tu nombre y apellido.</p>
 								</div>
 								<div>
 									<label for="d-telefono" class={label}>Teléfono</label>
@@ -88,30 +128,40 @@ const err = 'mt-1.5 hidden text-[1rem] font-medium text-claim';
 						</div>
 					</div>
 
-					<div class="px-4 py-4 sm:px-5">
-						<button type="submit" class="ix-accion ix-claim flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[1.25rem] font-semibold sm:w-fit sm:min-w-[22rem]">
-							Enviar la denuncia
-							<Icon name="arrowRight" class="ix-flecha size-6 shrink-0" strokeWidth={2} />
-						</button>
+					<!-- Cierre del recorrido: estado en vivo y envío -->
+					<div class="den-fin" data-fin>
+						<span class="den-no den-no-fin field-no" aria-hidden="true"></span>
+						<div class="den-acciones" data-acciones>
+							<ul class="den-meter" aria-hidden="true" data-meter><li></li><li></li><li></li></ul>
+							<p class="den-falta" id="den-falta" data-falta></p>
+							<p class="sr-only" role="status" aria-live="polite" data-anuncio></p>
+							<button type="submit" form="denuncia-form" class="enviar ix-accion ix-claim flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[1.25rem] font-semibold sm:px-6 sm:text-[1.375rem]" data-enviar disabled aria-describedby="den-falta">
+								<span data-enviar-label>Enviar denuncia</span>
+								<Icon name="arrowRight" class="ix-flecha size-6 shrink-0" strokeWidth={2} />
+							</button>
+						</div>
 					</div>
 				</form>
 
-				<div data-enviado hidden tabindex="-1" role="status" class="px-5 py-7 sm:px-6">
-					<h2 class="text-[1.875rem] font-bold">Listo, recibimos tu denuncia.</h2>
-					<p class="mt-3 max-w-[48ch] text-[1.125rem] text-ink-2">Una persona de Siniestros te llama de lunes a viernes, de 9 a 15 hs.</p>
-					<div class="mt-6 flex flex-col gap-3 sm:flex-row">
-						<a href={whatsappLink('Hola, tuve un siniestro y necesito ayuda con la denuncia.')} class="ix-accion ix-seal inline-flex items-center justify-center gap-2.5 px-5 py-3.5 font-semibold no-underline">
-							<Icon name="whatsapp" class="size-5" />Seguir por WhatsApp
-						</a>
-						<a href="/" class="ix-accion ix-wash inline-flex items-center justify-center border-2 border-ink px-5 py-3 font-semibold no-underline">Volver al inicio</a>
+				<!-- Confirmación: el formulario queda a la vista (solo lectura) y el recorrido cierra con este nodo -->
+				<div class="den-fin den-ok" data-enviado hidden tabindex="-1" role="status">
+					<span class="den-no den-no-ok" aria-hidden="true"><Icon name="check" class="size-4" strokeWidth={3} /></span>
+					<div class="den-acciones">
+						<h2 class="den-ok-t" data-enviado-titulo>Recibimos tu denuncia.</h2>
+						<p class="mt-2 max-w-[48ch] text-[1.125rem] text-ink-2">Una persona del área se comunicará con vos al número que ingresaste para continuar con la gestión.</p>
+						<div class="mt-5 flex flex-col gap-3 sm:flex-row">
+							<a href={waSiniestros(mensajeWa)} class="ix-accion ix-seal inline-flex items-center justify-center gap-2.5 px-5 py-3.5 font-semibold no-underline">
+								<Icon name="whatsapp" class="size-5" />Seguir por WhatsApp
+							</a>
+							<a href="/" class="ix-accion ix-wash inline-flex items-center justify-center border-2 border-ink px-5 py-3 font-semibold no-underline">Volver al inicio</a>
+						</div>
 					</div>
-					<p class="mt-6 border-t border-rule-soft pt-4 font-mono text-[0.875rem] text-ink-2">Versión demo: este formulario todavía no envía datos.</p>
 				</div>
-			</div>
+			</section>
 
-			<p class="mt-6 text-[1rem] text-ink-2">
-				¿Preferís hablar? Llamá a Siniestros al <a href="tel:+542236247475" class="ix-sub font-semibold">223 624-7475</a> o escribinos por
-				<a href={whatsappLink('Hola, tuve un siniestro y necesito ayuda con la denuncia.')} class="ix-sub font-semibold text-seal">WhatsApp {contacto.whatsapp}</a>.
+			<p class="den-pie text-[1rem] text-ink-2">
+				¿Preferís hablar?{' '}
+				<a href={waSiniestros('Hola, quiero hacer una denuncia.')} class="ix-sub font-semibold text-seal">WhatsApp {telSiniestros}</a>
 			</p>
 		</div>
 	</main>
@@ -119,43 +169,250 @@ const err = 'mt-1.5 hidden text-[1rem] font-medium text-claim';
 	<MobileBar soloWhatsapp />
 </Layout>
 
+<style>
+	/* ——— Recorrido: riel vertical con nodos cuadrados ——— */
+	.den { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+	.den-hoja { position: relative; min-width: 0; max-width: 48rem; }
+	.den-pie { max-width: 60ch; }
+	#denuncia-form { counter-reset: sec; }
+
+	.den-sec,
+	.den-fin { position: relative; display: grid; grid-template-columns: 3rem minmax(0, 1fr); }
+	.den-sec { counter-increment: sec; }
+	.den-no { position: relative; z-index: 1; align-self: start; display: grid; place-items: center; width: 2rem; height: 2rem; margin-top: 0.75rem; padding: 0; border: 2px solid var(--color-claim-deep); background: var(--color-paper); color: var(--color-claim-deep); transition: background-color 0.3s var(--ease-out-expo), color 0.3s var(--ease-out-expo); }
+	.den-sec .den-no::before { content: counter(sec, decimal-leading-zero); }
+	.den-no-fin::before { content: ''; width: 0.75rem; height: 0.75rem; background: var(--color-claim-deep); }
+	.den-sec::before { content: ''; position: absolute; left: calc(1rem - 1px); top: 2.75rem; bottom: -0.75rem; width: 2px; background: var(--color-rule-soft); }
+	.den-sec::after { content: ''; position: absolute; left: calc(1rem - 1px); top: 2.75rem; bottom: -0.75rem; width: 2px; background: var(--color-claim-deep); transform: scaleY(0); transform-origin: top; transition: transform 0.5s var(--ease-out-expo); }
+	.den-sec[data-hecha]::after { transform: scaleY(1); }
+	.den-sec[data-hecha] .den-no { background: var(--color-claim-deep); color: var(--color-paper); }
+
+	.den-cuerpo { min-width: 0; margin: 0; padding: 0.5rem 0 2rem 0.5rem; border: 0; }
+	.den-t { float: left; width: 100%; margin-bottom: 0.875rem; font-size: 1.5rem; font-weight: 700; font-stretch: 90%; }
+	.den-cuerpo > :not(.den-t, legend) { clear: both; }
+
+	/* Categorías: pestañas en una fila (2 × 2 en celulares); solo se ve el panel elegido */
+	.den-cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 2px solid var(--color-claim-deep); }
+	@media (min-width: 640px) { .den-cats { grid-template-columns: repeat(4, auto); } }
+	.den-cat { min-height: 3rem; padding: 0.5rem 0.875rem; font-size: 1.0625rem; font-weight: 600; line-height: 1.15; color: var(--color-claim-deep); background: transparent; text-align: center; }
+	.den-cat + .den-cat { border-left: 1px solid var(--color-claim-deep); }
+	.den-cat:nth-child(n + 3) { border-top: 1px solid var(--color-claim-deep); }
+	.den-cat:nth-child(odd):nth-child(n + 2) { border-left: 0; }
+	@media (min-width: 640px) {
+		.den-cat:nth-child(n + 3) { border-top: 0; }
+		.den-cat:nth-child(odd):nth-child(n + 2) { border-left: 1px solid var(--color-claim-deep); }
+	}
+	.den-cat:hover { background: var(--color-claim-soft); }
+	.den-cat[aria-selected='true'] { background: var(--color-claim-deep); color: var(--color-paper); }
+	.den-cat:focus-visible { outline: 3px solid var(--color-teal); outline-offset: 2px; position: relative; }
+	.den-panel { margin-top: 0.75rem; }
+	.den-panel:not([hidden]) { animation: den-panel 0.35s var(--ease-out-expo) both; }
+	@keyframes den-panel { from { opacity: 0; transform: translateY(0.375rem); } to { opacity: 1; transform: translateY(0); } }
+
+	.den-tiles { display: grid; gap: 0.5rem; grid-template-columns: minmax(0, 1fr); }
+	@media (min-width: 640px) { .den-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+	.den-tile { position: relative; display: flex; align-items: center; gap: 0.625rem; min-height: 3.25rem; padding: 0.5rem 0.75rem; cursor: pointer; border: 1.5px solid var(--color-rule-soft); background: var(--color-sheet); transition: border-color var(--ix-color) var(--ease-out-expo), background-color var(--ix-color) var(--ease-out-expo); }
+	.den-tile:hover { border-color: var(--color-claim-deep); }
+	.den-tile:has(input:checked) { border-color: var(--color-claim-deep); background: var(--color-claim-soft); }
+	.den-tile:has(input:focus-visible) { outline: 3px solid var(--color-teal); outline-offset: 2px; }
+	.den-radio { display: grid; place-items: center; width: 1.375rem; height: 1.375rem; flex: none; border: 2px solid var(--color-claim-deep); border-radius: 50%; background: var(--color-sheet); }
+	.den-punto { width: 0.625rem; height: 0.625rem; border-radius: 50%; background: var(--color-claim-deep); transform: scale(0); transition: transform 0.2s var(--ease-out-expo); }
+	.den-tile:has(input:checked) .den-punto { transform: scale(1); }
+	:global(.den-icono) { order: 3; margin-left: auto; flex: none; color: var(--color-claim); }
+	.den-tile-t { font-size: 1.0625rem; font-weight: 500; line-height: 1.2; }
+	[data-grupo][aria-invalid='true'] .den-tile,
+	[data-grupo][aria-invalid='true'] .den-cats { border-color: var(--color-claim); }
+
+	/* Estado en vivo del envío: medidor de tres tramos y qué falta */
+	.den-acciones { display: block; padding: 0.25rem 0 1rem 0.5rem; }
+	.den-meter { display: flex; gap: 0.375rem; margin: 0 0 0.625rem; padding: 0; list-style: none; }
+	.den-meter li { flex: 1; height: 6px; background: var(--color-rule-soft); transition: background-color 0.3s var(--ease-out-expo); }
+	.den-meter li[data-on] { background: var(--color-claim-deep); }
+	.den-falta { margin-bottom: 0.875rem; font-size: 1rem; font-weight: 600; color: var(--color-claim-deep); text-wrap: pretty; }
+	.den[data-completa] .den-falta { color: var(--color-seal); }
+	[data-enviar] { width: 100%; border: 1.5px solid transparent; }
+	@media (min-width: 640px) { [data-enviar] { width: auto; min-width: 20rem; } }
+	[data-enviar][disabled] { background-color: transparent; color: var(--color-ink-2); border-color: var(--color-rule); border-style: dashed; cursor: not-allowed; transform: none; }
+	[data-enviar][disabled] :global(.ix-flecha) { opacity: 0.4; transform: none; }
+	[data-enviar][aria-busy='true'] { cursor: progress; }
+	[data-enviar].listo :global(.ix-flecha) { animation: den-aviso 0.9s var(--ease-out-expo) 1; }
+	@keyframes den-aviso { 0%, 100% { transform: translateX(0); } 30% { transform: translateX(8px); } 60% { transform: translateX(2px); } }
+
+	/* Confirmación: el formulario no desaparece; queda en solo lectura y el recorrido cierra con un nodo lleno */
+	.den[data-enviada] .den-cuerpo { opacity: 0.72; }
+	.den[data-enviada] [data-fin] { display: none; }
+	.den-ok { padding-top: 0.25rem; animation: den-ok 0.5s var(--ease-out-expo) both; }
+	.den-ok[hidden] { display: none; }
+	.den-ok:focus { outline: none; }
+	.den-no-ok { background: var(--color-claim-deep); color: var(--color-paper); animation: den-check 0.5s var(--ease-out-expo) 0.15s both; }
+	.den-no-ok::before { content: none; }
+	.den-ok-t { font-size: 1.75rem; font-weight: 700; font-stretch: 90%; }
+	.den-ok::before { display: none; }
+	@keyframes den-ok { from { opacity: 0; transform: translateY(0.75rem); } to { opacity: 1; transform: translateY(0); } }
+	@keyframes den-check { from { transform: scale(0.4); } to { transform: scale(1); } }
+	.den[data-enviada] .den-sec::after { transform: scaleY(1); }
+	input:disabled, textarea:disabled { background: var(--color-wash); color: var(--color-ink-2); cursor: default; }
+	.den-tile:has(input:disabled), .den-cat:disabled { cursor: default; }
+
+	@media (prefers-reduced-motion: reduce) {
+		.den-punto, .den-sec::after, .den-no { transition: none; }
+		.den-panel:not([hidden]), .den-ok, .den-no-ok, [data-enviar].listo :global(.ix-flecha) { animation: none; }
+		.den-meter li { transition: none; }
+	}
+</style>
+
 <script>
+	const den = document.querySelector<HTMLElement>('[data-den]')!;
 	const form = document.querySelector<HTMLFormElement>('[data-denuncia]')!;
 	const enviado = document.querySelector<HTMLElement>('[data-enviado]')!;
+	const enviar = document.querySelector<HTMLButtonElement>('[data-enviar]')!;
+	const falta = document.querySelector<HTMLElement>('[data-falta]')!;
+	const anuncio = document.querySelector<HTMLElement>('[data-anuncio]')!;
+	const meter = [...document.querySelectorAll<HTMLElement>('[data-meter] li')];
+	const enviarLabel = document.querySelector<HTMLElement>('[data-enviar-label]')!;
 	const campo = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
+	const val = (n: string) => {
+		const f = form.elements.namedItem(n);
+		if (f instanceof RadioNodeList) return f.value;
+		return (f as HTMLInputElement).value.trim();
+	};
+	const tabs = [...form.querySelectorAll<HTMLButtonElement>('[data-cat]')];
+	const paneles = [...form.querySelectorAll<HTMLElement>('[data-panel]')];
+	let cat = tabs[0].dataset.cat!;
+
+	// «tipo» es la opción elegida; «otro», la descripción cuando la categoría es Otro
 	const valido: Record<string, (v: string) => boolean> = {
 		tipo: (v) => v !== '',
+		otro: (v) => v.trim().length > 2,
 		fecha: (v) => v !== '',
 		lugar: (v) => v.trim().length > 2,
 		nombre: (v) => v.trim().length > 2,
 		telefono: (v) => v.replace(/\D/g, '').length >= 10,
 	};
-	const mostrar = (n: string, malo: boolean) => {
-		campo(n).setAttribute('aria-invalid', String(malo));
-		form.querySelector<HTMLElement>(`[data-error="${n}"]`)!.classList.toggle('hidden', !malo);
-	};
+	const claves = () => [cat === 'otro' ? 'otro' : 'tipo', 'fecha', 'lugar', 'nombre', 'telefono'];
 
-	// El tipo llega por la URL desde los mosaicos de la home
-	const tipo = new URLSearchParams(location.search).get('tipo');
-	if (tipo && [...campo('tipo').querySelectorAll('option')].some((o) => (o as HTMLOptionElement).value === tipo)) campo('tipo').value = tipo;
-	const hoy = new Date().toISOString().slice(0, 10);
-	campo('fecha').max = hoy;
+	function mostrar(n: string, malo: boolean) {
+		form.querySelector(`[data-error="${n}"]`)?.classList.toggle('hidden', !malo);
+		if (n === 'tipo' || n === 'otro') form.querySelector('[data-grupo="tipo"]')?.setAttribute('aria-invalid', String(malo));
+		const f = form.elements.namedItem(n);
+		if (f instanceof HTMLInputElement) f.setAttribute('aria-invalid', String(malo));
+	}
+
+	const nombresFalta: Record<string, string> = {
+		tipo: 'qué ocurrió',
+		otro: 'qué ocurrió',
+		fecha: 'la fecha',
+		lugar: 'el lugar',
+		nombre: 'tu nombre y apellido',
+		telefono: 'un teléfono con característica',
+	};
+	let completoAntes = false;
+	function actualizar() {
+		const secs = [[cat === 'otro' ? 'otro' : 'tipo'], ['fecha', 'lugar'], ['nombre', 'telefono']];
+		const hechas = secs.map((ks) => ks.every((k) => valido[k](val(k))));
+		secs.forEach((_, i) => form.querySelector(`[data-sec="${i + 1}"]`)!.toggleAttribute('data-hecha', hechas[i]));
+		meter.forEach((li, i) => li.toggleAttribute('data-on', hechas[i]));
+		const completo = hechas.every(Boolean);
+		const faltantes = claves().filter((k) => !valido[k](val(k))).map((k) => nombresFalta[k]);
+		falta.textContent = completo ? 'Todo completo: ya podés enviarla.' : `Falta: ${faltantes.join(', ')}.`;
+		den.toggleAttribute('data-completa', completo);
+		enviar.disabled = !completo || enviando;
+		enviar.classList.toggle('listo', completo);
+		if (completo !== completoAntes) {
+			anuncio.textContent = completo ? 'Denuncia completa. Ya podés enviarla.' : '';
+			completoAntes = completo;
+		}
+	}
+	let enviando = false;
+
+	function elegirCategoria(id: string, enfocar = false) {
+		cat = id;
+		tabs.forEach((t) => {
+			const on = t.dataset.cat === id;
+			t.setAttribute('aria-selected', String(on));
+			t.tabIndex = on ? 0 : -1;
+			if (on && enfocar) t.focus();
+		});
+		paneles.forEach((p) => (p.hidden = p.dataset.panel !== id));
+		// Cambiar de categoría descarta la opción anterior: una sola respuesta vale
+		const marcado = form.querySelector<HTMLInputElement>('input[name="tipo"]:checked');
+		if (marcado && marcado.dataset.catDe !== id) marcado.checked = false;
+		mostrar('tipo', false);
+		mostrar('otro', false);
+		actualizar();
+	}
+	tabs.forEach((t, i) => {
+		t.addEventListener('click', () => elegirCategoria(t.dataset.cat!));
+		t.addEventListener('keydown', (e) => {
+			const paso = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+			if (!paso) return;
+			e.preventDefault();
+			elegirCategoria(tabs[(i + paso + tabs.length) % tabs.length].dataset.cat!, true);
+		});
+	});
+
+	// El tipo llega por la URL desde los mosaicos de la home: abre su categoría
+	const tipoUrl = new URLSearchParams(location.search).get('tipo');
+	const radioUrl = tipoUrl ? form.querySelector<HTMLInputElement>(`input[name="tipo"][value="${tipoUrl}"]`) : null;
+	if (radioUrl) {
+		radioUrl.checked = true;
+		elegirCategoria(radioUrl.dataset.catDe!);
+	}
+	campo('fecha').max = new Date().toISOString().slice(0, 10);
+	actualizar();
 
 	form.addEventListener('input', (e) => {
 		const t = e.target as HTMLInputElement;
 		if (t.getAttribute('aria-invalid') === 'true' && valido[t.name]) mostrar(t.name, !valido[t.name](t.value));
+		actualizar();
 	});
+	form.addEventListener('change', (e) => {
+		const t = e.target as HTMLInputElement;
+		if (valido[t.name]) mostrar(t.name, !valido[t.name](val(t.name)));
+		actualizar();
+	});
+	form.addEventListener('focusout', (e) => {
+		const t = e.target as HTMLInputElement;
+		if (!t.required && t.name !== 'otro') return;
+		if (valido[t.name]) mostrar(t.name, !valido[t.name](t.value));
+	});
+
+	// Con el botón deshabilitado Enter no envía: se marca qué falta; con todo completo, envía
+	form.addEventListener('keydown', (e) => {
+		const t = e.target as HTMLElement;
+		if (e.key !== 'Enter' || t.tagName === 'TEXTAREA' || t.tagName === 'BUTTON' || (t as HTMLInputElement).type === 'radio') return;
+		e.preventDefault();
+		if (enviar.disabled) marcarFaltantes();
+		else form.requestSubmit(enviar);
+	});
+
+	function marcarFaltantes() {
+		let primero: HTMLElement | null = null;
+		for (const n of claves()) {
+			const malo = !valido[n](val(n));
+			mostrar(n, malo);
+			if (malo && !primero) primero = n === 'tipo' ? tabs.find((t) => t.dataset.cat === cat)! : campo(n);
+		}
+		primero?.focus();
+		return !!primero;
+	}
+
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
-		let primero: HTMLInputElement | null = null;
-		for (const n of Object.keys(valido)) {
-			const malo = !valido[n](campo(n).value);
-			mostrar(n, malo);
-			if (malo && !primero) primero = campo(n);
-		}
-		if (primero) return primero.focus();
-		form.hidden = true;
-		enviado.hidden = false;
-		enviado.focus();
+		if (marcarFaltantes() || enviando) return;
+		enviando = true;
+		enviar.disabled = true;
+		enviar.setAttribute('aria-busy', 'true');
+		enviarLabel.textContent = 'Enviando…';
+		// Los datos quedan a la vista y bloqueados mientras se confirma
+		form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLButtonElement>('input, textarea, [data-cat]').forEach((c) => (c.disabled = true));
+		setTimeout(() => {
+			enviado.querySelector('[data-enviado-titulo]')!.textContent = `Recibimos tu denuncia, ${val('nombre').split(' ')[0]}.`;
+			den.setAttribute('data-enviada', '');
+			enviado.hidden = false;
+			anuncio.textContent = 'Denuncia recibida.';
+			enviado.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+			enviado.focus({ preventScroll: true });
+		}, 700);
 	});
 </script>

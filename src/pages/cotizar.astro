@@ -341,8 +341,9 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 		background: var(--color-paper);
 		border: 2px solid var(--color-ink);
 	}
-	.car-corte::before { left: -11px; clip-path: inset(0 0 0 50%); }
-	.car-corte::after { right: -11px; clip-path: inset(0 50% 0 0); }
+	/* El recorte pasa 1px del centro hacia afuera: con la tarjeta en medio píxel, el borde antialiaseado asomaba dentro de la muesca */
+	.car-corte::before { left: -11px; clip-path: inset(0 0 0 calc(50% - 1px)); }
+	.car-corte::after { right: -11px; clip-path: inset(0 calc(50% - 1px) 0 0); }
 	.car-fecha { color: var(--color-ink-2); }
 	.car-lista { padding: 0.25rem 1.25rem 0; }
 	.car-fila { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); align-items: baseline; gap: 0 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--color-rule-soft); }
