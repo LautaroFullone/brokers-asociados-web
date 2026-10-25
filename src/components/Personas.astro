@@ -19,17 +19,12 @@ const oficina = equipo.map((p) => persona(p.nombre, p.area));
 const enOficina = new Set(oficina.map((p) => p.nombre));
 const productoresAsesores = productores.filter((n) => !enOficina.has(n)).map((n) => persona(n, 'Productor asesor'));
 
-// Dos filas parejas con la oficina repartida entre ambas
-const corte = Math.floor(productoresAsesores.length / 2);
-const filaDe = (oficinaIdx: number[], resto: typeof productoresAsesores) => {
-	const fila = [...resto];
-	fila.splice(0, 0, oficina[oficinaIdx[0]]);
-	fila.splice(5, 0, oficina[oficinaIdx[1]]);
-	return fila;
-};
+// Solo se muestran las personas con foto; quien no tiene retrato queda fuera hasta que el cliente lo envíe.
+// Dos filas parejas, alternadas, con la oficina al frente de cada una
+const conFoto = [...oficina, ...productoresAsesores].filter((p): p is typeof p & { foto: ImageMetadata } => !!p.foto);
 const filas = [
-	{ id: 1, personas: filaDe([0, 2], productoresAsesores.slice(0, corte)) },
-	{ id: 2, personas: filaDe([1, 3], productoresAsesores.slice(corte)) },
+	{ id: 1, personas: conFoto.filter((_, i) => i % 2 === 0) },
+	{ id: 2, personas: conFoto.filter((_, i) => i % 2 === 1) },
 ];
 // La segunda vuelta alimenta el bucle: sin lectores de pantalla ni foco
 const vueltas = [false, true];
@@ -83,7 +78,6 @@ const vueltas = [false, true];
 	}
 	#personas .marco img { display: block; width: 100%; height: 100%; object-fit: cover; }
 	#personas .foto-color { position: absolute; inset: 0; display: none; }
-	#personas .silueta { display: block; width: 100%; height: 100%; color: var(--color-rule); }
 
 	/* Con mouse la foto pasa a color y se acerca al hover y al foco; con táctil la capa color no existe (ni se descarga) hasta el primer toque */
 	@media (hover: hover) {

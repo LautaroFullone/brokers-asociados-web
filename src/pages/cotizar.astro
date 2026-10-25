@@ -54,7 +54,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 	<main id="contenido" class="relative overflow-hidden pt-[4.5rem]">
 		<div class="cot mx-auto grid max-w-[84rem] grid-cols-1 gap-x-14 gap-y-10 px-4 pt-8 pb-16 sm:px-8 lg:grid-cols-[minmax(0,1fr)_29.5rem] lg:px-12 lg:pt-10 lg:pb-24" data-cot>
 			<header class="cot-intro">
-				<a href="/" class="ix-sub inline-flex items-center gap-2 text-[1rem] font-medium">
+				<a href="/" class="ix-sub tap inline-flex items-center gap-2 text-[1rem] font-medium">
 					<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
 					Volver al inicio
 				</a>
@@ -180,7 +180,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 								<legend class={legend}>Tus datos</legend>
 								<div class="clear-both flex items-center justify-between gap-4 bg-wash px-3.5 py-3 text-[1.125rem]" data-contacto-conocido hidden>
 									<span><strong class="font-semibold" data-conocido-nombre></strong> · <span data-conocido-tel></span></span>
-									<button type="button" class="ix-sub font-medium" data-contacto-editar>Cambiar</button>
+									<button type="button" class="ix-sub tap font-medium" data-contacto-editar>Cambiar</button>
 								</div>
 								<div class="clear-both grid grid-cols-1 gap-3 sm:grid-cols-2" data-contacto-campos>
 									<div>
@@ -319,11 +319,13 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 
 	/* ——— Carátula: estructura común ——— */
 	.car {
-		--estado: var(--color-claim);
+		--estado: var(--color-ink-2);
 		position: relative;
 		border: 2px solid var(--color-ink);
 		background: var(--color-sheet);
 	}
+	/* Sin empezar en gris de tinta: el bordó queda para siniestros y para errores reales */
+	.car[data-estado='vacio'] .car-sello { opacity: 0.55; }
 	.car[data-estado='incompleto'] { --estado: var(--color-warn); }
 	.car[data-estado='listo'] { --estado: var(--color-seal); }
 	.car-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; padding: 1.125rem 1.25rem 1rem; }
@@ -381,7 +383,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 		60% { transform: translateX(2px); }
 	}
 
-	/* ═══ Recibo: comprobante de caja, campos como renglones ═══ */
+	/* ═══ Recibo: comprobante de caja (los campos usan la caja común del sitio) ═══ */
 	.car-fila { border-bottom: 1px dashed var(--color-rule); }
 	.car-dd { font-family: var(--font-mono); font-size: 1.0625rem; font-weight: 500; }
 	.car { border-bottom: 0; padding-bottom: 12px; }
@@ -394,9 +396,6 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 		border-bottom: 2px solid transparent;
 	}
 	.car-estado { border-top: 1px dashed var(--color-rule); margin-top: 0.5rem; }
-	.campo { border-width: 0 0 1.5px; border-color: var(--color-ink); background: transparent; padding-inline: 0; }
-	select.campo { padding-right: 2rem; }
-	.rotulo { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; }
 	.paso { border-bottom-style: dashed; }
 	.opcion { border-color: var(--color-rule); }
 
@@ -444,7 +443,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 	const cpValido = (v: string) => /^\d{4}$|^[A-Za-z]\d{4}[A-Za-z]{3}$/.test(v);
 	const campoOk = (k: string) => (k === 'cp' ? cpValido(val(k)) : k === 'telefono' ? telValido(val(k)) : !!val(k));
 
-	// Sello en tres estados: rojo sin empezar, naranja incompleto, verde listo
+	// Sello en tres estados: gris sin empezar, naranja incompleto, verde listo
 	const sellos: Record<string, string[]> = {
 		vacio: ['SIN', 'EMPEZAR'],
 		incompleto: ['SOLICITUD', 'INCOMPLETA'],

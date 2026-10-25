@@ -6,7 +6,7 @@ interface Props {
 	nombre: string;
 	rol: string;
 	href: string;
-	foto?: ImageMetadata;
+	foto: ImageMetadata;
 	fotoColor?: ImageMetadata;
 	/** Copia del bucle: su enlace sale del orden de tabulación. */
 	sinFoco?: boolean;
@@ -18,18 +18,9 @@ const widths = [320, 640];
 
 <li class="persona">
 	<div class="marco">
-		{foto ? (
-			<>
-				<Image src={foto} alt="" widths={widths} sizes={sizes} class="foto" loading="lazy" />
-				{fotoColor && (
-					<Image src={fotoColor} alt="" aria-hidden="true" widths={widths} sizes={sizes} class="foto-color" loading="lazy" decoding="async" />
-				)}
-			</>
-		) : (
-			<svg class="silueta" viewBox="0 0 120 160" fill="currentColor" aria-hidden="true" preserveAspectRatio="xMidYMax slice">
-				<circle cx="60" cy="62" r="23" />
-				<path d="M10 160c0-36 21-58 50-58s50 22 50 58z" />
-			</svg>
+		<Image src={foto} alt="" widths={widths} sizes={sizes} class="foto" loading="lazy" />
+		{fotoColor && (
+			<Image src={fotoColor} alt="" aria-hidden="true" widths={widths} sizes={sizes} class="foto-color" loading="lazy" decoding="async" />
 		)}
 	</div>
 	<div class="datos">

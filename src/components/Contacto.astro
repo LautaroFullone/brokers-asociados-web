@@ -26,8 +26,8 @@ const instagram = contacto.instagramUsuario.replace(/^@/, '');
 				<a href={contacto.mapa} target="_blank" rel="noopener" class="ix-accion ix-wash flex min-h-24 flex-col items-center justify-center gap-2 border-2 border-ink px-2 py-3 text-center text-[1.125rem] font-semibold no-underline"><Icon name="mapPin" class="size-6" />Cómo llegar</a>
 			</div>
 			<p class="mt-5 flex flex-col items-start gap-y-2 border-t border-rule pt-4 text-[1rem]">
-				<a href={`mailto:${info}`} class="inline-flex items-center gap-2 wrap-anywhere"><Icon name="mail" class="size-5 shrink-0" /><span class="ix-sub">{info}</span></a>
-				<a href={contacto.instagram} target="_blank" rel="noopener" class="inline-flex items-center gap-2"><Icon name="instagram" class="size-5 shrink-0" /><span class="ix-sub">{instagram}</span></a>
+				<a href={`mailto:${info}`} class="inline-flex min-h-11 items-center gap-2 wrap-anywhere"><Icon name="mail" class="size-5 shrink-0" /><span class="ix-sub">{info}</span></a>
+				<a href={contacto.instagram} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-2"><Icon name="instagram" class="size-5 shrink-0" /><span class="ix-sub">{instagram}</span></a>
 			</p>
 		</div>
 	</div>

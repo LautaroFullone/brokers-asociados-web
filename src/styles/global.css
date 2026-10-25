@@ -267,6 +267,10 @@
 		.ix-sub:hover { background-size: 0% var(--ix-grosor, 1px); background-position: 100% 100%; }
 	}
 
+	/* Área táctil de 44px+ para enlaces de una línea sin agrandar la caja (el subrayado queda pegado al texto) */
+	.tap { position: relative; }
+	.tap::before { content: ''; position: absolute; inset: -0.75rem -0.25rem; }
+
 	/* 4 · Control: pieza chica y repetida (pestaña, ícono redondo, pausa). Cambia de color, no se mueve; solo la pulsación */
 	.ix-control {
 		transition:
