@@ -24,11 +24,16 @@ const { cotizarHref = '/cotizar', cotizarLabel = 'Cotizá tu seguro', soloWhatsa
 </nav>
 
 <script>
-	// Con hero en la página, la barra aparece recién al pasarlo: el hero ya tiene los mismos botones.
+	// La barra aparece al pasar el hero (que ya tiene los mismos botones) y se va cuando aparecen los botones del pie.
 	const hero = document.querySelector('[data-hero]');
+	const pie = document.querySelector('[data-pie-ctas]');
 	const barra = document.querySelector<HTMLElement>('[data-barra]');
-	if (hero && barra) {
-		barra.dataset.oculta = '';
-		new IntersectionObserver(([e]) => barra.toggleAttribute('data-oculta', e.isIntersecting), { threshold: 0.15 }).observe(hero);
+	if (barra && (hero || pie)) {
+		let sobreHero = !!hero;
+		let sobrePie = false;
+		const actualizar = () => barra.toggleAttribute('data-oculta', sobreHero || sobrePie);
+		if (hero) new IntersectionObserver(([e]) => ((sobreHero = e.isIntersecting), actualizar()), { threshold: 0.15 }).observe(hero);
+		if (pie) new IntersectionObserver(([e]) => ((sobrePie = e.isIntersecting), actualizar()), { threshold: 0 }).observe(pie);
+		actualizar();
 	}
 </script>

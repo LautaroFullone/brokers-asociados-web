@@ -5,8 +5,9 @@ import { whatsappLink } from '../data/brokers';
 interface Props {
 	/** claro: tinta sobre papel. oscuro: celeste sobre campo oscuro (como en el hero). */
 	tono?: 'claro' | 'oscuro';
+	showWhatsapp?: boolean;
 }
-const { tono = 'claro' } = Astro.props;
+const { tono = 'claro', showWhatsapp = false } = Astro.props;
 ---
 
 <div class="flex items-center gap-3">
@@ -18,11 +19,13 @@ const { tono = 'claro' } = Astro.props;
 		<Icon name="arrowRight" class="ix-flecha size-6" strokeWidth={2} />
 	</a>
 	<!-- Botón de solo ícono: puede ser circular (excepción de DESIGN.md) -->
-	<a
-		href={whatsappLink('Hola, quiero hacer una consulta.')}
-		aria-label="Escribinos por WhatsApp"
-		class:list={['ix-accion', tono === 'claro' ? 'ix-ink' : 'ix-celeste', 'grid size-14 shrink-0 place-items-center rounded-full no-underline']}
-	>
-		<Icon name="whatsapp" class="size-6" />
-	</a>
+	 {showWhatsapp && (
+		<a
+			href={whatsappLink('Hola, quiero hacer una consulta.')}
+			aria-label="Escribinos por WhatsApp"
+			class:list={['ix-accion', tono === 'claro' ? 'ix-ink' : 'ix-celeste', 'grid size-14 shrink-0 place-items-center rounded-full no-underline']}
+		>
+			<Icon name="whatsapp" class="size-6" />
+		</a>
+	)}
 </div>

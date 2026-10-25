@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
 import Icon from '../components/Icon.astro';
 import Stamp from '../components/Stamp.astro';
-import tira from '../assets/img/guilloche-tira.svg?url';
 import {
 	ramas,
 	productores,
@@ -18,18 +17,19 @@ import {
 } from '../data/brokers';
 
 const inputBase =
-	'block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
+	'campo block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
 const tile =
-	'group relative flex min-h-12 cursor-pointer items-center gap-3 border-[1.5px] border-rule-soft bg-sheet px-3 py-2 transition-colors duration-200 hover:border-ink has-checked:border-ink has-checked:bg-wash has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-teal';
-const box =
-	'grid size-6 shrink-0 place-items-center border-2 border-ink bg-sheet text-paper transition-colors duration-200 peer-checked:bg-ink';
-const check =
-	'size-4 scale-50 opacity-0 transition-[opacity,scale] duration-200 ease-out-expo group-has-checked:scale-100 group-has-checked:opacity-100';
-const row = 'grid grid-cols-[2.75rem_minmax(0,1fr)] border-b border-rule sm:grid-cols-[3.25rem_minmax(0,1fr)]';
-const no = 'field-no border-r border-rule pt-3.5 text-center text-ink-2';
-const legend = 'float-left mb-2 w-full text-[1.125rem] font-semibold';
+	'opcion group relative flex min-h-12 cursor-pointer items-center gap-3 border-[1.5px] border-rule-soft bg-sheet px-3 py-2 transition-colors duration-200 hover:border-ink has-checked:border-ink has-checked:bg-wash has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-teal';
+// Opción única: indicador redondo con punto (un radio nativo del mundo), no una casilla cuadrada de selección múltiple
+const radio =
+	'grid size-[1.375rem] shrink-0 place-items-center rounded-full border-2 border-ink bg-sheet';
+const punto =
+	'size-2.5 scale-0 rounded-full bg-ink transition-transform duration-200 ease-out-expo group-has-checked:scale-100';
+const row = 'paso grid grid-cols-[2.75rem_minmax(0,1fr)] border-b border-rule sm:grid-cols-[3.25rem_minmax(0,1fr)]';
+const no = 'no field-no border-r border-rule pt-3.5 text-center text-ink-2';
+const legend = 'leyenda float-left mb-2 w-full text-[1.125rem] font-semibold';
 const err = 'mt-1.5 hidden text-[1rem] font-medium text-claim';
-const label = 'mb-1 block text-[1rem] text-ink-2';
+const label = 'rotulo mb-1 block text-[1rem] text-ink-2';
 
 const anioActual = new Date().getFullYear();
 const anios = Array.from({ length: anioActual + 1 - 1995 + 1 }, (_, i) => anioActual + 1 - i);
@@ -39,38 +39,43 @@ const filasCaratula = [
 	{ key: 'rama', label: 'Rama' },
 	{ key: 'item', label: 'Bien' },
 	{ key: 'nombre', label: 'Asegurado' },
-	{ key: 'telefono', label: 'Teléfono' },
+	{ key: 'telefono', label: 'Contacto' },
 	{ key: 'productor', label: 'Productor' },
 ];
+// Estados del sello: sin empezar (rojo), incompleto (naranja), listo (verde)
+const estadoInicial = ['SIN', 'EMPEZAR'];
 ---
 
 <Layout
 	title="Pedí tu cotización · Brokers Asociados"
-	description="Cotizá tu seguro de auto, hogar, comercio, accidentes personales y más con productores asesores de Mar del Plata. Pocos datos y un asesor te llama."
+	description="Cotizá tu seguro de auto, hogar, comercio, accidentes personales y más con productores asesores de Mar del Plata. Pocos datos y un asesor te contacta."
 >
 	<Header />
 	<main id="contenido" class="relative overflow-hidden pt-[4.5rem]">
-		<div class="relative mx-auto grid max-w-[84rem] grid-cols-1 gap-x-14 gap-y-10 px-4 pt-8 pb-16 sm:px-8 lg:grid-cols-[minmax(0,1fr)_29.5rem] lg:px-12 lg:pt-10 lg:pb-24">
-			<section aria-labelledby="pedido-titulo">
+		<div class="cot mx-auto grid max-w-[84rem] grid-cols-1 gap-x-14 gap-y-10 px-4 pt-8 pb-16 sm:px-8 lg:grid-cols-[minmax(0,1fr)_29.5rem] lg:px-12 lg:pt-10 lg:pb-24" data-cot>
+			<header class="cot-intro">
 				<a href="/" class="ix-sub inline-flex items-center gap-2 text-[1rem] font-medium">
 					<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
 					Volver al inicio
 				</a>
 				<h1 id="pedido-titulo" class="mt-5 text-[clamp(2.5rem,1.8rem+2.8vw,4rem)] font-bold [font-stretch:84%]">Pedí tu cotización</h1>
-				<p class="mt-3 max-w-[44ch] text-[1.25rem] text-ink-2">Con pocos datos alcanza: un asesor te llama con la propuesta.</p>
+				<p class="mt-3 max-w-[44ch] text-[1.25rem] text-ink-2">Con pocos datos alcanza: un asesor te contacta con la propuesta.</p>
+			</header>
 
-				<div id="pedido" class="mt-8 border-2 border-ink bg-sheet">
-					<form id="pedido-form" data-pedido novalidate class="contents">
-						<!-- 01 · Rama -->
+			<section class="cot-form" aria-labelledby="pedido-titulo">
+				<div id="pedido" class="border-2 border-ink bg-sheet">
+					<form id="pedido-form" data-pedido novalidate>
+						<div class="cot-pasos">
+						<!-- 01 · Rama (opción única) -->
 						<div class={row}>
-							<span class={no} aria-hidden="true">01</span>
+							<span class={no} aria-hidden="true"></span>
 							<fieldset class="px-4 pt-3 pb-3.5 sm:px-5" data-grupo="rama" aria-describedby="err-rama">
-								<legend class={legend}>¿Qué querés asegurar?</legend>
-								<div class="clear-both grid grid-cols-1 gap-2 sm:grid-cols-2">
+								<legend class={legend}>¿Qué querés asegurar? <span class="font-normal text-ink-2">Elegí una</span></legend>
+								<div class="clear-both grid grid-cols-1 gap-2 sm:grid-cols-2" role="radiogroup" aria-label="Qué querés asegurar">
 									{ramas.map((r) => (
 										<label class={tile}>
 											<input type="radio" name="rama" value={r.id} data-label={r.label} class="peer sr-only" />
-											<span class={box} aria-hidden="true"><Icon name="check" class={check} strokeWidth={3} /></span>
+											<span class={radio} aria-hidden="true"><span class={punto}></span></span>
 											<span class="text-[1.125rem] font-medium leading-tight">{r.label}</span>
 										</label>
 									))}
@@ -79,96 +84,98 @@ const filasCaratula = [
 							</fieldset>
 						</div>
 
-						<!-- 02 · Datos de la rama -->
-						<div class={row}>
-							<span class={no} aria-hidden="true">02</span>
-							<div class="px-4 pt-3 pb-4 sm:px-5">
-								<p class="text-[1.125rem] text-ink-2" data-rama-vacia>Elegí primero qué querés asegurar.</p>
-
-								<fieldset data-rama-campos="auto" hidden>
-									<legend class={legend}>Tu vehículo</legend>
-									<div class="clear-both grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_8.5rem]">
-										<div>
-											<label for="c-marca" class={label}>Marca</label>
-											<input id="c-marca" name="marca" list="c-marcas" aria-describedby="err-marca" autocomplete="off" class={inputBase} placeholder="Ej.: Volkswagen" required />
-											<datalist id="c-marcas">{marcasVehiculo.map((m) => <option value={m} />)}</datalist>
-											<p id="err-marca" class={err} data-error="marca">Escribí la marca.</p>
-										</div>
-										<div>
-											<label for="c-modelo" class={label}>Modelo</label>
-											<input id="c-modelo" name="modelo" aria-describedby="err-modelo" autocomplete="off" class={inputBase} placeholder="Ej.: Gol Trend" required />
-											<p id="err-modelo" class={err} data-error="modelo">Escribí el modelo.</p>
-										</div>
-										<div>
-											<label for="c-anio" class={label}>Año</label>
-											<div class="relative">
-												<select id="c-anio" name="anio" aria-describedby="err-anio" class={`${inputBase} appearance-none pr-9`} required>
-													<option value="">Año</option>
-													{anios.map((a) => <option value={a}>{a}</option>)}
-													<option value="Anterior a 1995">Antes de 1995</option>
-												</select>
-												<svg class="pointer-events-none absolute top-1/2 right-3 size-5 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+						<!-- 02 · Datos del bien: no existe hasta que se elige la rama -->
+						<div class="paso-bien" data-bien-wrap>
+							<div class="paso-bien-in">
+								<div class={row}>
+									<span class={no} aria-hidden="true"></span>
+									<div class="px-4 pt-3 pb-4 sm:px-5">
+										<fieldset data-rama-campos="auto" hidden>
+											<legend class={legend}>Tu vehículo</legend>
+											<div class="clear-both grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_8.5rem]">
+												<div>
+													<label for="c-marca" class={label}>Marca</label>
+													<input id="c-marca" name="marca" list="c-marcas" aria-describedby="err-marca" autocomplete="off" class={inputBase} placeholder="Ej.: Volkswagen" required />
+													<datalist id="c-marcas">{marcasVehiculo.map((m) => <option value={m} />)}</datalist>
+													<p id="err-marca" class={err} data-error="marca">Escribí la marca.</p>
+												</div>
+												<div>
+													<label for="c-modelo" class={label}>Modelo</label>
+													<input id="c-modelo" name="modelo" aria-describedby="err-modelo" autocomplete="off" class={inputBase} placeholder="Ej.: Gol Trend" required />
+													<p id="err-modelo" class={err} data-error="modelo">Escribí el modelo.</p>
+												</div>
+												<div>
+													<label for="c-anio" class={label}>Año</label>
+													<div class="relative">
+														<select id="c-anio" name="anio" aria-describedby="err-anio" class={`${inputBase} appearance-none pr-9`} required>
+															<option value="">Año</option>
+															{anios.map((a) => <option value={a}>{a}</option>)}
+															<option value="Anterior a 1995">Antes de 1995</option>
+														</select>
+														<svg class="pointer-events-none absolute top-1/2 right-3 size-5 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+													</div>
+													<p id="err-anio" class={err} data-error="anio">Elegí el año.</p>
+												</div>
 											</div>
-											<p id="err-anio" class={err} data-error="anio">Elegí el año.</p>
-										</div>
-									</div>
-								</fieldset>
+										</fieldset>
 
-								<fieldset data-rama-campos="hogar" hidden>
-									<legend class={legend}>Tu vivienda o comercio</legend>
-									<div class="clear-both grid grid-cols-2 gap-2" role="radiogroup" aria-label="Tipo de inmueble" data-grupo="tipo" aria-describedby="err-tipo">
-										{tiposInmueble.map((t) => (
-											<label class={tile}>
-												<input type="radio" name="tipo" value={t} class="peer sr-only" required />
-												<span class={box} aria-hidden="true"><Icon name="check" class={check} strokeWidth={3} /></span>
-												<span class="text-[1.125rem] font-medium">{t}</span>
-											</label>
-										))}
-									</div>
-									<p id="err-tipo" class={err} data-error="tipo">Elegí el tipo.</p>
-									<div class="mt-3 max-w-[14rem]">
-										<label for="c-cp" class={label}>Código postal</label>
-										<input id="c-cp" name="cp" aria-describedby="err-cp" inputmode="numeric" autocomplete="postal-code" maxlength="8" class={inputBase} placeholder="Ej.: 7600" required />
-										<p id="err-cp" class={err} data-error="cp">Escribí el código postal.</p>
-									</div>
-								</fieldset>
+										<fieldset data-rama-campos="hogar" hidden>
+											<legend class={legend}>Tu vivienda o comercio</legend>
+											<div class="clear-both grid grid-cols-2 gap-2" role="radiogroup" aria-label="Tipo de inmueble" data-grupo="tipo" aria-describedby="err-tipo">
+												{tiposInmueble.map((t) => (
+													<label class={tile}>
+														<input type="radio" name="tipo" value={t} class="peer sr-only" required />
+														<span class={radio} aria-hidden="true"><span class={punto}></span></span>
+														<span class="text-[1.125rem] font-medium">{t}</span>
+													</label>
+												))}
+											</div>
+											<p id="err-tipo" class={err} data-error="tipo">Elegí el tipo.</p>
+											<div class="mt-3 max-w-[14rem]">
+												<label for="c-cp" class={label}>Código postal</label>
+												<input id="c-cp" name="cp" aria-describedby="err-cp" inputmode="numeric" autocomplete="postal-code" maxlength="8" class={inputBase} placeholder="Ej.: 7600" required />
+												<p id="err-cp" class={err} data-error="cp">Escribí el código postal.</p>
+											</div>
+										</fieldset>
 
-								<fieldset data-rama-campos="accidentes" hidden>
-									<legend class={legend}>¿Para quién es el seguro?</legend>
-									<div class="clear-both grid grid-cols-1 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Para quién es el seguro" data-grupo="para" aria-describedby="err-para">
-										{destinatariosAP.map((d) => (
-											<label class={tile}>
-												<input type="radio" name="para" value={d} class="peer sr-only" required />
-												<span class={box} aria-hidden="true"><Icon name="check" class={check} strokeWidth={3} /></span>
-												<span class="text-[1.125rem] font-medium">{d}</span>
-											</label>
-										))}
-									</div>
-									<p id="err-para" class={err} data-error="para">Elegí para quién es.</p>
-								</fieldset>
+										<fieldset data-rama-campos="accidentes" hidden>
+											<legend class={legend}>¿Para quién es el seguro?</legend>
+											<div class="clear-both grid grid-cols-1 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Para quién es el seguro" data-grupo="para" aria-describedby="err-para">
+												{destinatariosAP.map((d) => (
+													<label class={tile}>
+														<input type="radio" name="para" value={d} class="peer sr-only" required />
+														<span class={radio} aria-hidden="true"><span class={punto}></span></span>
+														<span class="text-[1.125rem] font-medium">{d}</span>
+													</label>
+												))}
+											</div>
+											<p id="err-para" class={err} data-error="para">Elegí para quién es.</p>
+										</fieldset>
 
-								<fieldset data-rama-campos="otro" hidden>
-									<legend class={legend}>¿Qué seguro necesitás?</legend>
-									<div class="clear-both relative max-w-[26rem]">
-										<label for="c-seguro" class="sr-only">Seguro</label>
-										<select id="c-seguro" name="seguro" aria-describedby="err-seguro" class={`${inputBase} appearance-none pr-10`} required>
-											<option value="">Elegí una opción</option>
-											{otrosSeguros.map((s) => <option value={s}>{s}</option>)}
-										</select>
-										<svg class="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+										<fieldset data-rama-campos="otro" hidden>
+											<legend class={legend}>¿Qué seguro necesitás?</legend>
+											<div class="clear-both relative max-w-[26rem]">
+												<label for="c-seguro" class="sr-only">Seguro</label>
+												<select id="c-seguro" name="seguro" aria-describedby="err-seguro" class={`${inputBase} appearance-none pr-10`} required>
+													<option value="">Elegí una opción</option>
+													{otrosSeguros.map((s) => <option value={s}>{s}</option>)}
+												</select>
+												<svg class="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+											</div>
+											<p id="err-seguro" class={err} data-error="seguro">Elegí qué seguro necesitás.</p>
+											<div class="mt-3">
+												<label for="c-comentario" class={label}>¿Algo que debamos saber? <span class="text-ink-2">Opcional</span></label>
+												<textarea id="c-comentario" name="comentario" rows="2" class={`${inputBase} resize-y`}></textarea>
+											</div>
+										</fieldset>
 									</div>
-									<p id="err-seguro" class={err} data-error="seguro">Elegí qué seguro necesitás.</p>
-									<div class="mt-3">
-										<label for="c-comentario" class={label}>¿Algo que debamos saber? <span class="text-ink-2">Opcional</span></label>
-										<textarea id="c-comentario" name="comentario" rows="2" class={`${inputBase} resize-y`}></textarea>
-									</div>
-								</fieldset>
+								</div>
 							</div>
 						</div>
 
 						<!-- 03 · Contacto -->
 						<div class={row}>
-							<span class={no} aria-hidden="true">03</span>
+							<span class={no} aria-hidden="true"></span>
 							<fieldset class="px-4 pt-3 pb-4 sm:px-5">
 								<legend class={legend}>Tus datos</legend>
 								<div class="clear-both flex items-center justify-between gap-4 bg-wash px-3.5 py-3 text-[1.125rem]" data-contacto-conocido hidden>
@@ -187,76 +194,94 @@ const filasCaratula = [
 										<p id="err-telefono" class={err} data-error="telefono">Revisá el número: con característica, por ejemplo 223 555-1234.</p>
 									</div>
 								</div>
+								<div class="mt-4" role="radiogroup" aria-labelledby="via-titulo">
+									<p id="via-titulo" class="mb-2 text-[1rem] text-ink-2">¿Cómo preferís que te contactemos? <span>Opcional</span></p>
+									<div class="grid grid-cols-2 gap-2 sm:max-w-[22rem]">
+										{['Llamada', 'WhatsApp'].map((v) => (
+											<label class={`${tile} !gap-2 !px-2.5`} data-via>
+												<input type="radio" name="via" value={v} class="peer sr-only" />
+												<span class={radio} aria-hidden="true"><span class={punto}></span></span>
+												<span class="text-[1.125rem] font-medium">{v}</span>
+											</label>
+										))}
+									</div>
+								</div>
 							</fieldset>
 						</div>
 
 						<!-- 04 · Productor -->
-						<div class="grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)]">
-							<span class={no} aria-hidden="true">04</span>
+						<div class={row}>
+							<span class={no} aria-hidden="true"></span>
 							<div class="px-4 pt-3 pb-4 sm:px-5">
 								<label for="c-productor" class="mb-2 flex flex-wrap items-baseline gap-x-3 text-[1.125rem] font-semibold">
-									¿Ya tenés productor? <span class="font-normal text-ink-2">Opcional</span>
+									¿Ya trabajás con alguno de nuestros productores? <span class="font-normal text-ink-2">Opcional</span>
 								</label>
 								<div class="relative">
 									<select id="c-productor" name="productor" class={`${inputBase} appearance-none pr-10`}>
-										<option value="">No tengo productor</option>
+										<option value="">No, todavía no</option>
 										<optgroup label="Sí, mi productor es:">{productores.map((p) => <option value={p}>{p}</option>)}</optgroup>
 									</select>
 									<svg class="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
 								</div>
 							</div>
 						</div>
-
-						<button type="submit" class="ix-accion ix-ink flex w-full items-center justify-between gap-4 px-5 py-4 max-lg:hidden text-left text-[1.25rem] font-semibold sm:px-6 sm:text-[1.375rem]">
-							<span data-enviar-label>Pedir cotización</span>
-							<Icon name="arrowRight" class="ix-flecha size-6 shrink-0" strokeWidth={2} />
-						</button>
+					</div>
 					</form>
 
-					<!-- Enviado (demo: no envía datos) -->
-					<div data-enviado hidden tabindex="-1" role="status" class="px-5 py-7 sm:px-6">
-						<h2 class="text-[1.875rem] font-bold" data-enviado-titulo>Listo, recibimos tu pedido.</h2>
-						<p class="mt-3 max-w-[48ch] text-[1.125rem] text-ink-2" data-enviado-texto>Un asesor te llama en el horario de atención.</p>
-						<div class="mt-6 flex flex-col gap-3 sm:flex-row">
-							<a data-enviado-wa href={whatsappLink()} class="ix-accion ix-seal inline-flex items-center justify-center gap-2.5 px-5 py-3.5 font-semibold no-underline">
-								<Icon name="whatsapp" class="size-5" />Seguir por WhatsApp
-							</a>
-							<a href="/" class="ix-accion ix-wash inline-flex items-center justify-center border-2 border-ink px-5 py-3 font-semibold no-underline">Volver al inicio</a>
-						</div>
-						<p class="mt-6 border-t border-rule-soft pt-4 font-mono text-[0.875rem] text-ink-2">Versión demo: este formulario todavía no envía datos.</p>
+				<!-- Enviado (demo: no envía datos) -->
+				<div data-enviado hidden tabindex="-1" role="status" class="px-5 py-7 sm:px-6">
+					<h2 class="text-[1.875rem] font-bold" data-enviado-titulo>Listo, recibimos tu solicitud.</h2>
+					<p class="mt-3 max-w-[48ch] text-[1.125rem] text-ink-2" data-enviado-texto>Un asesor se comunicará con vos al número que ingresaste con la propuesta a la brevedad.</p>
+					<div class="mt-6 flex flex-col gap-3 sm:flex-row">
+						<a data-enviado-wa href={whatsappLink()} class="ix-accion ix-seal inline-flex items-center justify-center gap-2.5 px-5 py-3.5 font-semibold no-underline">
+							<Icon name="whatsapp" class="size-5" />Seguir por WhatsApp
+						</a>
+						<a href="/" class="ix-accion ix-wash inline-flex items-center justify-center border-2 border-ink px-5 py-3 font-semibold no-underline">Volver al inicio</a>
 					</div>
+				</div>
 				</div>
 			</section>
 
-			<!-- Carátula del pedido -->
-			<aside class="lg:pt-[13.5rem]" aria-labelledby="caratula-titulo">
-				<div class="relative border-2 border-ink bg-sheet lg:sticky lg:top-24" data-caratula>
-					<div class="flex flex-col gap-1 border-b-2 border-ink px-5 py-3.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-						<h2 id="caratula-titulo" class="text-[1.5rem] font-bold [font-stretch:88%]" data-caratula-titulo>Carátula del pedido</h2>
-						<span class="field-no text-ink-2">{hoy}</span>
-					</div>
-					<div class="h-6 border-b border-rule opacity-70" style={`background:url(${tira}) left center/auto 100% repeat-x`} aria-hidden="true"></div>
-					<dl class="px-5 pt-1 pb-12 sm:pb-6">
-						{filasCaratula.map((f) => (
-							<div class="grid grid-cols-[6.5rem_minmax(0,1fr)] items-baseline gap-x-3 border-b border-rule-soft py-3">
-								<dt class="field-no text-ink-2" data-caratula-label={f.key}>{f.label}</dt>
-								<dd class="min-h-[1.6em] text-[1.125rem] font-semibold [overflow-wrap:anywhere] data-[vacio]:border-b-[1.5px] data-[vacio]:border-dashed data-[vacio]:border-rule" data-caratula-valor={f.key} data-vacio></dd>
+			<!-- Carátula del pedido, con el sello en tres estados y el botón de enviar debajo -->
+			<aside class="cot-aside lg:self-start" aria-labelledby="caratula-titulo">
+				<div class="lg:sticky lg:top-24">
+					<div class="car relative" data-caratula data-estado="vacio">
+						<div class="car-head">
+							<h2 id="caratula-titulo" class="car-titulo" data-caratula-titulo>Carátula del pedido</h2>
+							<span class="field-no car-fecha">{hoy}</span>
+						</div>
+						<div class="car-corte" aria-hidden="true"></div>
+						<dl class="car-lista">
+							{filasCaratula.map((f) => (
+								<div class="car-fila" data-fila-car={f.key}>
+									<dt class="car-dt field-no" data-caratula-label={f.key}>{f.label}</dt>
+									<dd class="car-dd" data-caratula-valor={f.key} data-vacio></dd>
+								</div>
+							))}
+						</dl>
+						<div class="car-estado">
+							<div>
+								<ul class="car-meter" aria-hidden="true" data-meter>
+									<li></li><li></li><li></li><li></li>
+								</ul>
+								<p class="car-falta" id="falta-texto" data-falta>Elegí qué querés asegurar para empezar.</p>
 							</div>
-						))}
-					</dl>
-					<p class="sr-only" aria-live="polite" data-anuncio></p>
-					<div class="caratula-sello pointer-events-none absolute right-3 -bottom-14 size-28 sm:-right-7 sm:-bottom-10 sm:size-40" data-sello>
-						<Stamp id="sello-pedido" lineas={['LISTO PARA', 'ENVIAR']} class="size-full" />
+							<div class="car-sello pointer-events-none" data-sello data-estado="vacio">
+								<Stamp id="sello-pedido" lineas={estadoInicial} class="size-full" />
+							</div>
+						</div>
+						<p class="sr-only" role="status" aria-live="polite" data-anuncio></p>
 					</div>
+
+					<button type="submit" form="pedido-form" class="enviar ix-accion ix-ink mt-5 flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[1.25rem] font-semibold sm:px-6 sm:text-[1.375rem]" data-enviar disabled aria-describedby="falta-texto">
+						<span>Pedir cotización</span>
+						<Icon name="arrowRight" class="ix-flecha size-6 shrink-0" strokeWidth={2} />
+					</button>
+					<p class="mt-6 text-[1rem] text-ink-2" data-nota>
+						¿Preferís hablar?{' '}
+						<a href={whatsappLink('Hola, quiero cotizar un seguro.')} class="ix-sub font-semibold text-seal">WhatsApp {contacto.whatsapp}</a>
+					</p>
 				</div>
-				<button type="submit" form="pedido-form" data-enviar-movil class="ix-accion ix-ink mt-20 flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[1.25rem] font-semibold lg:hidden">
-					<span data-enviar-label>Pedir cotización</span>
-					<Icon name="arrowRight" class="ix-flecha size-6 shrink-0" strokeWidth={2} />
-				</button>
-				<p class="mt-6 text-[1rem] text-ink-2 lg:mt-12" data-nota>
-					El sello se completa cuando están los datos. ¿Preferís hablar?{' '}
-					<a href={whatsappLink('Hola, quiero cotizar un seguro.')} class="ix-sub font-semibold text-seal">WhatsApp {contacto.whatsapp}</a>
-				</p>
 			</aside>
 		</div>
 	</main>
@@ -265,34 +290,118 @@ const filasCaratula = [
 </Layout>
 
 <style>
-	[data-sello] {
-		opacity: 0.22;
-		transition: opacity 0.3s ease-out;
+	/* ——— Numeración: cuenta solo las filas que existen ——— */
+	.cot-pasos { counter-reset: paso; }
+	.paso { counter-increment: paso; }
+	.paso-bien:not([data-abierto]) .paso { counter-increment: none; }
+	.paso .no::before { content: counter(paso, decimal-leading-zero); }
+
+	/* El paso de datos no existe hasta que se elige la rama, y entonces se abre */
+	.paso-bien {
+		display: grid;
+		grid-template-rows: 0fr;
+		opacity: 0;
+		transition: grid-template-rows 0.45s var(--ease-out-expo), opacity 0.3s var(--ease-out-expo);
 	}
-	[data-sello][data-listo] {
-		opacity: 1;
-		animation: sello 0.8s var(--ease-out-expo) both;
-	}
+	.paso-bien[data-abierto] { grid-template-rows: 1fr; opacity: 1; }
+	.paso-bien-in { overflow: hidden; min-height: 0; }
+
 	/* Grupos de opciones con error: bordes en rojo y foco visible al saltar al primero */
-	[data-grupo][aria-invalid='true'] label {
-		border-color: var(--color-claim);
+	[data-grupo][aria-invalid='true'] label { border-color: var(--color-claim); }
+	[data-grupo][aria-invalid='true'] label:has(input:focus) { outline: 3px solid var(--color-teal); outline-offset: 2px; }
+
+	/* ——— Composición: el recibo arranca a la altura del formulario, no del titular ——— */
+	@media (min-width: 1024px) {
+		.cot-intro { grid-column: 1; grid-row: 1; }
+		.cot-form { grid-column: 1; grid-row: 2; }
+		.cot-aside { grid-column: 2; grid-row: 2; }
 	}
-	[data-grupo][aria-invalid='true'] label:has(input:focus) {
-		outline: 3px solid var(--color-teal);
-		outline-offset: 2px;
+
+	/* ——— Carátula: estructura común ——— */
+	.car {
+		--estado: var(--color-claim);
+		position: relative;
+		border: 2px solid var(--color-ink);
+		background: var(--color-sheet);
 	}
-	@keyframes sello {
-		from {
-			opacity: 0.2;
-			transform: scale(1.4) rotate(6deg);
-		}
-		to {
-			opacity: 1;
-			transform: scale(1) rotate(0deg);
-		}
+	.car[data-estado='incompleto'] { --estado: var(--color-warn); }
+	.car[data-estado='listo'] { --estado: var(--color-seal); }
+	.car-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; padding: 1.125rem 1.25rem 1rem; }
+	.car-titulo { font-size: 1.5rem; font-weight: 700; font-stretch: 88%; }
+	/* Línea de corte de ticket: renglón punteado con una muesca a cada lado */
+	.car-corte { position: relative; border-top: 1.5px dashed var(--color-rule); }
+	.car-corte::before,
+	.car-corte::after {
+		content: '';
+		position: absolute;
+		top: -10px;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: var(--color-paper);
+		border: 2px solid var(--color-ink);
 	}
+	.car-corte::before { left: -11px; clip-path: inset(0 0 0 50%); }
+	.car-corte::after { right: -11px; clip-path: inset(0 50% 0 0); }
+	.car-fecha { color: var(--color-ink-2); }
+	.car-lista { padding: 0.25rem 1.25rem 0; }
+	.car-fila { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); align-items: baseline; gap: 0 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--color-rule-soft); }
+	.car-dt { color: var(--color-ink-2); }
+	.car-dd { min-height: 1.6em; font-size: 1.125rem; font-weight: 600; overflow-wrap: anywhere; }
+	.car-dd[data-vacio] { border-bottom: 1.5px dashed var(--color-rule); }
+	.car-estado { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0.5rem 1rem; padding: 1rem 1.25rem 1.25rem; }
+	.car-meter { display: flex; gap: 0.375rem; list-style: none; margin: 0; padding: 0; }
+	.car-meter li { height: 6px; flex: 1; background: var(--color-rule-soft); transition: background-color 0.3s var(--ease-out-expo); }
+	.car-meter li[data-on] { background: var(--estado); }
+	.car-falta { margin-top: 0.625rem; font-size: 1rem; font-weight: 600; color: var(--estado); text-wrap: pretty; }
+	.car-sello { grid-column: 2; grid-row: 1 / span 2; width: 7.5rem; height: 7.5rem; color: var(--estado); transform: rotate(var(--giro, -6deg)); transition: color 0.3s ease-out; }
+	.car-sello :global(.stamp) { color: inherit; transform: none; }
+	.car-sello.golpe { animation: sello-golpe 0.7s var(--ease-out-expo) both; }
+	@keyframes sello-golpe {
+		from { opacity: 0.2; transform: scale(1.45) rotate(8deg); }
+		to { opacity: 1; transform: scale(1) rotate(var(--giro, -6deg)); }
+	}
+
+	/* ——— Botón de enviar: se habilita con el sello verde ——— */
+	.enviar { border: 1.5px solid transparent; }
+	.enviar[disabled] {
+		background-color: transparent;
+		color: var(--color-ink-2);
+		border-color: var(--color-rule);
+		border-style: dashed;
+		cursor: not-allowed;
+		transform: none;
+	}
+	.enviar[disabled] .ix-flecha { opacity: 0.4; transform: none; }
+	.enviar.listo .ix-flecha { animation: aviso-flecha 0.9s var(--ease-out-expo) 1; }
+	@keyframes aviso-flecha {
+		0%, 100% { transform: translateX(0); }
+		30% { transform: translateX(8px); }
+		60% { transform: translateX(2px); }
+	}
+
+	/* ═══ Recibo: comprobante de caja, campos como renglones ═══ */
+	.car-fila { border-bottom: 1px dashed var(--color-rule); }
+	.car-dd { font-family: var(--font-mono); font-size: 1.0625rem; font-weight: 500; }
+	.car { border-bottom: 0; padding-bottom: 12px; }
+	.car::after {
+		content: '';
+		position: absolute;
+		inset: auto -2px -1px;
+		height: 12px;
+		background: radial-gradient(circle at 50% 100%, var(--color-paper) 0 5px, transparent 5.5px) 0 0 / 16px 12px repeat-x;
+		border-bottom: 2px solid transparent;
+	}
+	.car-estado { border-top: 1px dashed var(--color-rule); margin-top: 0.5rem; }
+	.campo { border-width: 0 0 1.5px; border-color: var(--color-ink); background: transparent; padding-inline: 0; }
+	select.campo { padding-right: 2rem; }
+	.rotulo { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; }
+	.paso { border-bottom-style: dashed; }
+	.opcion { border-color: var(--color-rule); }
+
 	@media (prefers-reduced-motion: reduce) {
-		[data-sello][data-listo] { animation: none; }
+		.paso-bien, .car-meter li, .car-sello { transition: none; }
+		.car-sello.golpe, .enviar.listo .ix-flecha { animation: none; }
 	}
 </style>
 
@@ -303,9 +412,13 @@ const filasCaratula = [
 	const enviado = document.querySelector<HTMLElement>('[data-enviado]')!;
 	const caratula = document.querySelector<HTMLElement>('[data-caratula]')!;
 	const sello = caratula.querySelector<HTMLElement>('[data-sello]')!;
-	const enviarLabels = document.querySelectorAll<HTMLElement>('[data-enviar-label]');
+	const enviar = document.querySelector<HTMLButtonElement>('[data-enviar]')!;
 	const anuncio = caratula.querySelector<HTMLElement>('[data-anuncio]')!;
-	let listo = false;
+	const falta = caratula.querySelector<HTMLElement>('[data-falta]')!;
+	const meter = [...caratula.querySelectorAll<HTMLElement>('[data-meter] li')];
+	const bienWrap = form.querySelector<HTMLElement>('[data-bien-wrap]')!;
+	const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)');
+
 	const el = <T extends Element = HTMLInputElement>(name: string) => form.elements.namedItem(name) as unknown as T;
 	const val = (name: string) => {
 		const f = form.elements.namedItem(name);
@@ -320,8 +433,28 @@ const filasCaratula = [
 		otro: ['seguro'],
 	};
 	const etiquetaBien: Record<string, string> = { auto: 'Vehículo', hogar: 'Inmueble', accidentes: 'Para', otro: 'Seguro' };
+	const faltaBien: Record<string, string> = {
+		auto: 'los datos del vehículo',
+		hogar: 'los datos del inmueble',
+		accidentes: 'para quién es',
+		otro: 'qué seguro necesitás',
+	};
 	const telValido = (v: string) => v.replace(/\D/g, '').length >= 10;
 	const cpValido = (v: string) => /^\d{4}$|^[A-Za-z]\d{4}[A-Za-z]{3}$/.test(v);
+	const campoOk = (k: string) => (k === 'cp' ? cpValido(val(k)) : k === 'telefono' ? telValido(val(k)) : !!val(k));
+
+	// Sello en tres estados: rojo sin empezar, naranja incompleto, verde listo
+	const sellos: Record<string, string[]> = {
+		vacio: ['SIN', 'EMPEZAR'],
+		incompleto: ['PEDIDO', 'INCOMPLETO'],
+		listo: ['LISTO PARA', 'ENVIAR'],
+	};
+	function escribirSello(lineas: string[]) {
+		const y0 = 100 - (lineas.length - 1) * 11;
+		sello.querySelector('[data-stamp-text]')!.innerHTML = lineas
+			.map((l, i) => `<tspan x="100" y="${y0 + i * 22 + 7}">${l}</tspan>`)
+			.join('');
+	}
 
 	function rama() {
 		return form.querySelector<HTMLInputElement>('input[name="rama"]:checked');
@@ -341,33 +474,62 @@ const filasCaratula = [
 		dd.toggleAttribute('data-vacio', !texto);
 	}
 
-	function completo(r: string | undefined) {
-		if (!r) return false;
-		const datos = requeridos[r].every((k) => (k === 'cp' ? cpValido(val(k)) : !!val(k)));
-		return datos && !!val('nombre') && telValido(val('telefono'));
-	}
+	let estado = '';
+	let recibido = false;
 
-	function actualizar() {
+	function actualizar(inicial = false) {
 		const r = rama();
 		const id = r?.value;
-		form.querySelector('[data-rama-vacia]')!.toggleAttribute('hidden', !!id);
+		bienWrap.toggleAttribute('data-abierto', !!id);
 		form.querySelectorAll<HTMLFieldSetElement>('[data-rama-campos]').forEach((fs) => {
 			const activo = fs.dataset.ramaCampos === id;
 			fs.hidden = !activo;
 			fs.disabled = !activo;
 		});
-		enviarLabels.forEach((l) => (l.textContent = r ? `Pedir cotización · ${r.dataset.label}` : 'Pedir cotización'));
 		caratula.querySelector('[data-caratula-label="item"]')!.textContent = id ? etiquetaBien[id] : 'Bien';
 		setFila('rama', r?.dataset.label ?? '');
 		setFila('item', id ? bien(id) : '');
 		setFila('nombre', val('nombre'));
-		setFila('telefono', val('telefono'));
+		setFila('telefono', [val('telefono'), val('via')].filter(Boolean).join(' · '));
 		setFila('productor', val('productor') || 'Brokers Asociados');
-		const ahora = completo(id);
-		sello.toggleAttribute('data-listo', ahora);
-		if (ahora && !listo) anuncio.textContent = 'Listo para enviar.';
-		if (!ahora && listo) anuncio.textContent = '';
-		listo = ahora;
+		if (recibido) return;
+
+		const bienOk = !!id && requeridos[id].every(campoOk);
+		const items = [!!id, bienOk, !!val('nombre'), telValido(val('telefono'))];
+		meter.forEach((li, i) => li.toggleAttribute('data-on', items[i]));
+		const completo = items.every(Boolean);
+		const empezo = !!id || !!val('nombre') || !!val('telefono') || !!val('productor') || ['marca', 'modelo', 'anio', 'tipo', 'cp', 'para', 'seguro'].some((k) => !!val(k));
+		const nuevo = completo ? 'listo' : empezo ? 'incompleto' : 'vacio';
+
+		const faltantes: string[] = [];
+		if (!id) faltantes.push('qué querés asegurar');
+		else if (!bienOk) faltantes.push(faltaBien[id]);
+		if (!items[2]) faltantes.push('tu nombre');
+		if (!items[3]) faltantes.push('un teléfono válido');
+		const texto =
+			nuevo === 'listo'
+				? 'Todo listo: ya podés pedir tu cotización.'
+				: nuevo === 'vacio'
+					? 'Elegí qué querés asegurar para empezar.'
+					: `Falta: ${faltantes.join(', ')}.`;
+		falta.textContent = texto;
+
+		enviar.disabled = !completo;
+		enviar.classList.toggle('listo', completo);
+
+		if (nuevo !== estado) {
+			caratula.dataset.estado = nuevo;
+			sello.dataset.estado = nuevo;
+			escribirSello(sellos[nuevo]);
+			if (!inicial) {
+				sello.classList.remove('golpe');
+				void sello.offsetWidth;
+				sello.classList.add('golpe');
+				anuncio.textContent = nuevo === 'listo' ? 'Pedido completo. Ya podés pedir tu cotización.' : nuevo === 'incompleto' ? `Pedido incompleto. ${texto}` : '';
+				if (nuevo === 'listo' && !sinMovimiento.matches) navigator.vibrate?.(15);
+			}
+			estado = nuevo;
+		}
 	}
 
 	function mostrarError(key: string, on: boolean) {
@@ -409,7 +571,21 @@ const filasCaratula = [
 		const comercio = form.querySelector<HTMLInputElement>('input[name="tipo"][value="Comercio"]');
 		if (comercio) comercio.checked = true;
 	}
-	actualizar();
+	actualizar(true);
+
+	// «Cómo preferís que te contactemos?» es opcional: volver a tocar la opción elegida la quita
+	form.querySelectorAll<HTMLLabelElement>('[data-via]').forEach((label) => {
+		const input = label.querySelector<HTMLInputElement>('input')!;
+		let estabaMarcada = false;
+		label.addEventListener('pointerdown', () => (estabaMarcada = input.checked));
+		label.addEventListener('click', (e) => {
+			if (!estabaMarcada) return;
+			e.preventDefault();
+			input.checked = false;
+			estabaMarcada = false;
+			actualizar();
+		});
+	});
 
 	form.addEventListener('input', (e) => {
 		const t = e.target as HTMLInputElement;
@@ -421,45 +597,74 @@ const filasCaratula = [
 		mostrarError(t.name, false);
 		actualizar();
 	});
+	// Al salir de un campo obligatorio vacío o inválido, se avisa en el momento
+	form.addEventListener('focusout', (e) => {
+		const t = e.target as HTMLInputElement;
+		if (!t.required || t.disabled || !t.name) return;
+		mostrarError(t.name, !campoOk(t.name));
+	});
 
-	form.addEventListener('submit', (e) => {
-		e.preventDefault();
+	function errores() {
 		const r = rama()?.value;
-		const errores: Record<string, boolean> = { rama: !r };
-		if (r) requeridos[r].forEach((k) => (errores[k] = k === 'cp' ? !cpValido(val(k)) : !val(k)));
-		errores.nombre = !val('nombre');
-		errores.telefono = !telValido(val('telefono'));
-		if ((errores.nombre || errores.telefono) && campos.hidden) {
+		const e: Record<string, boolean> = { rama: !r };
+		if (r) requeridos[r].forEach((k) => (e[k] = !campoOk(k)));
+		e.nombre = !val('nombre');
+		e.telefono = !telValido(val('telefono'));
+		if ((e.nombre || e.telefono) && campos.hidden) {
 			conocido.hidden = true;
 			campos.hidden = false;
 		}
-		Object.entries(errores).forEach(([k, v]) => mostrarError(k, v));
-		const primero = Object.entries(errores).find(([, v]) => v)?.[0];
+		Object.entries(e).forEach(([k, v]) => mostrarError(k, v));
+		return Object.entries(e).find(([, v]) => v)?.[0];
+	}
+
+	// Con el botón deshabilitado Enter no envía: se marca qué falta; con todo completo, envía
+	form.addEventListener('keydown', (e) => {
+		const t = e.target as HTMLElement;
+		if (e.key !== 'Enter' || t.tagName === 'TEXTAREA' || t.tagName === 'BUTTON' || (t as HTMLInputElement).type === 'radio') return;
+		e.preventDefault();
+		if (enviar.disabled) {
+			const primero = errores();
+			if (primero) form.querySelector<HTMLElement>(`[name="${primero}"]:not([disabled])`)?.focus();
+		} else form.requestSubmit(enviar);
+	});
+
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const primero = errores();
 		if (primero) {
-			const target = form.querySelector<HTMLElement>(`[name="${primero}"]:not([disabled])`);
-			target?.focus();
+			form.querySelector<HTMLElement>(`[name="${primero}"]:not([disabled])`)?.focus();
 			return;
 		}
 
+		const r = rama()!.value;
 		const etiqueta = rama()!.dataset.label!;
 		const nombre = val('nombre');
-		enviado.querySelector('[data-enviado-titulo]')!.textContent = `Listo, ${nombre.split(' ')[0]}. Recibimos tu pedido.`;
+		const via = val('via');
+		enviado.querySelector('[data-enviado-titulo]')!.textContent = `Listo, ${nombre.split(' ')[0]}. Recibimos tu solicitud.`;
 		enviado.querySelector('[data-enviado-texto]')!.textContent =
-			`Un asesor te llama al ${val('telefono')} con la propuesta para tu seguro de ${etiqueta.toLowerCase()}, de lunes a viernes de 9 a 15 hs.`;
+			via === 'WhatsApp'
+				? 'Un asesor se comunicará con vos por WhatsApp, al número que ingresaste, con la propuesta a la brevedad.'
+				: 'Un asesor se comunicará con vos al número que ingresaste con la propuesta a la brevedad.';
 		enviado.querySelector<HTMLAnchorElement>('[data-enviado-wa]')!.href = whatsappLink(
-			`Hola, soy ${nombre}. Pedí una cotización de ${etiqueta.toLowerCase()}: ${bien(r!)}.`,
+			`Hola, soy ${nombre}. Pedí una cotización de ${etiqueta.toLowerCase()}: ${bien(r)}.`,
 		);
-		caratula.querySelector('[data-caratula-titulo]')!.textContent = 'Pedido recibido';
-		sello.querySelector('[data-stamp-text]')!.innerHTML = '<tspan x="100" y="107">RECIBIDO</tspan>';
-		sello.removeAttribute('data-listo');
-		requestAnimationFrame(() => requestAnimationFrame(() => sello.setAttribute('data-listo', '')));
+		recibido = true;
+		caratula.querySelector('[data-caratula-titulo]')!.textContent = 'Solicitud recibida';
+		caratula.dataset.estado = 'listo';
+		sello.dataset.estado = 'listo';
+		escribirSello(['RECIBIDO']);
+		falta.textContent = 'Un asesor se comunicará con vos a la brevedad.';
+		sello.classList.remove('golpe');
+		void sello.offsetWidth;
+		sello.classList.add('golpe');
 		anuncio.textContent = '';
-		document.querySelector<HTMLElement>('[data-enviar-movil]')!.hidden = true;
+		enviar.hidden = true;
+		document.querySelector<HTMLElement>('[data-nota]')!.hidden = true;
 		try {
 			sessionStorage.setItem('ba-contacto', JSON.stringify({ nombre, telefono: val('telefono'), productor: val('productor') }));
 		} catch {}
 		form.hidden = true;
-		document.querySelector<HTMLElement>('[data-nota]')!.hidden = true;
 		enviado.hidden = false;
 		enviado.focus();
 	});

@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/img/logo-brokers.jpg';
 import Icon from './Icon.astro';
-import { whatsappLink } from '../data/brokers';
 
 interface Props {
 	/** La página arranca con un hero fotográfico: la barra empieza transparente sobre él. */
@@ -32,7 +31,7 @@ const nav = [
 					{nav.map((item) => (
 						<li>
 							<a href={item.href} data-seccion={item.href.slice(2)} class="nav-link inline-flex items-center gap-2 py-1 no-underline">
-								{item.siniestro && <span class="size-2 rounded-full bg-claim" aria-hidden="true"></span>}
+								{item.siniestro && <span class="rec" aria-hidden="true"></span>}
 								{item.label}
 							</a>
 						</li>
@@ -47,12 +46,12 @@ const nav = [
 
 			<button
 				type="button"
-				class="menu-toggle ml-auto inline-flex min-h-11 items-center gap-3 pl-2 text-[1.125rem] font-semibold lg:hidden"
+				class="menu-toggle ml-auto inline-flex min-h-11 min-w-11 items-center justify-end text-[1.125rem] font-semibold lg:hidden"
 				aria-expanded="false"
 				aria-controls="menu-movil"
 				data-menu-toggle
 			>
-				<span data-menu-label>Menú</span>
+				<span data-menu-label class="sr-only">Menú</span>
 				<span class="relative grid size-6 place-items-center" aria-hidden="true">
 					<span class="menu-linea linea-a"></span>
 					<span class="menu-linea linea-b"></span>
@@ -64,13 +63,13 @@ const nav = [
 	<!-- Menú del celular -->
 	<div id="menu-movil" class="menu-movil grid lg:hidden" data-menu inert>
 		<div class="overflow-hidden">
-			<nav aria-label="Menú" class="superficie-papel border-b border-rule-soft px-4 pt-2 pb-6 sm:px-8">
+			<nav aria-label="Menú" class="superficie-papel border-b border-rule-soft px-4 pt-2 pb-1 sm:px-8">
 				<ul class="flex flex-col">
 					{nav.map((item) => (
 						<li class="border-b border-rule-soft">
 							<a href={item.href} data-seccion={item.href.slice(2)} class="flex items-center justify-between py-4 text-[1.5rem] font-semibold no-underline" data-menu-link>
 								<span class="inline-flex items-center gap-3">
-									{item.siniestro && <span class="size-2.5 rounded-full bg-claim" aria-hidden="true"></span>}
+									{item.siniestro && <span class="rec" aria-hidden="true"></span>}
 									{item.label}
 								</span>
 								<Icon name="arrowRight" class="ix-flecha size-5" strokeWidth={2} />
@@ -78,14 +77,6 @@ const nav = [
 						</li>
 					))}
 				</ul>
-				<div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-					<a href="/cotizar" class="ix-accion ix-ink inline-flex items-center justify-between px-5 py-4 text-[1.125rem] font-semibold no-underline" data-menu-link>
-						Cotizá tu seguro <Icon name="arrowRight" class="ix-flecha size-5" strokeWidth={2} />
-					</a>
-					<a href={whatsappLink('Hola, quiero hacer una consulta.')} class="ix-accion ix-seal inline-flex items-center justify-center gap-2.5 px-5 py-4 text-[1.125rem] font-semibold no-underline">
-						<Icon name="whatsapp" class="size-5" />WhatsApp
-					</a>
-				</div>
 			</nav>
 		</div>
 	</div>
@@ -193,6 +184,7 @@ const nav = [
 	const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
 	const hero = document.querySelector<HTMLElement>('[data-hero]');
 	let ultimoY = window.scrollY;
+	let fijoHasta = 0; // la barra no se esconde mientras late el punto de Siniestros
 	let pendiente = false;
 
 	function alScrollear() {
@@ -201,7 +193,7 @@ const nav = [
 		if (hero) header.toggleAttribute('data-pasado-hero', hero.getBoundingClientRect().bottom <= header.offsetHeight);
 		const bajando = y > ultimoY + 2;
 		const subiendo = y < ultimoY - 2;
-		if (bajando && y > 160 && !header.hasAttribute('data-abierto') && !sinMovimiento.matches) header.setAttribute('data-oculto', '');
+		if (bajando && y > 160 && !header.hasAttribute('data-abierto') && !sinMovimiento.matches && performance.now() > fijoHasta) header.setAttribute('data-oculto', '');
 		if (subiendo || y <= 160) header.removeAttribute('data-oculto');
 		ultimoY = y;
 		pendiente = false;
@@ -233,6 +225,24 @@ const nav = [
 	if (secciones.length) {
 		marcarActiva();
 		window.addEventListener('scroll', marcarActiva, { passive: true });
+	}
+
+	// Al llegar a la sección de Siniestros, el punto de la barra late: la barra se queda a la vista unos segundos para que se vea
+	const seccionSiniestros = document.getElementById('siniestros');
+	if (seccionSiniestros && !sinMovimiento.matches) {
+		new IntersectionObserver(
+			([e]) => {
+				if (!e.isIntersecting) return;
+				header.removeAttribute('data-oculto');
+				fijoHasta = performance.now() + 5500;
+				header.querySelectorAll<HTMLElement>('.rec').forEach((p) => {
+					p.removeAttribute('data-pulso');
+					void p.offsetWidth; // reinicia la animación
+					p.setAttribute('data-pulso', '');
+				});
+			},
+			{ threshold: 0.25 },
+		).observe(seccionSiniestros);
 	}
 
 	header.addEventListener('focusin', () => header.removeAttribute('data-oculto'));

@@ -23,13 +23,16 @@
 	--color-seal-deep: #175843;
 	--color-seal-soft: #e3f0ec;
 
-	/* Bordó frío reservado para siniestros (la sección puede probar variantes con data-fondo) */
+	/* Bordó frío reservado para siniestros */
 	--color-claim: #8a1f45;
 	--color-claim-deep: #66142f;
 	--color-claim-soft: #f7e8ee;
 
 	/* Acento azul del logo: foco y vínculos de acción */
 	--color-teal: #1a759f;
+
+	/* Naranja quemado del sello «incompleto» (5.0:1 sobre sheet); solo en el sello de cotizar */
+	--color-warn: #b45309;
 
 	/* Sobre campos oscuros: texto en on-dark o seal-on-dark */
 	--color-on-dark: #e6f2f7;
@@ -137,6 +140,48 @@
 	}
 
 	/* Etiqueta de campo de documento: número + texto */
+	/* Punto de siniestros: el color del campo de siniestros (claim), sin borde, con un anillo que se expande como el foco de una cámara que empieza a grabar.
+	   Mismo punto en la barra, el hero y el pie. Corre --rec-ciclos veces (~5 s, WCAG 2.2.2) y se detiene; con el mouse o el foco del enlace vuelve a correr. */
+	.rec {
+		--rec-ciclos: 2;
+		position: relative;
+		display: block;
+		flex: none;
+		width: 0.625rem;
+		height: 0.625rem;
+		border-radius: 999px;
+		background: var(--color-claim);
+	}
+	.rec::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 999px;
+		background: var(--color-claim);
+		opacity: 0;
+		animation: rec-pulso 2.4s var(--ease-out-expo) 0.8s var(--rec-ciclos);
+	}
+	@keyframes rec-pulso {
+		0% { transform: scale(1); opacity: 0.7; }
+		100% { transform: scale(3.2); opacity: 0; }
+	}
+	/* Sobre fondos oscuros (foto del hero, pie, barra transparente) el anillo se aclara: el bordó puro no se vería */
+	[data-hero] .rec::after,
+	footer .rec::after,
+	.site-header[data-sobre-hero]:not([data-solido]):not([data-abierto]) .rec::after {
+		background: color-mix(in srgb, var(--color-claim) 55%, white);
+	}
+	a:is(:hover, :focus-visible) .rec::after { animation-iteration-count: infinite; animation-delay: 0s; }
+	/* Pulso a pedido: la barra lo dispara al llegar a la sección de Siniestros */
+	.rec[data-pulso]::after { animation-name: rec-pulso-b; animation-delay: 0s; }
+	@keyframes rec-pulso-b {
+		0% { transform: scale(1); opacity: 0.7; }
+		100% { transform: scale(3.2); opacity: 0; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.rec::after { animation: none; }
+	}
+
 	.field-no {
 		font-family: var(--font-mono);
 		font-size: 0.875rem;
