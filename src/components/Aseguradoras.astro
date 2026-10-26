@@ -67,10 +67,12 @@ const vueltas = [false, true];
 		to { transform: translateX(-50%); }
 	}
 	/* Se frena con el mouse o con el botón de pausa */
-	.carril:hover .pista,
 	.carril:focus-within .pista,
 	:global([data-aseg][data-pausado]) .pista {
 		animation-play-state: paused;
+	}
+	@media (hover: hover) {
+		.carril:hover .pista { animation-play-state: paused; }
 	}
 
 	/* Logos: monocromos (currentColor) pintados con la tinta por máscara, al 70% y al 100% con hover o foco */
@@ -83,7 +85,9 @@ const vueltas = [false, true];
 		mask: var(--logo) center / contain no-repeat;
 		transition: opacity 0.3s ease-out;
 	}
-	.item:hover .logo-tinta { opacity: 1; }
+	@media (hover: hover) {
+		.item:hover .logo-tinta { opacity: 1; }
+	}
 
 	/* Sin movimiento: grilla estática, sin copia ni botón */
 	@media (prefers-reduced-motion: reduce) {

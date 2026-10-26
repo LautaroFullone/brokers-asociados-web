@@ -111,7 +111,6 @@ const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}
 		border-bottom: 4px solid transparent;
 		transition: color 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo);
 	}
-	.tab:hover { color: var(--color-ink); }
 	.tab[aria-selected='true'] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
 	@media (min-width: 640px) {
 		.selector { width: auto; }
@@ -133,11 +132,15 @@ const enlace = (p: { rama: string; nombre: string }) => `/cotizar?rama=${p.rama}
 		transition: transform 0.35s var(--ease-out-expo);
 	}
 	.tab-flecha { display: none; transition: transform 0.3s var(--ease-out-expo); }
-	.tab[aria-selected='false']:hover::after { transform: scaleX(1); }
 	:global([data-js]) [data-coberturas]:not([data-cambiado]) .tab[aria-selected='false']::after { transform: scaleX(1); height: 2px; bottom: -3px; }
 	:global([data-js]) [data-coberturas]:not([data-cambiado]) .tab[aria-selected='false'] .tab-flecha { display: block; }
-	.tab:hover .tab-flecha { transform: translateX(3px); }
-	:global([data-js]) [data-coberturas]:not([data-cambiado]) .tab[aria-selected='false']:hover::after { height: 4px; bottom: -4px; }
+	/* El hover solo corre con mouse: en táctil se quedaba pegado tras el toque */
+	@media (hover: hover) {
+		.tab:hover { color: var(--color-ink); }
+		.tab[aria-selected='false']:hover::after { transform: scaleX(1); }
+		.tab:hover .tab-flecha { transform: translateX(3px); }
+		:global([data-js]) [data-coberturas]:not([data-cambiado]) .tab[aria-selected='false']:hover::after { height: 4px; bottom: -4px; }
+	}
 	[data-coberturas][data-visto]:not([data-cambiado]) .tab[aria-selected='false']::after {
 		animation: aviso 1.6s var(--ease-out-expo) 0.3s 3 backwards;
 	}

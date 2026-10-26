@@ -402,12 +402,13 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 	/* Los campos de la rama elegida y la confirmación entran igual que los paneles de la denuncia */
 	[data-rama-campos]:not([hidden]) { animation: cot-entra 0.25s var(--ease-out-expo) both; }
 	[data-enviado]:not([hidden]) { animation: cot-entra 0.4s var(--ease-out-expo) both; }
+	[data-contacto-campos].entra { animation: cot-entra 0.25s var(--ease-out-expo) both; }
 	@keyframes cot-entra { from { opacity: 0; transform: translateY(0.375rem); } to { opacity: 1; transform: translateY(0); } }
 
 	@media (prefers-reduced-motion: reduce) {
 		.paso-bien, .car-meter li, .car-sello { transition: none; }
 		.car-sello.golpe, .enviar.listo .ix-flecha { animation: none; }
-		[data-rama-campos]:not([hidden]), [data-enviado]:not([hidden]) { animation: none; }
+		[data-rama-campos]:not([hidden]), [data-enviado]:not([hidden]), [data-contacto-campos].entra { animation: none; }
 	}
 </style>
 
@@ -561,9 +562,16 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 		conocido.hidden = false;
 		campos.hidden = true;
 	}
-	conocido.querySelector('[data-contacto-editar]')!.addEventListener('click', () => {
+	// Los campos reaparecen con el mismo fundido de cot-entra; la clase solo se pone al alternar, nunca en la carga
+	function mostrarCampos() {
 		conocido.hidden = true;
 		campos.hidden = false;
+		campos.classList.remove('entra');
+		void campos.offsetWidth;
+		campos.classList.add('entra');
+	}
+	conocido.querySelector('[data-contacto-editar]')!.addEventListener('click', () => {
+		mostrarCampos();
 		el('nombre').focus();
 	});
 
@@ -616,10 +624,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 		if (r) requeridos[r].forEach((k) => (e[k] = !campoOk(k)));
 		e.nombre = !val('nombre');
 		e.telefono = !telValido(val('telefono'));
-		if ((e.nombre || e.telefono) && campos.hidden) {
-			conocido.hidden = true;
-			campos.hidden = false;
-		}
+		if ((e.nombre || e.telefono) && campos.hidden) mostrarCampos();
 		Object.entries(e).forEach(([k, v]) => mostrarError(k, v));
 		return Object.entries(e).find(([, v]) => v)?.[0];
 	}
