@@ -67,6 +67,7 @@ const jsonLd = {
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 		<meta name="generator" content={Astro.generator} />
+		<script is:inline>document.documentElement.setAttribute('data-rv', '');</script>
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	</head>
 	<body class="pb-[4.75rem] md:pb-0">
@@ -77,5 +78,23 @@ const jsonLd = {
 			Saltar al contenido
 		</a>
 		<slot />
+		<script>
+			// Aparición al scrollear: marca [data-reveal] y .regla una sola vez al entrar en pantalla
+			const objetivos = document.querySelectorAll<HTMLElement>('[data-reveal], .regla');
+			if (!('IntersectionObserver' in window)) objetivos.forEach((el) => el.setAttribute('data-in', ''));
+			else {
+				const obs = new IntersectionObserver(
+					(entradas) => {
+						for (const e of entradas) {
+							if (!e.isIntersecting) continue;
+							e.target.setAttribute('data-in', '');
+							obs.unobserve(e.target);
+						}
+					},
+					{ rootMargin: '0px 0px -8% 0px' },
+				);
+				objetivos.forEach((el) => obs.observe(el));
+			}
+		</script>
 	</body>
 </html>

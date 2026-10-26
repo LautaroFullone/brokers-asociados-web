@@ -28,7 +28,7 @@ const waSiniestros = (texto: string) => `https://wa.me/549${telSiniestros.replac
 const mensajeWa = 'Hola, cargué una denuncia y quiero consultar por su seguimiento.';
 
 const inputBase =
-	'campo block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
+	'campo block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 ease-out-expo hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
 const label = 'rotulo mb-1 block text-[1rem] text-ink-2';
 const err = 'mt-1.5 hidden text-[1rem] font-medium text-claim';
 ---
@@ -216,8 +216,8 @@ const err = 'mt-1.5 hidden text-[1rem] font-medium text-claim';
 	.den-tile:has(input:checked) { border-color: var(--color-claim-deep); background: var(--color-claim-soft); }
 	.den-tile:has(input:focus-visible) { outline: 3px solid var(--color-teal); outline-offset: 2px; }
 	.den-radio { display: grid; place-items: center; width: 1.375rem; height: 1.375rem; flex: none; border: 2px solid var(--color-claim-deep); border-radius: 50%; background: var(--color-sheet); }
-	.den-punto { width: 0.625rem; height: 0.625rem; border-radius: 50%; background: var(--color-claim-deep); transform: scale(0); transition: transform 0.2s var(--ease-out-expo); }
-	.den-tile:has(input:checked) .den-punto { transform: scale(1); }
+	.den-punto { width: 0.625rem; height: 0.625rem; border-radius: 50%; background: var(--color-claim-deep); opacity: 0; transform: scale(0.5); transition: transform 0.2s var(--ease-out-expo), opacity 0.2s var(--ease-out-expo); }
+	.den-tile:has(input:checked) .den-punto { opacity: 1; transform: scale(1); }
 	:global(.den-icono) { order: 3; margin-left: auto; flex: none; color: var(--color-claim); }
 	.den-tile-t { font-size: 1.0625rem; font-weight: 500; line-height: 1.2; }
 	[data-grupo][aria-invalid='true'] .den-tile,

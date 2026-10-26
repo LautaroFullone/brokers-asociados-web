@@ -52,7 +52,7 @@
 	--ix-color: 200ms;
 	--ix-mov: 300ms;
 	--ix-subrayado: 350ms;
-	--ix-barrido: 500ms;
+	--ix-barrido: 320ms;
 	--ix-dist: 4px;
 }
 
@@ -194,6 +194,43 @@
 /* ——— Sistema de interacción (ver DESIGN.md · Interacción) ———
    Cuatro tipos: acción, tarjeta, enlace y control. Todo hover tiene su gemelo en :focus-visible; el hover solo corre con mouse. */
 @layer components {
+	/* Aparición al scrollear: un fundido con subida mínima, una sola vez. Solo se oculta si hay JS (<html data-rv>, puesto en el head) */
+	:root[data-rv] [data-reveal] {
+		opacity: 0;
+		transform: translateY(0.5rem);
+		transition:
+			opacity 400ms var(--ease-out-expo),
+			transform 400ms var(--ease-out-expo);
+		transition-delay: calc(var(--i, 0) * 50ms);
+	}
+	:root[data-rv] [data-reveal][data-in] {
+		opacity: 1;
+		transform: none;
+	}
+
+	/* Regla de sección: el filete de 2px se dibuja de izquierda a derecha al llegar (reemplaza a border-t-2) */
+	.regla { position: relative; }
+	.regla::before {
+		content: '';
+		position: absolute;
+		inset: 0 0 auto 0;
+		height: 2px;
+		background: var(--color-ink);
+		transform-origin: left;
+		z-index: 1;
+		pointer-events: none;
+	}
+	:root[data-rv] .regla::before {
+		transform: scaleX(0);
+		transition: transform 600ms var(--ease-out-expo);
+	}
+	:root[data-rv] .regla[data-in]::before { transform: scaleX(1); }
+
+	@media (prefers-reduced-motion: reduce) {
+		:root[data-rv] [data-reveal] { transform: none; transition: opacity 200ms ease-out; transition-delay: 0s; }
+		:root[data-rv] .regla::before { transform: none; transition: none; }
+	}
+
 	/* 1 · Acción: botón lleno. Color a su tono -deep, flecha 4px, pulsación .98 */
 	.ix-accion {
 		transition:
@@ -280,6 +317,15 @@
 			transform var(--ix-rapido) var(--ease-out-expo);
 	}
 	.ix-control:active { transform: scale(0.98); }
+
+	/* Mensajes de error de formulario: aparecen con un fundido corto en vez de golpear el layout (display none → block) */
+	[data-error] {
+		transition: opacity var(--ix-color) var(--ease-out-expo), transform var(--ix-color) var(--ease-out-expo);
+		@starting-style {
+			opacity: 0;
+			transform: translateY(-4px);
+		}
+	}
 
 	/* Sin movimiento: el estado se comunica solo con color. El barrido pasa a un relleno instantáneo */
 	@media (prefers-reduced-motion: reduce) {

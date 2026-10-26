@@ -17,14 +17,14 @@ import {
 } from '../data/brokers';
 
 const inputBase =
-	'campo block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
+	'campo block w-full border-[1.5px] border-rule bg-sheet px-3.5 py-2.5 text-[1.125rem] text-ink placeholder:text-[#5f7385] transition-colors duration-200 ease-out-expo hover:border-ink focus:border-ink focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal aria-[invalid=true]:border-claim';
 const tile =
-	'opcion group relative flex min-h-12 cursor-pointer items-center gap-3 border-[1.5px] border-rule-soft bg-sheet px-3 py-2 transition-colors duration-200 hover:border-ink has-checked:border-ink has-checked:bg-wash has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-teal';
+	'opcion group relative flex min-h-12 cursor-pointer items-center gap-3 border-[1.5px] border-rule-soft bg-sheet px-3 py-2 transition-colors duration-200 ease-out-expo hover:border-ink has-checked:border-ink has-checked:bg-wash has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-teal';
 // Opción única: indicador redondo con punto (un radio nativo del mundo), no una casilla cuadrada de selección múltiple
 const radio =
 	'grid size-[1.375rem] shrink-0 place-items-center rounded-full border-2 border-ink bg-sheet';
 const punto =
-	'size-2.5 scale-0 rounded-full bg-ink transition-transform duration-200 ease-out-expo group-has-checked:scale-100';
+	'size-2.5 scale-50 rounded-full bg-ink opacity-0 transition-[transform,opacity] duration-200 ease-out-expo group-has-checked:scale-100 group-has-checked:opacity-100';
 const row = 'paso grid grid-cols-[2.75rem_minmax(0,1fr)] border-b border-rule sm:grid-cols-[3.25rem_minmax(0,1fr)]';
 const no = 'no field-no border-r border-rule pt-3.5 text-center text-ink-2';
 const legend = 'leyenda float-left mb-2 w-full text-[1.125rem] font-semibold';
@@ -301,7 +301,7 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 		display: grid;
 		grid-template-rows: 0fr;
 		opacity: 0;
-		transition: grid-template-rows 0.45s var(--ease-out-expo), opacity 0.3s var(--ease-out-expo);
+		transition: grid-template-rows 0.35s var(--ease-out-expo), opacity 0.3s var(--ease-out-expo);
 	}
 	.paso-bien[data-abierto] { grid-template-rows: 1fr; opacity: 1; }
 	.paso-bien-in { overflow: hidden; min-height: 0; }
@@ -399,9 +399,15 @@ const estadoInicial = ['SIN', 'EMPEZAR'];
 	.paso { border-bottom-style: dashed; }
 	.opcion { border-color: var(--color-rule); }
 
+	/* Los campos de la rama elegida y la confirmación entran igual que los paneles de la denuncia */
+	[data-rama-campos]:not([hidden]) { animation: cot-entra 0.25s var(--ease-out-expo) both; }
+	[data-enviado]:not([hidden]) { animation: cot-entra 0.4s var(--ease-out-expo) both; }
+	@keyframes cot-entra { from { opacity: 0; transform: translateY(0.375rem); } to { opacity: 1; transform: translateY(0); } }
+
 	@media (prefers-reduced-motion: reduce) {
 		.paso-bien, .car-meter li, .car-sello { transition: none; }
 		.car-sello.golpe, .enviar.listo .ix-flecha { animation: none; }
+		[data-rama-campos]:not([hidden]), [data-enviado]:not([hidden]) { animation: none; }
 	}
 </style>
 

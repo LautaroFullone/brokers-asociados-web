@@ -85,6 +85,9 @@ const nav = [
 <style>
 	.site-header {
 		transition: transform 0.45s var(--ease-out-expo);
+	}
+	/* Entra deslizándose solo sobre la portada: en las demás páginas ya es parte del marco */
+	.site-header[data-sobre-hero] {
 		animation: header-entra 0.7s var(--ease-out-expo) both;
 	}
 	@keyframes header-entra {
@@ -162,7 +165,7 @@ const nav = [
 	/* El menú se despliega animando la altura */
 	.menu-movil {
 		grid-template-rows: 0fr;
-		transition: grid-template-rows 0.45s var(--ease-out-expo);
+		transition: grid-template-rows 0.3s var(--ease-out-expo);
 	}
 	[data-abierto] .menu-movil {
 		grid-template-rows: 1fr;

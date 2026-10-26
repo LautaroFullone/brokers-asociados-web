@@ -7,7 +7,7 @@ const info = contacto.emails[0].email;
 const instagram = contacto.instagramUsuario.replace(/^@/, '');
 ---
 
-<section id="contacto" class="relative border-t-2 border-ink" aria-labelledby="contacto-titulo">
+<section id="contacto" class="regla" aria-labelledby="contacto-titulo">
 	<!-- Mapa a sangre; la hoja va a la derecha, sobre el mar -->
 	<ContactoMapa class="contacto-mapa h-80 w-full lg:absolute lg:inset-0 lg:h-auto" />
 
@@ -18,7 +18,7 @@ const instagram = contacto.instagramUsuario.replace(/^@/, '');
 			<p class="mt-1 text-[1.125rem] text-ink-2">{contacto.ciudad}</p>
 			<div class="mt-4 text-[1.125rem]">
 				<span class="font-medium">{contacto.horario}</span>
-				<span class="mt-1 flex items-center gap-2 font-mono text-[0.875rem] text-ink-2" data-horario><span class="size-2.5 rounded-full bg-rule" data-horario-dot aria-hidden="true"></span><span data-horario-texto></span></span>
+				<span class="mt-1 flex items-center gap-2 font-mono text-[0.875rem] text-ink-2" data-horario><span class="size-2.5 rounded-full bg-rule transition-colors duration-300 ease-out-expo" data-horario-dot aria-hidden="true"></span><span data-horario-texto></span></span>
 			</div>
 			<div class="mt-6 grid grid-cols-3 gap-2">
 				<a href={contacto.telefonoHref} class="ix-accion ix-ink flex min-h-24 flex-col items-center justify-center gap-2 px-2 py-3 text-center text-[1.125rem] font-semibold no-underline"><Icon name="phone" class="size-6" />Llamar</a>
